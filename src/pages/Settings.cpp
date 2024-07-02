@@ -69,6 +69,18 @@ void DevTools::drawSettings() {
             "Shows the memory viewer window."
         );
     }
+    ImGui::Checkbox("Show Dear ImGui Metrics", &m_settings.DearImGuiMetrics);
+    if (ImGui::IsItemHovered()) {
+        ImGui::SetTooltip(
+            "Shows an ImGui metrics window."
+        );
+    }
+    ImGui::Checkbox("Show Style Editor", &m_settings.StyleEditor);
+    if (ImGui::IsItemHovered()) {
+        ImGui::SetTooltip(
+            "Shows an ImGui Style Editor."
+        );
+    }
     ImGui::PopStyleVar();
 
     ImGui::Separator();

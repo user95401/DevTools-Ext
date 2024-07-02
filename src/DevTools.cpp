@@ -14,17 +14,20 @@
 template<>
 struct matjson::Serialize<Settings> {
     static Settings from_json(const matjson::Value& value) {
+        Settings defaultSettings;
         return Settings {
-            .GDInWindow = value["game_in_window"].as_bool(),
-            .attributesInTree = value["attributes_in_tree"].as_bool(),
-            .alwaysHighlight = value["always_highlight"].as_bool(),
-            .highlightLayouts = value["highlight_layouts"].as_bool(),
-            .arrowExpand = value["arrow_expand"].as_bool(),
-            .orderChildren = value["order_children"].as_bool(),
-            .advancedSettings = value["advanced_settings"].as_bool(),
-            .showMemoryViewer = value["show_memory_viewer"].as_bool(),
-            .theme = value["theme"].as_string(),
-            .FontGlobalScale = (float)value["FontGlobalScale"].as_double(),
+            .GDInWindow = value.try_get<bool>("game_in_window").value_or(defaultSettings.GDInWindow),
+            .attributesInTree = value.try_get<bool>("attributes_in_tree").value_or(defaultSettings.attributesInTree),
+            .alwaysHighlight = value.try_get<bool>("always_highlight").value_or(defaultSettings.alwaysHighlight),
+            .highlightLayouts = value.try_get<bool>("highlight_layouts").value_or(defaultSettings.highlightLayouts),
+            .arrowExpand = value.try_get<bool>("arrow_expand").value_or(defaultSettings.arrowExpand),
+            .orderChildren = value.try_get<bool>("order_children").value_or(defaultSettings.orderChildren),
+            .advancedSettings = value.try_get<bool>("advanced_settings").value_or(defaultSettings.advancedSettings),
+            .showMemoryViewer = value.try_get<bool>("show_memory_viewer").value_or(defaultSettings.showMemoryViewer),
+            .theme = value.try_get<std::string>("theme").value_or(defaultSettings.theme),
+            .FontGlobalScale = (float)value.try_get<double>("font_global_scale").value_or(defaultSettings.FontGlobalScale),
+            .DearImGuiMetrics = value.try_get<bool>("dear_imgui_metrics").value_or(defaultSettings.DearImGuiMetrics),
+            .StyleEditor = value.try_get<bool>("style_editor").value_or(defaultSettings.StyleEditor),
         };
     }
 
@@ -39,7 +42,9 @@ struct matjson::Serialize<Settings> {
         obj["advanced_settings"] = settings.advancedSettings;
         obj["show_memory_viewer"] = settings.showMemoryViewer;
         obj["theme"] = settings.theme;
-        obj["FontGlobalScale"] = settings.FontGlobalScale;
+        obj["font_global_scale"] = settings.FontGlobalScale;
+        obj["dear_imgui_metrics"] = settings.DearImGuiMetrics;
+        obj["style_editor"] = settings.StyleEditor;
         return obj;
     }
 
@@ -107,7 +112,9 @@ void DevTools::drawPages() {
 
         auto topLeftDock = ImGui::DockBuilderSplitNode(leftDock, ImGuiDir_Up, 0.4f, nullptr, &leftDock);
 
-        auto bottomLeftTopHalfDock = ImGui::DockBuilderSplitNode(leftDock, ImGuiDir_Up, 0.6f, nullptr, &leftDock);
+        auto bottomLeftTopHalfDock = ImGui::DockBuilderSplitNode(leftDock, ImGuiDir_Up, 0.5f, nullptr, &leftDock);
+
+        auto bottomRightDock = ImGui::DockBuilderSplitNode(id, ImGuiDir_Down, 0.2f, nullptr, &id);
 
         ImGui::DockBuilderDockWindow("###devtools/tree", topLeftDock);
         ImGui::DockBuilderDockWindow("###devtools/settings", topLeftDock);
@@ -117,6 +124,8 @@ void DevTools::drawPages() {
         ImGui::DockBuilderDockWindow("###devtools/geometry-dash", id);
         ImGui::DockBuilderDockWindow("###devtools/advanced/mod-graph", topLeftDock);
         ImGui::DockBuilderDockWindow("###devtools/advanced/mod-index", topLeftDock);
+        ImGui::DockBuilderDockWindow("Memory viewer", bottomRightDock);
+        ImGui::DockBuilderDockWindow("Dear ImGui Metrics/Debugger", topLeftDock);
 
         ImGui::DockBuilderFinish(id);
     }
@@ -161,10 +170,26 @@ void DevTools::drawPages() {
     if (m_settings.showMemoryViewer) {
         this->drawPage("Memory viewer", &DevTools::drawMemory);
     }
+
+    if (m_settings.DearImGuiMetrics) ImGui::ShowMetricsWindow(&m_settings.DearImGuiMetrics);
+
+    if (m_settings.StyleEditor)
+    {
+        ImGui::Begin("Dear ImGui Style Editor", &m_settings.StyleEditor);
+        ImGui::ShowStyleEditor();
+        ImGui::End();
+    }
 }
 
 void DevTools::draw(GLRenderCtx* ctx) {
     if (m_visible) {
+
+        ImGui::GetIO().WantCaptureMouse = 1;//false;
+        ImGui::GetIO().WantCaptureKeyboard = 1;//false;
+        ImGui::GetIO().WantTextInput = 1;//false;
+        ImGui::GetIO().WantSaveIniSettings = 1;//false;
+        ImGui::GetIO().NavActive = 1;//false;
+        ImGui::GetIO().NavVisible = 1;//false;
 
         ImGui::SaveIniSettingsToDisk(ImGui::GetIO().IniFilename);
 
@@ -231,14 +256,25 @@ void DevTools::setup() {
     // io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
     io.ConfigWindowsResizeFromEdges = true;
 
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+
     this->setupFonts();
     this->setupPlatform();
 
 #ifdef GEODE_IS_MOBILE
-    ImGui::GetIO().FontGlobalScale = 2.f;
-    ImGui::GetStyle().ScrollbarSize = 60.f;
-    // ImGui::GetStyle().TabBarBorderSize = 60.f;
+    ImGui::GetStyle().ScrollbarSize = 42.f;
+    //ImGui::GetStyle().TabBarBorderSize = 60.f;
+    ImGui::GetStyle().GrabMinSize = 30.f;
+    ImGui::GetStyle().ItemSpacing = { 16.f, 16.f };
+    ImGui::GetStyle().FramePadding = { 12.f, 10.f };
+    io.ConfigFlags |= ImGuiConfigFlags_IsTouchScreen;
 #endif
+
+    auto IniFilePath = (Mod::get()->getSaveDir() / "ImGuiSave.ini");
+    auto IniFilePathStr = new std::string(IniFilePath.string());
+    io.IniFilename = IniFilePathStr->c_str();
+
+    ImGui::LoadIniSettingsFromDisk(io.IniFilename);
 }
 
 void DevTools::destroy() {
@@ -257,8 +293,8 @@ void DevTools::show(bool visible) {
 void DevTools::toggle() {
     this->show(!m_visible);
     if (!m_visible) {
-        ImGui::GetIO().WantCaptureMouse = false;
-        ImGui::GetIO().WantCaptureKeyboard = false;
+        //ImGui::GetIO().WantCaptureMouse = false;
+        //ImGui::GetIO().WantCaptureKeyboard = false;
     }
 }
 

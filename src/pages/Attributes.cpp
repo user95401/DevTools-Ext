@@ -14,7 +14,8 @@ using namespace geode::prelude;
 template <class T, class R>
 bool checkbox(const char* text, T* ptr, bool(T::* get)(), R(T::* set)(bool)) {
     bool value = (ptr->*get)();
-    if (ImGui::Checkbox(text, &value)) {
+    bool checkbox_rtn = ImGui::Checkbox(text, &value);
+    if (checkbox_rtn) {
         (ptr->*set)(value);
         return true;
     }
@@ -24,7 +25,8 @@ bool checkbox(const char* text, T* ptr, bool(T::* get)(), R(T::* set)(bool)) {
 template <class T, class R>
 bool checkbox(const char* text, T* ptr, bool(T::* get)() const, R(T::* set)(bool)) {
     bool value = (ptr->*get)();
-    if (ImGui::Checkbox(text, &value)) {
+    bool checkbox_rtn = ImGui::Checkbox(text, &value);
+    if (checkbox_rtn) {
         (ptr->*set)(value);
         return true;
     }
@@ -77,20 +79,34 @@ void DevTools::drawNodeAttributes(CCNode* node) {
         node->getPositionX(),
         node->getPositionY()
     };
+    if (ImGui::Button(U8STR(FEATHER_COPY"##copypos"))) clipboard::write(fmt::format("CCPoint({}, {})", pos[0], pos[1])); ImGui::SameLine();
+    if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip("\"CCPoint({}, {})\"<={pos[0], pos[1]}");
     ImGui::DragFloat2("Position", pos);
+    if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip(
+        "Gets the position (x,y) of the node in OpenGL coordinates."
+    );
     node->setPosition(pos[0], pos[1]);
 
     float scale[3] = { node->getScale(), node->getScaleX(), node->getScaleY() };
+    if (ImGui::Button(U8STR(FEATHER_COPY"##copyscale"))) clipboard::write(fmt::format("({}, {})", scale[1], scale[2])); ImGui::SameLine();
+    if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip("\"({}, {})\"<={scale[1], scale[2]}");
     ImGui::DragFloat3("Scale", scale, 0.025f);
+    if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip(
+        "The scale factor of the node."
+    );
     if (node->getScale() != scale[0]) {
         node->setScale(scale[0]);
     } else {
-        node->setScaleX(scale[1]);
-        node->setScaleY(scale[2]);
+        node->setScale(scale[1], scale[2]);
     }
 
     float rot[3] = { node->getRotation(), node->getRotationX(), node->getRotationY() };
+    if (ImGui::Button(U8STR(FEATHER_COPY"##copyrot"))) clipboard::write(rot[1] != 0.f and rot[2] != 0.f ? fmt::format("{} {} {}", rot[0], rot[1], rot[2]) : fmt::to_string(rot[0])); ImGui::SameLine();
+    if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip("\"{}\"<={rot[0]} or \"{} {} {}\"<={rot[0], rot[1], rot[2]} if rot[1,2] != 0");
     ImGui::DragFloat3("Rotation", rot);
+    if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip(
+        "The rotation of the node in degrees."
+    );
     if (node->getRotation() != rot[0]) {
         node->setRotation(rot[0]);
     } else {
@@ -98,52 +114,99 @@ void DevTools::drawNodeAttributes(CCNode* node) {
         node->setRotationY(rot[2]);
     }
 
-    float _skew[2] = { node->getSkewX(), node->getSkewY() };
-    ImGui::DragFloat2("Skew", _skew);
-    node->setSkewX(_skew[0]);
-    node->setSkewY(_skew[1]);
+    float skew[2] = { node->getSkewX(), node->getSkewY() };
+    if (ImGui::Button(U8STR(FEATHER_COPY"##copyskew"))) clipboard::write(fmt::format("{} {}", skew[0], skew[1])); ImGui::SameLine();
+    if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip("\"{} {}\"<={skew[0], skew[1]}");
+    ImGui::DragFloat2("Skew", skew);
+    if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip(
+        "The skew angle of the node in degrees."
+    );
+    node->setSkewX(skew[0]);
+    node->setSkewY(skew[1]);
 
     auto anchor = node->getAnchorPoint();
+    if (ImGui::Button(U8STR(FEATHER_COPY"##copyanchor"))) clipboard::write(fmt::format("CCPoint({}, {})", anchor.x, anchor.y)); ImGui::SameLine();
+    if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip("\"CCPoint({}, {})\"<={anchor.x, anchor.y}");
     ImGui::DragFloat2("Anchor Point", &anchor.x, 0.05f, 0.f, 1.f);
+    if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip(
+        "The anchor point in percent."
+    );
     node->setAnchorPoint(anchor);
 
     auto contentSize = node->getContentSize();
+    if (ImGui::Button(U8STR(FEATHER_COPY"##copycontentsize"))) clipboard::write(fmt::format("CCSize({}, {})", contentSize.width, contentSize.height)); ImGui::SameLine();
+    if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip("\"CCSize({}, {})\"<={contentSize.width, contentSize.height}");
     ImGui::DragFloat2("Content Size", &contentSize.width);
+    if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip(
+        "The untransformed size of the node."
+    );
     if (contentSize != node->getContentSize()) {
         node->setContentSize(contentSize);
         node->updateLayout();
     }
 
     int zOrder = node->getZOrder();
+    if (ImGui::Button(U8STR(FEATHER_COPY"##copyzorder"))) clipboard::write(fmt::format("{}", zOrder)); ImGui::SameLine();
+    if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip("\"{}\"<={zOrder}");
     ImGui::InputInt("Z Order", &zOrder);
-    if (node->getZOrder() != zOrder) {
-        node->setZOrder(zOrder);
-    }
-    
-    checkbox("Visible", node, &CCNode::isVisible, &CCNode::setVisible);
+    if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip(
+        "The z order which stands for the drawing order."
+    );
+    if (node->getZOrder() != zOrder) node->setZOrder(zOrder);
+
     checkbox(
         "Ignore Anchor Point for Position",
         node,
         &CCNode::isIgnoreAnchorPointForPosition,
         &CCNode::ignoreAnchorPointForPosition
     );
+    if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip(
+        "Whether the anchor point will be (0,0) when you position this node."
+    );
+    
+    checkbox("Visible", node, &CCNode::isVisible, &CCNode::setVisible);
+    if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip(
+        "Whether the node is visible."
+    );
+
+    if (auto spriteNode = typeinfo_cast<CCSprite*>(node)) {
+        checkbox("Flip X", spriteNode, &CCSprite::isFlipX, &CCSprite::setFlipX);
+        if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip(
+            "Whether the sprite is flipped horizontally or not." "\n"
+            "It only flips the texture of the sprite, and not the texture of the sprite's children."
+        );
+        checkbox("Flip Y", spriteNode, &CCSprite::isFlipY, &CCSprite::setFlipY);
+        if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip(
+            "Whether the sprite is flipped vertically or not." "\n"
+            "It only flips the texture of the sprite, and not the texture of the sprite's children."
+        );
+    }
     
     if (auto rgbaNode = typeinfo_cast<CCRGBAProtocol*>(node)) {
+        checkbox("Cascade Color", rgbaNode, &CCRGBAProtocol::isCascadeColorEnabled, &CCRGBAProtocol::setCascadeColorEnabled);
+        if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip(
+                "Whether or not color should be propagated to its children."
+            );
         auto color = rgbaNode->getColor();
         float _color[4] = { color.r / 255.f, color.g / 255.f, color.b / 255.f, rgbaNode->getOpacity() / 255.f };
+        if (ImGui::Button(U8STR(FEATHER_COPY"##copycolor"))) clipboard::write(fmt::format("ccColor3B({}, {}, {})", color.r, color.g, color.b)); ImGui::SameLine();
+        if (ImGui::IsItemHovered()) ImGui::SetTooltip("\"ccColor3B({}, {}, {})\"<={color.r, color.g, color.b}");
+        if (ImGui::Button(U8STR(FEATHER_EYE"##copyop"))) clipboard::write(fmt::format("{}", rgbaNode->getOpacity())); ImGui::SameLine();
+        if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip("\"{}, {}, {}\"<={rgbaNode->getOpacity()}");
         if (ImGui::ColorEdit4("Color", _color)) {
             rgbaNode->setColor({
                 static_cast<GLubyte>(_color[0] * 255),
                 static_cast<GLubyte>(_color[1] * 255),
                 static_cast<GLubyte>(_color[2] * 255)
             });
-
             rgbaNode->setOpacity(static_cast<GLubyte>(_color[3] * 255));
         }
     }
     
     if (auto labelNode = typeinfo_cast<CCLabelProtocol*>(node)) {
         std::string str = labelNode->getString();
+        if (ImGui::Button(U8STR(FEATHER_COPY"##copylabeltext"))) clipboard::write(fmt::format("{}", str)); ImGui::SameLine();
+        if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip("\"{}\"<={str}");
         if (ImGui::InputText("Text", &str, 256)) {
             labelNode->setString(str.c_str());
         }
@@ -177,10 +240,6 @@ void DevTools::drawNodeAttributes(CCNode* node) {
         }
     }
 
-    ImGui::NewLine();
-    ImGui::Separator();
-    ImGui::NewLine();
-    
     if (auto rawOpts = node->getLayoutOptions()) {
         ImGui::Text("Layout options: %s", typeid(*rawOpts).name());
 

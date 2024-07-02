@@ -12,7 +12,7 @@ using namespace cocos2d;
 // based off https://github.com/matcool/gd-imgui-cocos
 
 void DevTools::setupPlatform() {
-    ImGui::CreateContext();
+    auto context = ImGui::CreateContext();
 
     auto& io = ImGui::GetIO();
 
@@ -33,11 +33,6 @@ void DevTools::setupPlatform() {
 
     io.Fonts->SetTexID(reinterpret_cast<ImTextureID>(static_cast<intptr_t>(tex2d->getName())));
 
-    auto IniFilePath = (Mod::get()->getSaveDir() / "ImGuiSave.ini");
-    auto IniFilePathStr = new std::string(IniFilePath.string());
-    io.IniFilename = IniFilePathStr->c_str();
-
-    ImGui::LoadIniSettingsFromDisk(io.IniFilename);
 }
 
 void DevTools::newFrame() {
