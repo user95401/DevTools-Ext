@@ -13,86 +13,60 @@ static float RAINBOW_HUE = 0.f;
 
 void DevTools::drawSettings() {
     ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, { 1.f, 1.f });
-
 #ifdef GEODE_IS_MOBILE
     ImGui::Dummy({0.f, 60.f});
 #endif
-
     // TODO: fix this option as it hasnt worked in a while lol
 #if 0
+    //GD in Window
     ImGui::Checkbox("GD in Window", &m_settings.GDInWindow);
-    if (ImGui::IsItemHovered()) {
-        ImGui::SetTooltip("Show GD inside a window when DevTools are open");
-    }
+    if (ImGui::IsItemHovered()) ImGui::SetTooltip("Show GD inside a window when DevTools are open");
+    //Attributes in Tree
     ImGui::Checkbox("Attributes in Tree", &m_settings.attributesInTree);
-    if (ImGui::IsItemHovered()) {
-        ImGui::SetTooltip("Show node attributes in the Tree");
-    }
+    if (ImGui::IsItemHovered()) ImGui::SetTooltip("Show node attributes in the Tree");
 #endif
+    //Highlight Nodes
     ImGui::Checkbox("Highlight Nodes", &m_settings.alwaysHighlight);
-    if (ImGui::IsItemHovered()) {
-        ImGui::SetTooltip(
+    if (ImGui::IsItemHovered()) ImGui::SetTooltip(
             "Always highlight nodes when hovered in the Tree. "
             "When disabled, you can highlight by pressing Shift."
         );
-    }
+    //Highlight Layouts
     ImGui::Checkbox("Highlight Layouts", &m_settings.highlightLayouts);
-    if (ImGui::IsItemHovered()) {
-        ImGui::SetTooltip(
-            "Highlights the borders of all layouts applied to nodes"
-        );
-    }
+    if (ImGui::IsItemHovered()) ImGui::SetTooltip("Highlights the borders of all layouts applied to nodes");
+    //Arrow to Expand
     ImGui::Checkbox("Arrow to Expand", &m_settings.arrowExpand);
-    if (ImGui::IsItemHovered()) {
-        ImGui::SetTooltip(
+    if (ImGui::IsItemHovered()) ImGui::SetTooltip(
             "If enabled, expanding nodes in the Tree only works with the arrow. "
             "Makes selecting nodes less annoying."
         );
-    }
+    //Order Node Children
     ImGui::Checkbox("Order Node Children", &m_settings.orderChildren);
-    if (ImGui::IsItemHovered()) {
-        ImGui::SetTooltip(
+    if (ImGui::IsItemHovered()) ImGui::SetTooltip(
             "When enabled (default behavior) node children are sorted by Z Order.\n"
             "When disabled, children have the same order they do during init functions (maybe).\n"
             "As a side effect to disabling this, things may render incorrectly."
         );
-    }
+    //Advanced Settings
     ImGui::Checkbox("Advanced Settings", &m_settings.advancedSettings);
-    if (ImGui::IsItemHovered()) {
-        ImGui::SetTooltip(
-            "Shows advanced settings. Mostly useful only for development of Geode itself."
-        );
-    }
+    if (ImGui::IsItemHovered()) ImGui::SetTooltip("Shows advanced settings. Mostly useful only for development of Geode itself.");
+    //Show Memory Viewer
     ImGui::Checkbox("Show Memory Viewer", &m_settings.showMemoryViewer);
-    if (ImGui::IsItemHovered()) {
-        ImGui::SetTooltip(
-            "Shows the memory viewer window."
-        );
-    }
+    if (ImGui::IsItemHovered()) ImGui::SetTooltip("Shows the memory viewer window.");
+    //next ones shoud be latest always
     ImGui::Checkbox("Show Dear ImGui Metrics", &m_settings.DearImGuiMetrics);
-    if (ImGui::IsItemHovered()) {
-        ImGui::SetTooltip(
-            "Shows an ImGui metrics window."
-        );
-    }
+    if (ImGui::IsItemHovered()) ImGui::SetTooltip("Shows an ImGui metrics window.");
     ImGui::Checkbox("Show Style Editor", &m_settings.StyleEditor);
-    if (ImGui::IsItemHovered()) {
-        ImGui::SetTooltip(
-            "Shows an ImGui Style Editor."
-        );
-    }
+    if (ImGui::IsItemHovered()) ImGui::SetTooltip("Shows an ImGui Style Editor.");
+    //Font Size
     ImGui::PopStyleVar();
-
     ImGui::Separator();
-
     ImGui::DragFloat("Font Size", &m_settings.FontGlobalScale, 0.01f, 1.0f, 3.0f);
-
     ImGui::Separator();
-
-    ImGui::Text("GD Window");
 
     // TODO: undo later
 #if 0
+    ImGui::Text("GD Window");
     auto winSize = CCDirector::get()->getWinSize();
     auto frameSize = GameManager::get()->resolutionForKey(GameManager::get()->m_resolution);
     auto fps = roundf(1 / CCDirector::get()->getAnimationInterval());
@@ -174,9 +148,9 @@ void DevTools::drawSettings() {
             CCDirector::get()->getScheduler()->resumeTargets(PAUSED_TARGETS);
         }
     }
-#endif
 
     ImGui::Separator();
+#endif
 
     ImGui::Text("Theme");
     static auto SELECTED = static_cast<int>(getThemeIndex(m_settings.theme));

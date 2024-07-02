@@ -1,7 +1,4 @@
 #include <cocos2d.h>
-#include <Geode/modify/CCTouchDispatcher.hpp>
-#include <Geode/modify/CCMouseDispatcher.hpp>
-#include <Geode/modify/CCIMEDispatcher.hpp>
 #include "platform/platform.hpp"
 #include "DevTools.hpp"
 #include "ImGui.hpp"
@@ -33,11 +30,17 @@ void DevTools::setupPlatform() {
 
     io.Fonts->SetTexID(reinterpret_cast<ImTextureID>(static_cast<intptr_t>(tex2d->getName())));
 
+    auto IniFilePath = (Mod::get()->getSaveDir() / "ImGuiSave.ini");
+    static auto IniFilePathStr = std::string(IniFilePath.string());
+    io.IniFilename = IniFilePathStr.c_str();
+
+    ImGui::LoadIniSettingsFromDisk(io.IniFilename);
 }
 
 void DevTools::newFrame() {
     auto& io = ImGui::GetIO();
 
+    // opengl2 new frame
     auto* director = CCDirector::sharedDirector();
     const auto winSize = director->getWinSize();
     const auto frameSize = director->getOpenGLView()->getFrameSize() * geode::utils::getDisplayFactor();
@@ -48,7 +51,12 @@ void DevTools::newFrame() {
         winSize.width / frameSize.width,
         winSize.height / frameSize.height
     );
-    io.DeltaTime = director->getDeltaTime();
+    if (director->getDeltaTime() > 0.f) {
+        io.DeltaTime = director->getDeltaTime();
+    }
+    else {
+        io.DeltaTime = 1.f / 60.f;
+    }
 
 #ifdef GEODE_IS_DESKTOP
     const auto mousePos = toVec2(geode::cocos::getMousePos());
@@ -61,6 +69,12 @@ void DevTools::newFrame() {
     io.KeyAlt = kb->getAltKeyPressed() || kb->getCommandKeyPressed(); // look
     io.KeyCtrl = kb->getControlKeyPressed();
     io.KeyShift = kb->getShiftKeyPressed();
+#ifdef GEODE_IS_WINDOWS
+    io.KeyAlt = (GetKeyState(VK_LMENU) & 0x8000) || (GetKeyState(VK_RMENU) & 0x8000); // look
+    io.KeyCtrl = (GetKeyState(VK_CONTROL) & 0x8000);
+    io.KeyShift = (GetKeyState(VK_SHIFT) & 0x8000);
+#endif // GEODE_IS_WINDOWS
+
 }
 
 void DevTools::render(GLRenderCtx* ctx) {
@@ -227,6 +241,7 @@ void DevTools::renderDrawData(ImDrawData* draw_data) {
 
 static float SCROLL_SENSITIVITY = 10;
 
+#include <Geode/modify/CCMouseDispatcher.hpp>
 class $modify(CCMouseDispatcher) {
     bool dispatchScrollMSG(float y, float x) {
         if(!DevTools::get()->isSetup()) return true;
@@ -242,6 +257,7 @@ class $modify(CCMouseDispatcher) {
     }
 };
 
+#include <Geode/modify/CCTouchDispatcher.hpp>
 class $modify(CCTouchDispatcher) {
     void touches(CCSet* touches, CCEvent* event, unsigned int type) {
         auto& io = ImGui::GetIO();
@@ -301,23 +317,118 @@ class $modify(CCTouchDispatcher) {
     }
 };
 
-class $modify(CCIMEDispatcher) {
+#include <Geode/modify/CCLayer.hpp>
+#ifdef GEODE_IS_WINDOWS
+    #define VK_TO_ADD_KEY_EVENT(keyName1, keyName2) io.AddKeyAnalogEvent(ImGuiKey_##keyName2, (GetKeyState(VK_##keyName1) & 0x8000), 0.f);
+#endif // GEODE_IS_WINDOWS
+#define KeyDownToAddKeyEvent(keyName) if (key == KEY_##keyName) { io.AddKeyEvent(ImGuiKey_##keyName, 1); io.AddKeyEvent(ImGuiKey_##keyName, 0); }
+#define KeyDownToAddKeyEventArrow(keyName) if (key == KEY_##keyName or key == KEY_Arrow##keyName) { io.AddKeyEvent(ImGuiKey_##keyName##Arrow, 1); io.AddKeyEvent(ImGuiKey_##keyName##Arrow, 0); }
+class $modify(CCLayerExt, CCLayer) {
+#ifdef GEODE_IS_WINDOWS
+    void listenForWinVK(float) {
+        auto& io = ImGui::GetIO();
+        VK_TO_ADD_KEY_EVENT(LEFT, LeftArrow);
+        VK_TO_ADD_KEY_EVENT(RIGHT, RightArrow);
+        VK_TO_ADD_KEY_EVENT(DOWN, DownArrow);
+        VK_TO_ADD_KEY_EVENT(UP, UpArrow);
+        //IS_SENT_BY_DISPATCHER...KEYDOWNTOADDKEYEVENT(SPACE);
+        VK_TO_ADD_KEY_EVENT(BACK, Backspace);//0X08,
+        VK_TO_ADD_KEY_EVENT(TAB, Tab);//0X09,
+        VK_TO_ADD_KEY_EVENT(RETURN, Enter);//0X0D,
+        VK_TO_ADD_KEY_EVENT(PAUSE, Pause);//0X13,
+        VK_TO_ADD_KEY_EVENT(CAPITAL, CapsLock);//0X14,
+        VK_TO_ADD_KEY_EVENT(ESCAPE, Escape);//0X1B,
+        VK_TO_ADD_KEY_EVENT(SPACE, Space);//0X20,
+        VK_TO_ADD_KEY_EVENT(END, End);//0X23,
+        VK_TO_ADD_KEY_EVENT(HOME, Home);//0X24,
+        VK_TO_ADD_KEY_EVENT(SNAPSHOT, PrintScreen);//0X2C,
+        VK_TO_ADD_KEY_EVENT(INSERT, Insert);//0X2D,
+        VK_TO_ADD_KEY_EVENT(DELETE, Delete);//0X2E,
+        VK_TO_ADD_KEY_EVENT(LSHIFT, LeftShift);//0XA0,
+        VK_TO_ADD_KEY_EVENT(RSHIFT, RightShift);//0XA1
+    }
+    bool init() {
+        //ily schedule
+        this->schedule(schedule_selector(CCLayerExt::listenForWinVK), 0.0f);
+        return CCLayer::init();
+    }
+#else //NOT GEODE_IS_WINDOWS
+    void keyDown(enumKeyCodes key) {
+        auto& io = ImGui::GetIO();
+        if (!io.WantCaptureKeyboard) CCLayer::keyDown(key);
+        //log::debug("{}(key {}), io.WantCaptureKeyboard: {}", __FUNCTION__, (int)key != -1 ? CCKeyboardDispatcher::get()->keyToString(key) : utils::numToString(key), io.WantCaptureKeyboard);
+        //fucking sucks
+        KeyDownToAddKeyEventArrow(Left);
+        KeyDownToAddKeyEventArrow(Right);
+        KeyDownToAddKeyEventArrow(Down);
+        KeyDownToAddKeyEventArrow(Up);
+        //IS_SENT_BY_DISPATCHER...KeyDownToAddKeyEvent(Space);
+        KeyDownToAddKeyEvent(Backspace);//0x08,
+        KeyDownToAddKeyEvent(Tab);//0x09,
+        KeyDownToAddKeyEvent(Enter);//0x0D,
+        KeyDownToAddKeyEvent(Pause);//0x13,
+        KeyDownToAddKeyEvent(CapsLock);//0x14,
+        KeyDownToAddKeyEvent(Escape);//0x1B,
+        KeyDownToAddKeyEvent(Space);//0x20,
+        KeyDownToAddKeyEvent(PageUp);//0x21,
+        KeyDownToAddKeyEvent(PageDown);//0x22,
+        KeyDownToAddKeyEvent(End);//0x23,
+        KeyDownToAddKeyEvent(Home);//0x24,
+        KeyDownToAddKeyEvent(PrintScreen);//0x2C,
+        KeyDownToAddKeyEvent(Insert);//0x2D,
+        KeyDownToAddKeyEvent(Delete);//0x2E,
+        KeyDownToAddKeyEvent(A);//0x41,
+        KeyDownToAddKeyEvent(B);//0x42,
+        KeyDownToAddKeyEvent(C);//0x43,
+        KeyDownToAddKeyEvent(D);//0x44,
+        KeyDownToAddKeyEvent(E);//0x45,
+        KeyDownToAddKeyEvent(F);//0x46,
+        KeyDownToAddKeyEvent(G);//0x47,
+        KeyDownToAddKeyEvent(H);//0x48,
+        KeyDownToAddKeyEvent(I);//0x49,
+        KeyDownToAddKeyEvent(J);//0x4A,
+        KeyDownToAddKeyEvent(K);//0x4B,
+        KeyDownToAddKeyEvent(L);//0x4C,
+        KeyDownToAddKeyEvent(M);//0x4D,
+        KeyDownToAddKeyEvent(N);//0x4E,
+        KeyDownToAddKeyEvent(O);//0x4F,
+        KeyDownToAddKeyEvent(P);//0x50,
+        KeyDownToAddKeyEvent(Q);//0x51,
+        KeyDownToAddKeyEvent(R);//0x52,
+        KeyDownToAddKeyEvent(S);//0x53,
+        KeyDownToAddKeyEvent(T);//0x54,
+        KeyDownToAddKeyEvent(U);//0x55,
+        KeyDownToAddKeyEvent(V);//0x56,
+        KeyDownToAddKeyEvent(W);//0x57,
+        KeyDownToAddKeyEvent(X);//0x58,
+        KeyDownToAddKeyEvent(Y);//0x59,
+        KeyDownToAddKeyEvent(Z);//0x5A,
+        KeyDownToAddKeyEvent(F1);//0x70,
+        KeyDownToAddKeyEvent(F2);//0x71,
+        KeyDownToAddKeyEvent(F3);//0x72,
+        KeyDownToAddKeyEvent(F4);//0x73,
+        KeyDownToAddKeyEvent(F5);//0x74,
+        KeyDownToAddKeyEvent(F6);//0x75,
+        KeyDownToAddKeyEvent(F7);//0x76,
+        KeyDownToAddKeyEvent(F8);//0x77,
+        KeyDownToAddKeyEvent(F9);//0x78,
+        KeyDownToAddKeyEvent(F10);//0x79,
+        KeyDownToAddKeyEvent(F11);//0x7A,
+        KeyDownToAddKeyEvent(F12);//0x7B,
+        KeyDownToAddKeyEvent(ScrollLock);//0x91,
+        KeyDownToAddKeyEvent(LeftShift);//0xA0,
+        KeyDownToAddKeyEvent(RightShift);//0xA1
+    }
+#endif // GEODE_IS_WINDOWS
+};
+
+#include <Geode/modify/CCIMEDispatcher.hpp>
+class $modify(CCIMEDispatcherExt, CCIMEDispatcher) {
     void dispatchInsertText(const char* text, int len, enumKeyCodes key) {
         auto& io = ImGui::GetIO();
-        if (!io.WantCaptureKeyboard) {
-            CCIMEDispatcher::dispatchInsertText(text, len, key);
-        }
+        if (!io.WantCaptureKeyboard) CCIMEDispatcher::dispatchInsertText(text, len, key);
+        //log::debug("{}(text \"{}\", len {}, key {}), io.WantCaptureKeyboard: {}", __FUNCTION__, text, len, (int)key != -1 ? CCKeyboardDispatcher::get()->keyToString(key) : utils::numToString(key), io.WantCaptureKeyboard);
         std::string str(text, len);
         io.AddInputCharactersUTF8(str.c_str());
-    }
-
-    void dispatchDeleteBackward() {
-        auto& io = ImGui::GetIO();
-        if (!io.WantCaptureKeyboard) {
-            CCIMEDispatcher::dispatchDeleteBackward();
-        }
-        // is this really how youre supposed to do this
-        io.AddKeyEvent(ImGuiKey_Backspace, true);
-        io.AddKeyEvent(ImGuiKey_Backspace, false);
     }
 };

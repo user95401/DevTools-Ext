@@ -27,7 +27,7 @@ struct matjson::Serialize<Settings> {
             .theme = value.try_get<std::string>("theme").value_or(defaultSettings.theme),
             .FontGlobalScale = (float)value.try_get<double>("font_global_scale").value_or(defaultSettings.FontGlobalScale),
             .DearImGuiMetrics = value.try_get<bool>("dear_imgui_metrics").value_or(defaultSettings.DearImGuiMetrics),
-            .StyleEditor = value.try_get<bool>("style_editor").value_or(defaultSettings.StyleEditor),
+            .StyleEditor = value.try_get<bool>("style_editor").value_or(defaultSettings.StyleEditor)
         };
     }
 
@@ -184,13 +184,6 @@ void DevTools::drawPages() {
 void DevTools::draw(GLRenderCtx* ctx) {
     if (m_visible) {
 
-        ImGui::GetIO().WantCaptureMouse = 1;//false;
-        ImGui::GetIO().WantCaptureKeyboard = 1;//false;
-        ImGui::GetIO().WantTextInput = 1;//false;
-        ImGui::GetIO().WantSaveIniSettings = 1;//false;
-        ImGui::GetIO().NavActive = 1;//false;
-        ImGui::GetIO().NavVisible = 1;//false;
-
         ImGui::SaveIniSettingsToDisk(ImGui::GetIO().IniFilename);
 
         ImGui::GetIO().FontGlobalScale = m_settings.FontGlobalScale;
@@ -256,7 +249,9 @@ void DevTools::setup() {
     // io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
     io.ConfigWindowsResizeFromEdges = true;
 
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard | ImGuiConfigFlags_NavNoCaptureKeyboard;
+    io.NavActive = true;
+    io.NavVisible = true;
 
     this->setupFonts();
     this->setupPlatform();
@@ -269,12 +264,6 @@ void DevTools::setup() {
     ImGui::GetStyle().FramePadding = { 12.f, 10.f };
     io.ConfigFlags |= ImGuiConfigFlags_IsTouchScreen;
 #endif
-
-    auto IniFilePath = (Mod::get()->getSaveDir() / "ImGuiSave.ini");
-    auto IniFilePathStr = new std::string(IniFilePath.string());
-    io.IniFilename = IniFilePathStr->c_str();
-
-    ImGui::LoadIniSettingsFromDisk(io.IniFilename);
 }
 
 void DevTools::destroy() {
