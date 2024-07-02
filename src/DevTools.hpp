@@ -28,6 +28,7 @@ struct Settings {
     bool advancedSettings = false;
     bool showMemoryViewer = false;
     std::string theme = DARK_THEME;
+    float FontGlobalScale = 1.0;
 };
 
 class DevTools {

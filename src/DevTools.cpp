@@ -24,6 +24,7 @@ struct matjson::Serialize<Settings> {
             .advancedSettings = value["advanced_settings"].as_bool(),
             .showMemoryViewer = value["show_memory_viewer"].as_bool(),
             .theme = value["theme"].as_string(),
+            .FontGlobalScale = (float)value["FontGlobalScale"].as_double(),
         };
     }
 
@@ -38,6 +39,7 @@ struct matjson::Serialize<Settings> {
         obj["advanced_settings"] = settings.advancedSettings;
         obj["show_memory_viewer"] = settings.showMemoryViewer;
         obj["theme"] = settings.theme;
+        obj["FontGlobalScale"] = settings.FontGlobalScale;
         return obj;
     }
 
@@ -163,6 +165,11 @@ void DevTools::drawPages() {
 
 void DevTools::draw(GLRenderCtx* ctx) {
     if (m_visible) {
+
+        ImGui::SaveIniSettingsToDisk(ImGui::GetIO().IniFilename);
+
+        ImGui::GetIO().FontGlobalScale = m_settings.FontGlobalScale;
+
         if (m_reloadTheme) {
             applyTheme(m_settings.theme);
             m_reloadTheme = false;

@@ -1,4 +1,3 @@
-
 # Workspace files are user-specific
 *.sublime-project
 *.sublime-workspace
@@ -21,3 +20,6 @@ imgui
 
 **/.DS_Store
 .cache/
+
+# IDNTLY vs
+.vs

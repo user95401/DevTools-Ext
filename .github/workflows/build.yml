@@ -1,5 +1,8 @@
 name: Build Geode Mod
 
+permissions:
+  contents: write
+
 on:
   workflow_dispatch:
   push:
@@ -8,6 +11,7 @@ on:
 
 jobs:
   build:
+    continue-on-error: true # continue even if build failed for some platform
     strategy:
       fail-fast: false
       matrix:
@@ -39,7 +43,7 @@ jobs:
           target: ${{ matrix.config.target }}
       
   package:
-    name: Package builds
+    name: Package and release builds
     runs-on: ubuntu-latest
     needs: ['build']
 
@@ -51,3 +55,14 @@ jobs:
         with:
           name: Build Output
           path: ${{ steps.build.outputs.build-output }}
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          name: "Development Release"
+          body: |
+           Release of success build for latest commit on `${{ github.head_ref || github.ref_name }}`.
+           <hr>
+           The build workflow run for this release goes here:
+           ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          tag_name: "nightly"
+          files: "${{steps.build.outputs.build-output}}/*"
