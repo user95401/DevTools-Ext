@@ -1,0 +1,671 @@
+
+
+//UTF8 VARIANT
+ADD_UTF8(
+
+"ASDJASND",
+
+"БЛЯЧНАХУЕБАТЬФВ"
+
+);
+ADD_UTF8("ASDJASND", "БЛЯЧНАХУЕБАТЬФВ");
+
+//NORMAL CAHRS VARIANT
+ADD(
+
+"ASDJASND",
+
+"el aksADJ"
+
+);
+ADD("ASDJASND", "el aksADJ");
+
+ADD_UTF8(
+
+"Shows ImGui Style Editor and Metrics.", 
+
+"Показывает редактор стилей и показатели ImGui."
+
+);
+ADD_UTF8(
+
+"Show ImGui Debug", 
+
+"Показать окна разработчика ImGui"
+
+);
+ADD_UTF8(
+
+"Show Memory Viewer", 
+
+"Показать Средство Обзора Памяти"
+
+);
+ADD_UTF8(
+
+"Shows the memory viewer window.", 
+
+"Показывает окно просмотра памяти..."
+
+);
+ADD_UTF8(
+
+"Advanced Settings",
+
+"Расширенные Настройки"
+
+);
+ADD_UTF8(
+
+"Shows advanced settings. Mostly useful only for development of Geode itself.",
+
+"Отображает расширенные настройки. По сути, полезен только для разработки самого Geode."
+
+);
+ADD_UTF8(
+
+"Order Node Children",
+
+"Упорядочивание Дочерних Нодов"
+
+);
+ADD_UTF8(
+
+"When enabled (default behavior) node children are sorted by Z Order.\n"
+"When disabled, children have the same order they do during init functions (maybe).\n"
+"As a side effect to disabling this, things may render incorrectly.",
+
+"Если эта функция включена (по умолчанию), дочерние элементы нода сортируются в соответствии с их z-порядком.\n"
+"Если вы отключите ее, дочерние элементы сохранят тот же порядок, который был при первой загрузке страницы (возможно).\n"
+"В результате отключения этой функции некоторые элементы могут отображаться некорректно."
+
+);
+ADD_UTF8(
+
+"Arrow to Expand",
+
+"Стрелка чтобы Расширить"
+
+);
+ADD_UTF8(
+
+"If enabled, expanding nodes in the Tree only works with the arrow.\n"
+"Makes selecting nodes less annoying.",
+
+"Если включено, расширение нодов в древе работает только со стрелкой.\n"
+"Делает выбор узлов менее раздражающим"
+
+);
+ADD_UTF8(
+
+"Highlight Layouts",
+
+"Выделять Лайауты"
+
+);
+ADD_UTF8(
+
+"Highlights the borders of all layouts applied to nodes",
+
+"Выделяет границы всех лайаутов, примененных к нодам"
+
+);
+ADD_UTF8(
+
+"Highlight Nodes",
+
+"Выделять Ноды"
+
+);
+ADD_UTF8(
+
+"Always highlight nodes when hovered in the Tree.\n"
+"When disabled, you can highlight by pressing Shift.",
+
+"Всегда выделять ноды при наведении курсора мыши в древе.\n"
+"Если этот параметр отключен, вы можете выделить его, нажав Shift."
+
+);
+ADD_UTF8(
+
+"Font Size",
+
+"Размер шрифта"
+
+);
+ADD_UTF8(
+
+"Theme",
+
+"Тема стиля"
+
+);
+ADD_UTF8(
+
+"Select Theme",
+
+"Выбрать Тему"
+
+);
+ADD_UTF8(
+
+"Language",
+
+"Язык / Language"
+
+);
+ADD_UTF8(
+
+"Select Language",
+
+"Выбрать Язык / Select Language"
+
+);
+ADD_UTF8(
+
+"Reset Layout",
+
+"Переустановить Лайаут"
+
+);
+ADD_UTF8(
+
+"Deselect",
+
+"Отменить выбор"
+
+);
+ADD_UTF8(
+
+"Address: %s",
+
+"Адрес: %s"
+
+);
+ADD_UTF8(
+
+" Copy",
+
+" копировать"
+
+);
+ADD_UTF8(
+
+"User data: 0x%p",
+
+"Пользов. данные: %s"
+
+);
+ADD_UTF8(
+
+"Node ID: %s",
+
+"ID: %s"
+
+);
+ADD_UTF8(
+
+"Node ID: N/A",
+
+"ID: НЕТ"
+
+);
+ADD_UTF8(
+
+" Copy##copynodeid",
+
+" копировать##copynodeid"
+
+);
+ADD_UTF8(
+
+"CCMenuItem selector: %s",
+
+"Селектор CCMenuItem: %s"
+
+);
+ADD_UTF8(
+
+" Copy##copymenuitem",
+
+" копир.##copymenuitem"
+
+);
+ADD_UTF8(
+
+"Position",
+
+"Позиция"
+
+);
+ADD_UTF8(
+
+"Gets the position (x,y) of the node in OpenGL coordinates.",
+
+"Возвращает положение (x,y) нода в координатах OpenGL."
+
+);
+ADD_UTF8(
+
+"Scale",
+
+"Масштаб"
+
+);
+ADD_UTF8(
+
+"The scale factor of the node.",
+
+"Масштабный коэффициент нода."
+
+);
+ADD_UTF8(
+
+"Rotation",
+
+"Вращение"
+
+);
+ADD_UTF8(
+
+"The rotation of the node in degrees.",
+
+"Поворот нода в градусах."
+
+);
+ADD_UTF8(
+
+"Skew",
+
+"Скос"
+
+);
+ADD_UTF8(
+
+"The skew angle of the node in degrees.",
+
+"Угол наклона нода в градусах."
+
+);
+ADD_UTF8(
+
+"Anchor Point",
+
+"Опорная Точка"
+
+);
+ADD_UTF8(
+
+"The anchor point in percent.",
+
+"Опорная точка в процентах."
+
+);
+ADD_UTF8(
+
+"Content Size",
+
+"Размер"
+
+);
+ADD_UTF8(
+
+"The untransformed size of the node.",
+
+"Нетрансформированный размер нода."
+
+);
+ADD_UTF8(
+
+"Z Order",
+
+"Z-Порядок"
+
+);
+ADD_UTF8(
+
+"The z order which stands for the drawing order.",
+
+"Z-порядок обозначает порядок отрисовки."
+
+);
+ADD_UTF8(
+
+"Ignore Anchor Point for Position",
+
+"Игнор опорной точки для позиции"
+
+);
+ADD_UTF8(
+
+"Whether the anchor point will be (0,0) when you position this node.",
+
+"Будет ли опорная точка равна (0,0) при размещении этого нода."
+
+);
+ADD_UTF8(
+
+"Visible",
+
+"Видимый"
+
+);
+ADD_UTF8(
+
+"Whether the node is visible.",
+
+"Виден ли нод."
+
+);
+ADD_UTF8(
+
+"Flip X",
+
+"Перевернуть По X"
+
+);
+ADD_UTF8(
+
+"Whether the sprite is flipped horizontally or not." "\n"
+"It only flips the texture of the sprite, and not the texture of the sprite's children.",
+
+"Перевернут спрайт по горизонтали или нет." "\n"
+"При этом переворачивается только текстура спрайта, а не текстура дочерних элементов спрайта."
+
+);
+ADD_UTF8(
+
+"Flip Y",
+
+"Перевернуть По Y"
+
+);
+ADD_UTF8(
+
+"Whether the sprite is flipped vertically or not." "\n"
+"It only flips the texture of the sprite, and not the texture of the sprite's children.",
+
+"Перевернут спрайт по вертикали или нет." "\n"
+"При этом переворачивается только текстура спрайта, а не текстура дочерних элементов спрайта."
+
+);
+ADD_UTF8(
+
+"Cascade Color",
+
+"Последовательный цвет"
+
+);
+ADD_UTF8(
+
+"Whether or not color should be propagated to its children.",
+
+"Следует ли передавать цвет его дочерним элементам или нет."
+
+);
+ADD_UTF8(
+
+"Color",
+
+"Цвет"
+
+);
+ADD_UTF8(
+
+"Text",
+
+"Текст"
+
+);
+ADD_UTF8(
+
+"Texture name: %s",
+
+"Имя текстуры: %s"
+
+);
+ADD_UTF8(
+
+"Frame name: %s",
+
+"Имя фрейма: %s"
+
+);
+ADD_UTF8(
+
+"Layout options: %s",
+
+"Параметры лайаута: %s"
+
+);
+ADD_UTF8(
+
+" Update Parent Layout",
+
+" Обновить Родительский Лайаут"
+
+);
+ADD_UTF8(
+
+"Auto Scale",
+
+"Авто масштаб"
+
+);
+ADD_UTF8(
+
+"Default",
+
+"Дефолт"
+
+);
+ADD_UTF8(
+
+"Enable",
+
+"Включить"
+
+);
+ADD_UTF8(
+
+"Disable",
+
+"Отключить"
+
+);
+ADD_UTF8(
+
+"Break Line",
+
+"Разрыв линии"
+
+);
+ADD_UTF8(
+
+"Same Line",
+
+"Та же Линия"
+
+);
+ADD_UTF8(
+
+"Scale Priority",
+
+"Приоритет Масштаба"
+
+);
+ADD_UTF8(
+
+"Offset",
+
+"Офсет"
+
+);
+ADD_UTF8(
+
+" Add AxisLayoutOptions",
+
+" Добавить AxisLayoutOptions"
+
+);
+ADD_UTF8(
+
+" Add AnchorLayoutOptions",
+
+" Добавить AnchorLayoutOptions"
+
+);
+ADD_UTF8(
+
+"Touch Priority",
+
+"Приоритет Касаний"
+
+);
+ADD_UTF8(
+
+"Layout: %s",
+
+"Лайаут: %s"
+
+);
+ADD_UTF8(
+
+" Update Layout",
+
+" Обновить Лайаут"
+
+);
+ADD_UTF8(
+
+" Add Test Child",
+
+" Добавить тестовый элемент"
+
+);
+ADD_UTF8(
+
+" Add AxisLayout",
+
+" Добавить AxisLayout"
+
+);
+ADD_UTF8(
+
+" Add AnchorLayout",
+
+" Добавить AnchorLayout"
+
+);
+ADD_UTF8(
+
+"Select a Node to Edit in the Scene or Tree",
+
+"Выберите Нод для редактирования в Сцене или Древе"
+
+);
+ADD_UTF8(
+
+" Tree###devtools/tree",
+
+" Древо###devtools/tree"
+
+);
+ADD_UTF8(
+
+" Settings###devtools/settings",
+
+" Настройки###devtools/settings"
+
+);
+ADD_UTF8(
+
+" Settings###devtools/settings",
+
+" Настройки###devtools/settings"
+
+);
+ADD_UTF8(
+
+" Advanced Settings###devtools/advanced/settings",
+
+" Расширенные Настройки###devtools/advanced/settings"
+
+);
+ADD_UTF8(
+
+" Attributes###devtools/attributes",
+
+" Атрибуты###devtools/attributes"
+
+);
+ADD_UTF8(
+
+" Preview###devtools/preview",
+
+" Обзор###devtools/preview"
+
+);
+ADD_UTF8(
+
+" Mod Graph###devtools/advanced/mod-graph",
+
+" График Модов###devtools/advanced/mod-graph"
+
+);
+ADD_UTF8(
+
+"Memory viewer",
+
+"Средство Обзора Памяти"
+
+);
+ADD_UTF8(
+
+"Dear ImGui Style Editor",
+
+"Dear ImGui Редактор Стилей"
+
+);
+ADD_UTF8(
+
+"Addr",
+
+"Адрес"
+
+);
+ADD_UTF8(
+
+"Size",
+
+"Размер"
+
+);
+ADD_UTF8(
+
+"Show raw bytes",
+
+"Показать сырые байты"
+
+);
+ADD_UTF8(
+
+"Selected Node",
+
+"Выбранный Нод"
+
+);
+ADD_UTF8(
+
+"Refresh",
+
+"Обновить"
+
+);
+ADD_UTF8(
+
+"Save to file",
+
+"Сохранить в файл"
+
+);

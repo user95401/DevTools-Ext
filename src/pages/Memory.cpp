@@ -282,22 +282,22 @@ void DevTools::drawMemory() {
     static auto lastRender = std::chrono::high_resolution_clock::now();
 
     static char buffer[256] = {'0', '\0'};
-    bool changed = ImGui::InputText("Addr", buffer, sizeof(buffer));
+    bool changed = ImGui::InputText("Addr"_LOCALE, buffer, sizeof(buffer));
     static int size = 0x100;
-    changed |= ImGui::DragInt("Size", &size, 16.f, 0, 0, "%x");
+    changed |= ImGui::DragInt("Size"_LOCALE, &size, 16.f, 0, 0, "%x");
     if (size < 4) {
         size = 4;
     }
     static bool showRawBytes = false;
-    changed |= ImGui::Checkbox("Show raw bytes", &showRawBytes);
+    changed |= ImGui::Checkbox("Show raw bytes"_LOCALE, &showRawBytes);
 
-    if (ImGui::Button("Selected Node")) {
+    if (ImGui::Button("Selected Node"_LOCALE)) {
         auto str = fmt::format("{}", fmt::ptr(m_selectedNode.data()));
         std::memcpy(buffer, str.c_str(), str.size() + 1);
         changed = true;
     }
     ImGui::SameLine();
-    changed |= ImGui::Button("Refresh");
+    changed |= ImGui::Button("Refresh"_LOCALE);
 
     auto const timeNow = std::chrono::high_resolution_clock::now();
 
@@ -310,7 +310,7 @@ void DevTools::drawMemory() {
     } catch (...) {}
 
     static std::vector<std::string> textSaving;
-    if (ImGui::Button("Save to file")) {
+    if (ImGui::Button("Save to file"_LOCALE)) {
         auto timeEpoch = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
         auto name = fmt::format("Memory Dump {:%Y-%m-%d %H.%M.%S}.txt", fmt::localtime(timeEpoch));
         (void) utils::file::writeString(Mod::get()->getSaveDir() / name, fmt::to_string(fmt::join(textSaving, "\n")));

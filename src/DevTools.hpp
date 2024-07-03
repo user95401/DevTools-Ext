@@ -10,6 +10,8 @@
 #include <Geode/loader/ModMetadata.hpp>
 #include <unordered_map>
 
+#include <lang/incl.h>
+
 using namespace geode::prelude;
 
 enum class HighlightMode {
@@ -30,6 +32,7 @@ struct Settings {
     std::string theme = DARK_THEME;
     float FontGlobalScale = 1.0;
     bool DearImGuiWindows = false;
+    int lang = 0;
 };
 
 class DevTools {

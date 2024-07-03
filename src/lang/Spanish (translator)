@@ -1,0 +1,649 @@
+﻿ADD_UTF8(
+
+"Shows ImGui Style Editor and Metrics.", 
+
+"Muestra el editor de estilos y las métricas de ImGui."
+
+);
+ADD_UTF8(
+
+"Show ImGui Debug", 
+
+"Mostrar ventanas de desarrollador de ImGui"
+
+);
+ADD_UTF8(
+
+"Show Memory Viewer", 
+
+"Mostrar navegador de memoria"
+
+);
+ADD_UTF8(
+
+"Shows the memory viewer window.", 
+
+"Muestra la ventana de exploración de la memoria..."
+
+);
+ADD_UTF8(
+
+"Advanced Settings",
+
+"Ajustes avanzados"
+
+);
+ADD_UTF8(
+
+"Shows advanced settings. Mostly useful only for development of Geode itself.",
+
+"Muestra configuraciones avanzadas. Básicamente, sólo es útil para desarrollar la propia Geode."
+
+);
+ADD_UTF8(
+
+"Order Node Children",
+
+"Ordenar nodos secundarios"
+
+);
+ADD_UTF8(
+
+"When enabled (default behavior) node children are sorted by Z Order.\n"
+"When disabled, children have the same order they do during init functions (maybe).\n"
+"As a side effect to disabling this, things may render incorrectly.",
+
+"Cuando esta característica está habilitada (la opción predeterminada), los hijos de un nodo se ordenan según su orden z.\n"
+"Si lo desactivas, los elementos secundarios conservarán el mismo orden que tenían cuando se cargó la página por primera vez (posiblemente).\n"
+"Desactivar esta función puede provocar que algunos elementos se muestren incorrectamente."
+
+);
+ADD_UTF8(
+
+"Arrow to Expand",
+
+"Flecha para expandir"
+
+);
+ADD_UTF8(
+
+"If enabled, expanding nodes in the Tree only works with the arrow.\n"
+"Makes selecting nodes less annoying.",
+
+"Si está habilitado, expandir nodos en el árbol solo funciona con una flecha.\n"
+"Hace que la selección de nodos sea menos molesta"
+
+);
+ADD_UTF8(
+
+"Highlight Layouts",
+
+"Seleccionar diseños"
+
+);
+ADD_UTF8(
+
+"Highlights the borders of all layouts applied to nodes",
+
+"Resalta los límites de todos los diseños aplicados a los nodos"
+
+);
+ADD_UTF8(
+
+"Highlight Nodes",
+
+"Seleccionar nodos"
+
+);
+ADD_UTF8(
+
+"Always highlight nodes when hovered in the Tree.\n"
+"When disabled, you can highlight by pressing Shift.",
+
+"Siempre resalte los nodos al pasar el cursor del mouse en el árbol.\n"
+"Si esta opción está deshabilitada, puedes resaltarla presionando Shift."
+
+);
+ADD_UTF8(
+
+"Font Size",
+
+"Tamaño de fuente"
+
+);
+ADD_UTF8(
+
+"Theme",
+
+"Tema de estilo"
+
+);
+ADD_UTF8(
+
+"Select Theme",
+
+"Seleccionar tema"
+
+);
+ADD_UTF8(
+
+"Language",
+
+"Idioma"
+
+);
+ADD_UTF8(
+
+"Select Language",
+
+"Seleccione el idioma"
+
+);
+ADD_UTF8(
+
+"Reset Layout",
+
+"Reinstalar diseño"
+
+);
+ADD_UTF8(
+
+"Deselect",
+
+"Cancelar selección"
+
+);
+ADD_UTF8(
+
+"Address: %s",
+
+"Dirección: %s"
+
+);
+ADD_UTF8(
+
+" Copy",
+
+"Copiar"
+
+);
+ADD_UTF8(
+
+"User data: 0x%p",
+
+"Datos de usuario: %s"
+
+);
+ADD_UTF8(
+
+"Node ID: %s",
+
+"ID: %s"
+
+);
+ADD_UTF8(
+
+"Node ID: N/A",
+
+"ID: NO"
+
+);
+ADD_UTF8(
+
+" Copy##copynodeid",
+
+"copia##copynodeid"
+
+);
+ADD_UTF8(
+
+"CCMenuItem selector: %s",
+
+"Selector de elementos CCMenu: %s"
+
+);
+ADD_UTF8(
+
+" Copy##copymenuitem",
+
+"copiadora.##copymenuitem"
+
+);
+ADD_UTF8(
+
+"Position",
+
+"Posición"
+
+);
+ADD_UTF8(
+
+"Gets the position (x,y) of the node in OpenGL coordinates.",
+
+"Devuelve la posición (x,y) del nodo en coordenadas OpenGL."
+
+);
+ADD_UTF8(
+
+"Scale",
+
+"Escala"
+
+);
+ADD_UTF8(
+
+"The scale factor of the node.",
+
+"Factor de escala de nodo."
+
+);
+ADD_UTF8(
+
+"Rotation",
+
+"Rotación"
+
+);
+ADD_UTF8(
+
+"The rotation of the node in degrees.",
+
+"Gire el nodo en grados."
+
+);
+ADD_UTF8(
+
+"Skew",
+
+"Bisel"
+
+);
+ADD_UTF8(
+
+"The skew angle of the node in degrees.",
+
+"El ángulo de inclinación del nodo en grados."
+
+);
+ADD_UTF8(
+
+"Anchor Point",
+
+"Punto de referencia"
+
+);
+ADD_UTF8(
+
+"The anchor point in percent.",
+
+"Punto de anclaje en porcentaje."
+
+);
+ADD_UTF8(
+
+"Content Size",
+
+"Tamaño"
+
+);
+ADD_UTF8(
+
+"The untransformed size of the node.",
+
+"Tamaño de nodo sin transformar."
+
+);
+ADD_UTF8(
+
+"Z Order",
+
+"Orden Z"
+
+);
+ADD_UTF8(
+
+"The z order which stands for the drawing order.",
+
+"El orden Z indica el orden de dibujo."
+
+);
+ADD_UTF8(
+
+"Ignore Anchor Point for Position",
+
+"Ignorar el punto de referencia para la posición"
+
+);
+ADD_UTF8(
+
+"Whether the anchor point will be (0,0) when you position this node.",
+
+"¿El punto de referencia será igual a (0,0) al colocar este nodo?"
+
+);
+ADD_UTF8(
+
+"Visible",
+
+"Visible"
+
+);
+ADD_UTF8(
+
+"Whether the node is visible.",
+
+"¿Es visible el nodo?"
+
+);
+ADD_UTF8(
+
+"Flip X",
+
+"Voltear por X"
+
+);
+ADD_UTF8(
+
+"Whether the sprite is flipped horizontally or not." "\n"
+"It only flips the texture of the sprite, and not the texture of the sprite's children.",
+
+"Si el objeto se voltea horizontalmente o no." "\norte"
+"Esto sólo invierte la textura del sprite, no la textura de los hijos del sprite."
+
+);
+ADD_UTF8(
+
+"Flip Y",
+
+"Voltear por Y"
+
+);
+ADD_UTF8(
+
+"Whether the sprite is flipped vertically or not." "\n"
+"It only flips the texture of the sprite, and not the texture of the sprite's children.",
+
+"Si el objeto está volteado verticalmente o no." "\norte"
+"Esto sólo invierte la textura del sprite, no la textura de los hijos del sprite."
+
+);
+ADD_UTF8(
+
+"Cascade Color",
+
+"Color consistente"
+
+);
+ADD_UTF8(
+
+"Whether or not color should be propagated to its children.",
+
+"Si el color debe transmitirse a sus hijos o no."
+
+);
+ADD_UTF8(
+
+"Color",
+
+"Color"
+
+);
+ADD_UTF8(
+
+"Text",
+
+"Texto"
+
+);
+ADD_UTF8(
+
+"Texture name: %s",
+
+"Nombre de textura: %s"
+
+);
+ADD_UTF8(
+
+"Frame name: %s",
+
+"Nombre del marco: %s"
+
+);
+ADD_UTF8(
+
+"Layout options: %s",
+
+"Parámetros de diseño: %s"
+
+);
+ADD_UTF8(
+
+" Update Parent Layout",
+
+"Actualizar diseño parental"
+
+);
+ADD_UTF8(
+
+"Auto Scale",
+
+"Auto escala"
+
+);
+ADD_UTF8(
+
+"Default",
+
+"Por defecto"
+
+);
+ADD_UTF8(
+
+"Enable",
+
+"Encender"
+
+);
+ADD_UTF8(
+
+"Disable",
+
+"Desactivar"
+
+);
+ADD_UTF8(
+
+"Break Line",
+
+"Salto de línea"
+
+);
+ADD_UTF8(
+
+"Same Line",
+
+"Misma línea"
+
+);
+ADD_UTF8(
+
+"Scale Priority",
+
+"Prioridad de escala"
+
+);
+ADD_UTF8(
+
+"Offset",
+
+"Compensar"
+
+);
+ADD_UTF8(
+
+" Add AxisLayoutOptions",
+
+"Agregar opciones de diseño de eje"
+
+);
+ADD_UTF8(
+
+" Add AnchorLayoutOptions",
+
+"Agregar opciones de diseño de anclaje"
+
+);
+ADD_UTF8(
+
+"Touch Priority",
+
+"Prioridad táctil"
+
+);
+ADD_UTF8(
+
+"Layout: %s",
+
+"Diseño: %s"
+
+);
+ADD_UTF8(
+
+" Update Layout",
+
+"Actualizar diseño"
+
+);
+ADD_UTF8(
+
+" Add Test Child",
+
+"Agregar elemento de prueba"
+
+);
+ADD_UTF8(
+
+" Add AxisLayout",
+
+"Agregar diseño de eje"
+
+);
+ADD_UTF8(
+
+" Add AnchorLayout",
+
+"Agregar diseño de anclaje"
+
+);
+ADD_UTF8(
+
+"Select a Node to Edit in the Scene or Tree",
+
+"Seleccione un nodo para editar en la escena o árbol"
+
+);
+ADD_UTF8(
+
+" Tree###devtools/tree",
+
+" Árbol###devtools/tree"
+
+);
+ADD_UTF8(
+
+" Settings###devtools/settings",
+
+" Configuración###devtools/configuración"
+
+);
+ADD_UTF8(
+
+" Settings###devtools/settings",
+
+" Configuración###devtools/settings"
+
+);
+ADD_UTF8(
+
+" Advanced Settings###devtools/advanced/settings",
+
+" Configuración avanzada###devtools/advanced/settings"
+
+);
+ADD_UTF8(
+
+" Attributes###devtools/attributes",
+
+" Atributos###devtools/attributes"
+
+);
+ADD_UTF8(
+
+" Preview###devtools/preview",
+
+" Revisión###devtools/preview"
+
+);
+ADD_UTF8(
+
+" Mod Graph###devtools/advanced/mod-graph",
+
+"Mod Graph###devtools/advanced/mod-graph"
+
+);
+ADD_UTF8(
+
+"Memory viewer",
+
+"Explorador de memoria"
+
+);
+ADD_UTF8(
+
+"Dear ImGui Style Editor",
+
+"Estimado editor de estilo ImGui"
+
+);
+ADD_UTF8(
+
+"Addr",
+
+"DIRECCIÓN"
+
+);
+ADD_UTF8(
+
+"Size",
+
+"Tamaño"
+
+);
+ADD_UTF8(
+
+"Show raw bytes",
+
+"Mostrar bytes sin formato"
+
+);
+ADD_UTF8(
+
+"Selected Node",
+
+"Asentimiento elegido"
+
+);
+ADD_UTF8(
+
+"Refresh",
+
+"Actualizar"
+
+);
+ADD_UTF8(
+
+"Save to file",
+
+"Guardar en archivo"
+
+);

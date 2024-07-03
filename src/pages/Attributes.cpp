@@ -34,41 +34,41 @@ bool checkbox(const char* text, T* ptr, bool(T::* get)() const, R(T::* set)(bool
 }
 
 void DevTools::drawNodeAttributes(CCNode* node) {
-    if (ImGui::Button("Deselect")) {
+    if (ImGui::Button("Deselect"_LOCALE)) {
         return this->selectNode(nullptr);
     }
-    ImGui::Text("Address: %s", fmt::to_string(fmt::ptr(node)).c_str());
+    ImGui::Text("Address: %s"_LOCALE, fmt::to_string(fmt::ptr(node)).c_str());
     ImGui::SameLine();
-    if (ImGui::Button(U8STR(FEATHER_COPY " Copy"))) {
+    if (ImGui::SmallButton(LOCALE_WTH_FEATHER_ICON(FEATHER_COPY, " Copy"))) {
         clipboard::write(
             utils::intToHex(reinterpret_cast<uintptr_t>(node))
         );
     }
     if (node->getUserData()) {
-        ImGui::Text("User data: 0x%p", node->getUserData());
+        ImGui::Text("User data: 0x%p"_LOCALE, node->getUserData());
     }
 
     if (!node->getID().empty()) {
         std::string nodeID = node->getID();
-        ImGui::Text("Node ID: %s", nodeID.c_str());
+        ImGui::Text("Node ID: %s"_LOCALE, nodeID.c_str());
         ImGui::SameLine();
-        if (ImGui::Button(U8STR(FEATHER_COPY " Copy##copynodeid"))) {
+        if (ImGui::SmallButton(LOCALE_WTH_FEATHER_ICON(FEATHER_COPY," Copy##copynodeid"))) {
             clipboard::write(nodeID);
         }
     } else {
-        ImGui::Text("Node ID: N/A");
+        ImGui::Text("Node ID: N/A"_LOCALE);
     }
 
     if (auto menuItemNode = typeinfo_cast<CCMenuItem*>(node)) {
         const auto selector = menuItemNode->m_pfnSelector;
         if (!selector) {
             std::string addr = "N/A";
-            ImGui::Text("CCMenuItem selector: %s", addr.c_str());
+            ImGui::Text("CCMenuItem selector: %s"_LOCALE, addr.c_str());
         } else {
             const auto addr = formatAddressIntoOffset(addresser::getNonVirtual(selector), true);
-            ImGui::Text("CCMenuItem selector: %s", addr.c_str());
+            ImGui::Text("CCMenuItem selector: %s"_LOCALE, addr.c_str());
             ImGui::SameLine();
-            if (ImGui::Button(U8STR(FEATHER_COPY " Copy##copymenuitem"))) {
+            if (ImGui::SmallButton(LOCALE_WTH_FEATHER_ICON(FEATHER_COPY, " Copy##copymenuitem"))) {
                 const auto addrNoModule = formatAddressIntoOffset(addresser::getNonVirtual(selector), false);
                 clipboard::write(addrNoModule);
             }
@@ -81,18 +81,18 @@ void DevTools::drawNodeAttributes(CCNode* node) {
     };
     if (ImGui::Button(U8STR(FEATHER_COPY"##copypos"))) clipboard::write(fmt::format("CCPoint({}, {})", pos[0], pos[1])); ImGui::SameLine();
     if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip("\"CCPoint({}, {})\"<={pos[0], pos[1]}");
-    ImGui::DragFloat2("Position", pos);
+    ImGui::DragFloat2("Position"_LOCALE, pos);
     if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip(
-        "Gets the position (x,y) of the node in OpenGL coordinates."
+        "Gets the position (x,y) of the node in OpenGL coordinates."_LOCALE
     );
     node->setPosition(pos[0], pos[1]);
 
     float scale[3] = { node->getScale(), node->getScaleX(), node->getScaleY() };
     if (ImGui::Button(U8STR(FEATHER_COPY"##copyscale"))) clipboard::write(fmt::format("({}, {})", scale[1], scale[2])); ImGui::SameLine();
     if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip("\"({}, {})\"<={scale[1], scale[2]}");
-    ImGui::DragFloat3("Scale", scale, 0.025f);
+    ImGui::DragFloat3("Scale"_LOCALE, scale, 0.025f);
     if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip(
-        "The scale factor of the node."
+        "The scale factor of the node."_LOCALE
     );
     if (node->getScale() != scale[0]) {
         node->setScale(scale[0]);
@@ -103,9 +103,9 @@ void DevTools::drawNodeAttributes(CCNode* node) {
     float rot[3] = { node->getRotation(), node->getRotationX(), node->getRotationY() };
     if (ImGui::Button(U8STR(FEATHER_COPY"##copyrot"))) clipboard::write(rot[1] != 0.f and rot[2] != 0.f ? fmt::format("{} {} {}", rot[0], rot[1], rot[2]) : fmt::to_string(rot[0])); ImGui::SameLine();
     if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip("\"{}\"<={rot[0]} or \"{} {} {}\"<={rot[0], rot[1], rot[2]} if rot[1,2] != 0");
-    ImGui::DragFloat3("Rotation", rot);
+    ImGui::DragFloat3("Rotation"_LOCALE, rot);
     if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip(
-        "The rotation of the node in degrees."
+        "The rotation of the node in degrees."_LOCALE
     );
     if (node->getRotation() != rot[0]) {
         node->setRotation(rot[0]);
@@ -117,9 +117,9 @@ void DevTools::drawNodeAttributes(CCNode* node) {
     float skew[2] = { node->getSkewX(), node->getSkewY() };
     if (ImGui::Button(U8STR(FEATHER_COPY"##copyskew"))) clipboard::write(fmt::format("{} {}", skew[0], skew[1])); ImGui::SameLine();
     if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip("\"{} {}\"<={skew[0], skew[1]}");
-    ImGui::DragFloat2("Skew", skew);
+    ImGui::DragFloat2("Skew"_LOCALE, skew);
     if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip(
-        "The skew angle of the node in degrees."
+        "The skew angle of the node in degrees."_LOCALE
     );
     node->setSkewX(skew[0]);
     node->setSkewY(skew[1]);
@@ -127,18 +127,18 @@ void DevTools::drawNodeAttributes(CCNode* node) {
     auto anchor = node->getAnchorPoint();
     if (ImGui::Button(U8STR(FEATHER_COPY"##copyanchor"))) clipboard::write(fmt::format("CCPoint({}, {})", anchor.x, anchor.y)); ImGui::SameLine();
     if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip("\"CCPoint({}, {})\"<={anchor.x, anchor.y}");
-    ImGui::DragFloat2("Anchor Point", &anchor.x, 0.05f, 0.f, 1.f);
+    ImGui::DragFloat2("Anchor Point"_LOCALE, &anchor.x, 0.05f, 0.f, 1.f);
     if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip(
-        "The anchor point in percent."
+        "The anchor point in percent."_LOCALE
     );
     node->setAnchorPoint(anchor);
 
     auto contentSize = node->getContentSize();
     if (ImGui::Button(U8STR(FEATHER_COPY"##copycontentsize"))) clipboard::write(fmt::format("CCSize({}, {})", contentSize.width, contentSize.height)); ImGui::SameLine();
     if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip("\"CCSize({}, {})\"<={contentSize.width, contentSize.height}");
-    ImGui::DragFloat2("Content Size", &contentSize.width);
+    ImGui::DragFloat2("Content Size"_LOCALE, &contentSize.width);
     if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip(
-        "The untransformed size of the node."
+        "The untransformed size of the node."_LOCALE
     );
     if (contentSize != node->getContentSize()) {
         node->setContentSize(contentSize);
@@ -148,46 +148,46 @@ void DevTools::drawNodeAttributes(CCNode* node) {
     int zOrder = node->getZOrder();
     if (ImGui::Button(U8STR(FEATHER_COPY"##copyzorder"))) clipboard::write(fmt::format("{}", zOrder)); ImGui::SameLine();
     if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip("\"{}\"<={zOrder}");
-    ImGui::InputInt("Z Order", &zOrder);
+    ImGui::InputInt("Z Order"_LOCALE, &zOrder);
     if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip(
-        "The z order which stands for the drawing order."
+        "The z order which stands for the drawing order."_LOCALE
     );
     if (node->getZOrder() != zOrder) node->setZOrder(zOrder);
 
     checkbox(
-        "Ignore Anchor Point for Position",
+        "Ignore Anchor Point for Position"_LOCALE,
         node,
         &CCNode::isIgnoreAnchorPointForPosition,
         &CCNode::ignoreAnchorPointForPosition
     );
     if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip(
-        "Whether the anchor point will be (0,0) when you position this node."
+        "Whether the anchor point will be (0,0) when you position this node."_LOCALE
     );
     
-    checkbox("Visible", node, &CCNode::isVisible, &CCNode::setVisible);
+    checkbox("Visible"_LOCALE, node, &CCNode::isVisible, &CCNode::setVisible);
     if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip(
-        "Whether the node is visible."
+        "Whether the node is visible."_LOCALE
     );
 
     if (auto spriteNode = typeinfo_cast<CCSprite*>(node)) {
 #ifndef GEODE_IS_ARM_MAC //Undefined symbols...?
-        checkbox("Flip X", spriteNode, &cocos2d::CCSprite::isFlipX, &cocos2d::CCSprite::setFlipX);
+        checkbox("Flip X"_LOCALE, spriteNode, &cocos2d::CCSprite::isFlipX, &cocos2d::CCSprite::setFlipX);
         if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip(
             "Whether the sprite is flipped horizontally or not." "\n"
-            "It only flips the texture of the sprite, and not the texture of the sprite's children."
+            "It only flips the texture of the sprite, and not the texture of the sprite's children."_LOCALE
         );
-        checkbox("Flip Y", spriteNode, &cocos2d::CCSprite::isFlipY, &cocos2d::CCSprite::setFlipY);
+        checkbox("Flip Y"_LOCALE, spriteNode, &cocos2d::CCSprite::isFlipY, &cocos2d::CCSprite::setFlipY);
         if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip(
             "Whether the sprite is flipped vertically or not." "\n"
-            "It only flips the texture of the sprite, and not the texture of the sprite's children."
+            "It only flips the texture of the sprite, and not the texture of the sprite's children."_LOCALE
         );
 #endif
     }
     
     if (auto rgbaNode = typeinfo_cast<CCRGBAProtocol*>(node)) {
-        checkbox("Cascade Color", rgbaNode, &CCRGBAProtocol::isCascadeColorEnabled, &CCRGBAProtocol::setCascadeColorEnabled);
+        checkbox("Cascade Color"_LOCALE, rgbaNode, &CCRGBAProtocol::isCascadeColorEnabled, &CCRGBAProtocol::setCascadeColorEnabled);
         if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip(
-                "Whether or not color should be propagated to its children."
+                "Whether or not color should be propagated to its children."_LOCALE
             );
         auto color = rgbaNode->getColor();
         float _color[4] = { color.r / 255.f, color.g / 255.f, color.b / 255.f, rgbaNode->getOpacity() / 255.f };
@@ -195,7 +195,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
         if (ImGui::IsItemHovered()) ImGui::SetTooltip("\"ccColor3B({}, {}, {})\"<={color.r, color.g, color.b}");
         if (ImGui::Button(U8STR(FEATHER_EYE"##copyop"))) clipboard::write(fmt::format("{}", rgbaNode->getOpacity())); ImGui::SameLine();
         if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip("\"{}, {}, {}\"<={rgbaNode->getOpacity()}");
-        if (ImGui::ColorEdit4("Color", _color)) {
+        if (ImGui::ColorEdit4("Color"_LOCALE, _color)) {
             rgbaNode->setColor({
                 static_cast<GLubyte>(_color[0] * 255),
                 static_cast<GLubyte>(_color[1] * 255),
@@ -209,7 +209,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
         std::string str = labelNode->getString();
         if (ImGui::Button(U8STR(FEATHER_COPY"##copylabeltext"))) clipboard::write(fmt::format("{}", str)); ImGui::SameLine();
         if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip("\"{}\"<={str}");
-        if (ImGui::InputText("Text", &str, 256)) {
+        if (ImGui::InputText("Text"_LOCALE, &str, 256)) {
             labelNode->setString(str.c_str());
         }
     }
@@ -219,7 +219,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
             auto* cachedTextures = CCTextureCache::sharedTextureCache()->m_pTextures;
             for (auto [key, obj] : CCDictionaryExt<std::string, CCTexture2D*>(cachedTextures)) {
                 if (obj == texture) {
-                    ImGui::TextWrapped("Texture name: %s", key.c_str());
+                    ImGui::TextWrapped("Texture name: %s"_LOCALE, key.c_str());
                     break;
                 }
             }
@@ -229,9 +229,9 @@ void DevTools::drawNodeAttributes(CCNode* node) {
                 const auto rect = spriteNode->getTextureRect();
                 for (auto [key, frame] : CCDictionaryExt<std::string, CCSpriteFrame*>(cachedFrames)) {
                     if (frame->getTexture() == texture && frame->getRect() == rect) {
-                        ImGui::Text("Frame name: %s", key.c_str());
+                        ImGui::Text("Frame name: %s"_LOCALE, key.c_str());
                         ImGui::SameLine();
-                        if (ImGui::Button(U8STR(FEATHER_COPY " Copy##copysprframename"))) {
+                        if (ImGui::Button(LOCALE_WTH_FEATHER_ICON(FEATHER_COPY, " Copy##copysprframename"))) {
                             clipboard::write(key);
                         }
                         break;
@@ -247,9 +247,8 @@ void DevTools::drawNodeAttributes(CCNode* node) {
     ImGui::NewLine();
 
     if (auto rawOpts = node->getLayoutOptions()) {
-        ImGui::Text("Layout options: %s", typeid(*rawOpts).name());
-
-        if (ImGui::Button(U8STR(FEATHER_REFRESH_CW " Update Parent Layout"))) {
+        ImGui::Text("Layout options: %s"_LOCALE, typeid(*rawOpts).name());
+        if (ImGui::Button(LOCALE_WTH_FEATHER_ICON(FEATHER_REFRESH_CW, " Update Parent Layout"))) {
             if (auto parent = node->getParent()) {
                 parent->updateLayout();
             }
@@ -257,14 +256,14 @@ void DevTools::drawNodeAttributes(CCNode* node) {
         if (auto opts = typeinfo_cast<AxisLayoutOptions*>(rawOpts)) {
             bool updateLayout = false;
 
-            ImGui::Text("Auto Scale");
+            ImGui::Text("Auto Scale"_LOCALE);
             auto updateAxis = false;
             int autoScale = opts->getAutoScale() ? opts->getAutoScale().value() + 1 : 0;
-            updateAxis |= ImGui::RadioButton("Default", &autoScale, 0);
+            updateAxis |= ImGui::RadioButton("Default"_LOCALE, &autoScale, 0);
             ImGui::SameLine();
-            updateAxis |= ImGui::RadioButton("Enable", &autoScale, 1);
+            updateAxis |= ImGui::RadioButton("Enable"_LOCALE, &autoScale, 1);
             ImGui::SameLine();
-            updateAxis |= ImGui::RadioButton("Disable", &autoScale, 2);
+            updateAxis |= ImGui::RadioButton("Disable"_LOCALE, &autoScale, 2);
             if (updateAxis) {
                 switch (autoScale) {
                     case 0: opts->setAutoScale(std::nullopt); break;
@@ -274,15 +273,15 @@ void DevTools::drawNodeAttributes(CCNode* node) {
                 updateLayout = true;
             }
 
-            if (checkbox("Break Line", opts, AXIS_GET(BreakLine))) {
+            if (checkbox("Break Line"_LOCALE, opts, AXIS_GET(BreakLine))) {
                 updateLayout = true;
             }
-            if (checkbox("Same Line", opts, AXIS_GET(SameLine))) {
+            if (checkbox("Same Line"_LOCALE, opts, AXIS_GET(SameLine))) {
                 updateLayout = true;
             }
 
             auto prio = opts->getScalePriority();
-            if (ImGui::DragInt("Scale Priority", &prio, .03f)) {
+            if (ImGui::DragInt("Scale Priority"_LOCALE, &prio, .03f)) {
                 opts->setScalePriority(prio);
                 updateLayout = true;
             }
@@ -295,7 +294,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
             bool updateLayout = false;
 
             auto offset = opts->getOffset();
-            ImGui::DragFloat2("Offset", &offset.x);
+            ImGui::DragFloat2("Offset"_LOCALE, &offset.x);
             if (opts->getOffset() != offset) {
                 opts->setOffset(offset);
                 updateLayout = true;
@@ -305,17 +304,17 @@ void DevTools::drawNodeAttributes(CCNode* node) {
             auto updateAnchor = false;
             ImGui::BeginTable("anchor-table", 3);
             ImGui::TableNextColumn();
-            updateAnchor |= ImGui::RadioButton("Top Left", &anchor, static_cast<int>(Anchor::TopLeft));
-            updateAnchor |= ImGui::RadioButton("Left", &anchor, static_cast<int>(Anchor::Left));
-            updateAnchor |= ImGui::RadioButton("Bottom Left", &anchor, static_cast<int>(Anchor::BottomLeft));
+            updateAnchor |= ImGui::RadioButton("Top Left"_LOCALE, &anchor, static_cast<int>(Anchor::TopLeft));
+            updateAnchor |= ImGui::RadioButton("Left"_LOCALE, &anchor, static_cast<int>(Anchor::Left));
+            updateAnchor |= ImGui::RadioButton("Bottom Left"_LOCALE, &anchor, static_cast<int>(Anchor::BottomLeft));
             ImGui::TableNextColumn();
-            updateAnchor |= ImGui::RadioButton("Top", &anchor, static_cast<int>(Anchor::Top));
-            updateAnchor |= ImGui::RadioButton("Center", &anchor, static_cast<int>(Anchor::Center));
-            updateAnchor |= ImGui::RadioButton("Bottom", &anchor, static_cast<int>(Anchor::Bottom));
+            updateAnchor |= ImGui::RadioButton("Top"_LOCALE, &anchor, static_cast<int>(Anchor::Top));
+            updateAnchor |= ImGui::RadioButton("Center"_LOCALE, &anchor, static_cast<int>(Anchor::Center));
+            updateAnchor |= ImGui::RadioButton("Bottom"_LOCALE, &anchor, static_cast<int>(Anchor::Bottom));
             ImGui::TableNextColumn();
-            updateAnchor |= ImGui::RadioButton("Top Right", &anchor, static_cast<int>(Anchor::TopRight));
-            updateAnchor |= ImGui::RadioButton("Right", &anchor, static_cast<int>(Anchor::Right));
-            updateAnchor |= ImGui::RadioButton("Bottom Right", &anchor, static_cast<int>(Anchor::BottomRight));
+            updateAnchor |= ImGui::RadioButton("Top Right"_LOCALE, &anchor, static_cast<int>(Anchor::TopRight));
+            updateAnchor |= ImGui::RadioButton("Right"_LOCALE, &anchor, static_cast<int>(Anchor::Right));
+            updateAnchor |= ImGui::RadioButton("Bottom Right"_LOCALE, &anchor, static_cast<int>(Anchor::BottomRight));
             ImGui::EndTable();
 
             if (updateAnchor) {
@@ -331,10 +330,10 @@ void DevTools::drawNodeAttributes(CCNode* node) {
         }
     }
     else {
-        if (ImGui::Button(U8STR(FEATHER_PLUS " Add AxisLayoutOptions"))) {
+        if (ImGui::Button(LOCALE_WTH_FEATHER_ICON(FEATHER_PLUS, " Add AxisLayoutOptions"))) {
             node->setLayoutOptions(AxisLayoutOptions::create());
         }
-        if (ImGui::Button(U8STR(FEATHER_PLUS " Add AnchorLayoutOptions"))) {
+        if (ImGui::Button(LOCALE_WTH_FEATHER_ICON(FEATHER_PLUS, " Add AnchorLayoutOptions"))) {
             node->setLayoutOptions(AnchorLayoutOptions::create());
         }
     }
@@ -347,7 +346,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
         if (auto handler = CCTouchDispatcher::get()->findHandler(delegate)) {
             auto priority = handler->getPriority();
 
-            if (ImGui::DragInt("Touch Priority", &priority, .03f)) {
+            if (ImGui::DragInt("Touch Priority"_LOCALE, &priority, .03f)) {
                 CCTouchDispatcher::get()->setPriority(priority, handler->getDelegate());
             }
         }
@@ -359,13 +358,13 @@ void DevTools::drawNodeAttributes(CCNode* node) {
     ImGui::NewLine();
 
     if (auto rawLayout = node->getLayout()) {
-        ImGui::Text("Layout: %s", typeid(*rawLayout).name());
+        ImGui::Text("Layout: %s"_LOCALE, typeid(*rawLayout).name());
         
-        if (ImGui::Button(U8STR(FEATHER_REFRESH_CW " Update Layout"))) {
+        if (ImGui::Button(LOCALE_WTH_FEATHER_ICON(FEATHER_REFRESH_CW, " Update Layout"))) {
             node->updateLayout();
         }
         ImGui::SameLine();
-        if (ImGui::Button(U8STR(FEATHER_PLUS " Add Test Child"))) {
+        if (ImGui::Button(LOCALE_WTH_FEATHER_ICON(FEATHER_PLUS, " Add Test Child"))) {
             auto spr = CCSprite::create("GJ_button_01.png");
             auto btn = CCMenuItemSpriteExtra::create(spr, node, nullptr);
             node->addChild(btn);
@@ -375,11 +374,11 @@ void DevTools::drawNodeAttributes(CCNode* node) {
             bool updateLayout = false;
 
             auto axis = static_cast<int>(layout->getAxis());
-            ImGui::Text("Axis");
+            ImGui::Text("Axis"_LOCALE);
             auto updateAxis = false;
-            updateAxis |= ImGui::RadioButton("Row",    &axis, static_cast<int>(Axis::Row));
+            updateAxis |= ImGui::RadioButton("Row"_LOCALE,    &axis, static_cast<int>(Axis::Row));
             ImGui::SameLine();
-            updateAxis |= ImGui::RadioButton("Column", &axis, static_cast<int>(Axis::Column));
+            updateAxis |= ImGui::RadioButton("Column"_LOCALE, &axis, static_cast<int>(Axis::Column));
             if (updateAxis) {
                 if (layout->getAxis() != static_cast<Axis>(axis)) {
                     node->setContentSize({
@@ -392,38 +391,38 @@ void DevTools::drawNodeAttributes(CCNode* node) {
             }
 
             auto axisReverse = layout->getAxisReverse();
-            if (ImGui::Checkbox("Flip Axis Direction", &axisReverse)) {
+            if (ImGui::Checkbox("Flip Axis Direction"_LOCALE, &axisReverse)) {
                 layout->setAxisReverse(axisReverse);
                 updateLayout = true;
             }
             axisReverse = layout->getCrossAxisReverse();
-            if (ImGui::Checkbox("Flip Cross Axis Direction", &axisReverse)) {
+            if (ImGui::Checkbox("Flip Cross Axis Direction"_LOCALE, &axisReverse)) {
                 layout->setCrossAxisReverse(axisReverse);
                 updateLayout = true;
             }
 
             {
                 auto align = static_cast<int>(layout->getAxisAlignment());
-                ImGui::Text("Axis Alignment");
+                ImGui::Text("Axis Alignment"_LOCALE);
                 bool updateAlign = false;
                 updateAlign |= ImGui::RadioButton(
-                    "Start", &align, static_cast<int>(AxisAlignment::Start)
+                    "Start"_LOCALE, &align, static_cast<int>(AxisAlignment::Start)
                 );
                 ImGui::SameLine();
                 updateAlign |= ImGui::RadioButton(
-                    "Center", &align, static_cast<int>(AxisAlignment::Center)
+                    "Center"_LOCALE, &align, static_cast<int>(AxisAlignment::Center)
                 );
                 ImGui::SameLine();
                 updateAlign |= ImGui::RadioButton(
-                    "End", &align, static_cast<int>(AxisAlignment::End)
+                    "End"_LOCALE, &align, static_cast<int>(AxisAlignment::End)
                 );
                 ImGui::SameLine();
                 updateAlign |= ImGui::RadioButton(
-                    "Even", &align, static_cast<int>(AxisAlignment::Even)
+                    "Even"_LOCALE, &align, static_cast<int>(AxisAlignment::Even)
                 );
                 ImGui::SameLine();
                 updateAlign |= ImGui::RadioButton(
-                    "Between", &align, static_cast<int>(AxisAlignment::Between)
+                    "Between"_LOCALE, &align, static_cast<int>(AxisAlignment::Between)
                 );
                 if (updateAlign) {
                     layout->setAxisAlignment(static_cast<AxisAlignment>(align));
@@ -433,26 +432,26 @@ void DevTools::drawNodeAttributes(CCNode* node) {
 
             {
                 auto align = static_cast<int>(layout->getCrossAxisAlignment());
-                ImGui::Text("Cross Axis Alignment");
+                ImGui::Text("Cross Axis Alignment"_LOCALE);
                 bool updateAlign = false;
                 updateAlign |= ImGui::RadioButton(
-                    "Start##cross0", &align, static_cast<int>(AxisAlignment::Start)
+                    "Start##cross0"_LOCALE, &align, static_cast<int>(AxisAlignment::Start)
                 );
                 ImGui::SameLine();
                 updateAlign |= ImGui::RadioButton(
-                    "Center##cross1", &align, static_cast<int>(AxisAlignment::Center)
+                    "Center##cross1"_LOCALE, &align, static_cast<int>(AxisAlignment::Center)
                 );
                 ImGui::SameLine();
                 updateAlign |= ImGui::RadioButton(
-                    "End##cross2", &align, static_cast<int>(AxisAlignment::End)
+                    "End##cross2"_LOCALE, &align, static_cast<int>(AxisAlignment::End)
                 );
                 ImGui::SameLine();
                 updateAlign |= ImGui::RadioButton(
-                    "Even##cross3", &align, static_cast<int>(AxisAlignment::Even)
+                    "Even##cross3"_LOCALE, &align, static_cast<int>(AxisAlignment::Even)
                 );
                 ImGui::SameLine();
                 updateAlign |= ImGui::RadioButton(
-                    "Between##cross4", &align, static_cast<int>(AxisAlignment::Between)
+                    "Between##cross4"_LOCALE, &align, static_cast<int>(AxisAlignment::Between)
                 );
                 if (updateAlign) {
                     layout->setCrossAxisAlignment(static_cast<AxisAlignment>(align));
@@ -462,26 +461,26 @@ void DevTools::drawNodeAttributes(CCNode* node) {
 
             {
                 auto align = static_cast<int>(layout->getCrossAxisLineAlignment());
-                ImGui::Text("Cross Axis Line Alignment");
+                ImGui::Text("Cross Axis Line Alignment"_LOCALE);
                 bool updateAlign = false;
                 updateAlign |= ImGui::RadioButton(
-                    "Start##crossline0", &align, static_cast<int>(AxisAlignment::Start)
+                    "Start##crossline0"_LOCALE, &align, static_cast<int>(AxisAlignment::Start)
                 );
                 ImGui::SameLine();
                 updateAlign |= ImGui::RadioButton(
-                    "Center##crossline1", &align, static_cast<int>(AxisAlignment::Center)
+                    "Center##crossline1"_LOCALE, &align, static_cast<int>(AxisAlignment::Center)
                 );
                 ImGui::SameLine();
                 updateAlign |= ImGui::RadioButton(
-                    "End##crossline2", &align, static_cast<int>(AxisAlignment::End)
+                    "End##crossline2"_LOCALE, &align, static_cast<int>(AxisAlignment::End)
                 );
                 ImGui::SameLine();
                 updateAlign |= ImGui::RadioButton(
-                    "Even##crossline3", &align, static_cast<int>(AxisAlignment::Even)
+                    "Even##crossline3"_LOCALE, &align, static_cast<int>(AxisAlignment::Even)
                 );
                 ImGui::SameLine();
                 updateAlign |= ImGui::RadioButton(
-                    "Between##crossline4", &align, static_cast<int>(AxisAlignment::Between)
+                    "Between##crossline4"_LOCALE, &align, static_cast<int>(AxisAlignment::Between)
                 );
                 if (updateAlign) {
                     layout->setCrossAxisLineAlignment(static_cast<AxisAlignment>(align));
@@ -490,25 +489,25 @@ void DevTools::drawNodeAttributes(CCNode* node) {
             }
 
             auto gap = layout->getGap();
-            if (ImGui::DragFloat("Gap", &gap)) {
+            if (ImGui::DragFloat("Gap"_LOCALE, &gap)) {
                 layout->setGap(gap);
                 updateLayout = true;
             }
 
             auto autoScale = layout->getAutoScale();
-            if (ImGui::Checkbox("Auto Scale", &autoScale)) {
+            if (ImGui::Checkbox("Auto Scale"_LOCALE, &autoScale)) {
                 layout->setAutoScale(autoScale);
                 updateLayout = true;
             }
 
             auto grow = layout->getGrowCrossAxis();
-            if (ImGui::Checkbox("Grow Cross Axis", &grow)) {
+            if (ImGui::Checkbox("Grow Cross Axis"_LOCALE, &grow)) {
                 layout->setGrowCrossAxis(grow);
                 updateLayout = true;
             }
 
             auto overflow = layout->getCrossAxisOverflow();
-            if (ImGui::Checkbox("Allow Cross Axis Overflow", &overflow)) {
+            if (ImGui::Checkbox("Allow Cross Axis Overflow"_LOCALE, &overflow)) {
                 layout->setCrossAxisOverflow(overflow);
                 updateLayout = true;
             }
@@ -519,10 +518,10 @@ void DevTools::drawNodeAttributes(CCNode* node) {
         }
     }
     else {
-        if (ImGui::Button(U8STR(FEATHER_PLUS " Add AxisLayout"))) {
+        if (ImGui::Button(LOCALE_WTH_FEATHER_ICON(FEATHER_PLUS, " Add AxisLayout"))) {
             node->setLayout(AxisLayout::create());
         }
-        if (ImGui::Button(U8STR(FEATHER_PLUS " Add AnchorLayout"))) {
+        if (ImGui::Button(LOCALE_WTH_FEATHER_ICON(FEATHER_PLUS, " Add AnchorLayout"))) {
             node->setLayout(AnchorLayout::create());
         }
     }
@@ -530,7 +529,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
 
 void DevTools::drawAttributes() {
     if (!m_selectedNode) {
-        ImGui::TextWrapped("Select a Node to Edit in the Scene or Tree");
+        ImGui::TextWrapped("Select a Node to Edit in the Scene or Tree"_LOCALE);
     } else {
         this->drawNodeAttributes(m_selectedNode);
     }

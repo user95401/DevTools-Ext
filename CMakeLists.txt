@@ -7,9 +7,15 @@ project(DevTools VERSION 1.0.0)
 
 file(GLOB_RECURSE SOURCES
     src/*.cpp
+    src/*.c
 )
 
 add_library(${PROJECT_NAME} SHARED ${SOURCES} src/platform/Mac.mm)
+
+include_directories(
+    ./src/lang
+    ./src/
+)
 
 set_source_files_properties(src/platform/Mac.mm PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
 

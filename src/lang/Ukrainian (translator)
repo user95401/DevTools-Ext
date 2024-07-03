@@ -1,0 +1,651 @@
+//Ukrainian (translator)
+
+ADD_UTF8(
+
+"Shows ImGui Style Editor and Metrics.", 
+
+"Показує редактор стилів та показники ImGui."
+
+);
+ADD_UTF8(
+
+"Show ImGui Debug", 
+
+"Показати вікна розробника ImGui"
+
+);
+ADD_UTF8(
+
+"Show Memory Viewer", 
+
+"Показати Засіб Огляду Пам'яті"
+
+);
+ADD_UTF8(
+
+"Shows the memory viewer window.", 
+
+"Показує вікно перегляду пам'яті..."
+
+);
+ADD_UTF8(
+
+"Advanced Settings",
+
+"Розширені Налаштування"
+
+);
+ADD_UTF8(
+
+"Shows advanced settings. Mostly useful only for development of Geode itself.",
+
+"Відображає розширені налаштування. По суті, корисний лише для розробки самого Geode."
+
+);
+ADD_UTF8(
+
+"Order Node Children",
+
+"Упорядкування Дочірніх Нодів"
+
+);
+ADD_UTF8(
+
+"When enabled (default behavior) node children are sorted by Z Order.\n"
+"When disabled, children have the same order they do during init functions (maybe).\n"
+"As a side effect to disabling this, things may render incorrectly.",
+
+"Якщо ця функція включена (за замовчуванням), дочірні елементи нода сортуються відповідно до їх z-порядком.\n"
+"Якщо ви вимкнете її, дочірні елементи збережуть той самий порядок, який був при першому завантаженні сторінки (можливо).\n"
+"В результаті відключення цієї функції деякі елементи можуть відображатися некоректно."
+
+);
+ADD_UTF8(
+
+"Arrow to Expand",
+
+"Стрілка щоб розширити"
+
+);
+ADD_UTF8(
+
+"If enabled, expanding nodes in the Tree only works with the arrow.\n"
+"Makes selecting nodes less annoying.",
+
+"Якщо включено, розширення нодів в дереві працює тільки зі стрілкою.\n"
+"Робить вибір вузлів менш дратівливим"
+
+);
+ADD_UTF8(
+
+"Highlight Layouts",
+
+"Виділяти Лайаути"
+
+);
+ADD_UTF8(
+
+"Highlights the borders of all layouts applied to nodes",
+
+"Виділяє межі всіх лайаутів, застосованих до нодам"
+
+);
+ADD_UTF8(
+
+"Highlight Nodes",
+
+"Виділяти Ноди"
+
+);
+ADD_UTF8(
+
+"Always highlight nodes when hovered in the Tree.\n"
+"When disabled, you can highlight by pressing Shift.",
+
+"Завжди виділяти ноди при наведенні курсору миші в дереві.\n"
+"Якщо цей параметр вимкнено, ви можете виділити його, натиснувши Shift."
+
+);
+ADD_UTF8(
+
+"Font Size",
+
+"Розмір шрифту"
+
+);
+ADD_UTF8(
+
+"Theme",
+
+"Тема стилю"
+
+);
+ADD_UTF8(
+
+"Select Theme",
+
+"Вибрати Тему"
+
+);
+ADD_UTF8(
+
+"Language",
+
+"Мова / Language" 
+
+);
+ADD_UTF8(
+
+"Select Language",
+
+"Вибрати Мову / Select Language"
+
+);
+ADD_UTF8(
+
+"Reset Layout",
+
+"Перевстановити Лайаут"
+
+);
+ADD_UTF8(
+
+"Deselect",
+
+"Скасувати вибір"
+
+);
+ADD_UTF8(
+
+"Address: %s",
+
+"Адреса: %s"
+
+);
+ADD_UTF8(
+
+" Copy",
+
+" копіювати"
+
+);
+ADD_UTF8(
+
+"User data: 0x%p",
+
+"Пользов. дані: %s"
+
+);
+ADD_UTF8(
+
+"Node ID: %s",
+
+"ID: %s"
+
+);
+ADD_UTF8(
+
+"Node ID: N/A",
+
+"ID: НІ"
+
+);
+ADD_UTF8(
+
+" Copy##copynodeid",
+
+"копіювати ##copynodeid"
+
+);
+ADD_UTF8(
+
+"CCMenuItem selector: %s",
+
+"Селектор CCMenuItem: %s"
+
+);
+ADD_UTF8(
+
+" Copy##copymenuitem",
+
+" копір.##copymenuitem"
+
+);
+ADD_UTF8(
+
+"Position",
+
+"Позиція"
+
+);
+ADD_UTF8(
+
+"Gets the position (x,y) of the node in OpenGL coordinates.",
+
+"Повертає положення (x,y) нода в координатах OpenGL."
+
+);
+ADD_UTF8(
+
+"Scale",
+
+"Масштаб"
+
+);
+ADD_UTF8(
+
+"The scale factor of the node.",
+
+"Масштабний коефіцієнт нода."
+
+);
+ADD_UTF8(
+
+"Rotation",
+
+"Обертання"
+
+);
+ADD_UTF8(
+
+"The rotation of the node in degrees.",
+
+"Поворот нода в градусах."
+
+);
+ADD_UTF8(
+
+"Skew",
+
+"Скосу"
+
+);
+ADD_UTF8(
+
+"The skew angle of the node in degrees.",
+
+"Кут нахилу нода в градусах."
+
+);
+ADD_UTF8(
+
+"Anchor Point",
+
+"Опорна Точка"
+
+);
+ADD_UTF8(
+
+"The anchor point in percent.",
+
+"Опорна точка у відсотках."
+
+);
+ADD_UTF8(
+
+"Content Size",
+
+"Розмір"
+
+);
+ADD_UTF8(
+
+"The untransformed size of the node.",
+
+"Нетрансформований розмір нода."
+
+);
+ADD_UTF8(
+
+"Z Order",
+
+"Z-Порядок"
+
+);
+ADD_UTF8(
+
+"The z order which stands for the drawing order.",
+
+"Z-порядок позначає порядок малювання."
+
+);
+ADD_UTF8(
+
+"Ignore Anchor Point for Position",
+
+"Ігнор опорної точки для позиції"
+
+);
+ADD_UTF8(
+
+"Whether the anchor point will be (0,0) when you position this node.",
+
+"Чи буде опорна точка дорівнює (0,0) при розміщенні цього нода."
+
+);
+ADD_UTF8(
+
+"Visible",
+
+"Видимий"
+
+);
+ADD_UTF8(
+
+"Whether the node is visible.",
+
+"Чи видно нод."
+
+);
+ADD_UTF8(
+
+"Flip X",
+
+"Перевернути По X"
+
+);
+ADD_UTF8(
+
+"Whether the sprite is flipped horizontally or not." "\n"
+"It only flips the texture of the sprite, and not the texture of the sprite's children.",
+
+"Перевернутий спрайт по горизонталі чи ні." "\n"
+"При цьому перевертається тільки текстура спрайту, а не текстура дочірніх елементів спрайту."
+
+);
+ADD_UTF8(
+
+"Flip Y",
+
+"Перевернути По Y"
+
+);
+ADD_UTF8(
+
+"Whether the sprite is flipped vertically or not." "\n"
+"It only flips the texture of the sprite, and not the texture of the sprite's children.",
+
+"Перевернутий спрайт по вертикалі чи ні." "\n"
+"При цьому перевертається тільки текстура спрайту, а не текстура дочірніх елементів спрайту."
+
+);
+ADD_UTF8(
+
+"Cascade Color",
+
+"Послідовний колір"
+
+);
+ADD_UTF8(
+
+"Whether or not color should be propagated to its children.",
+
+"Чи слід передавати колір його дочірнім елементам чи ні."
+
+);
+ADD_UTF8(
+
+"Color",
+
+"Колір"
+
+);
+ADD_UTF8(
+
+"Text",
+
+"Текст"
+
+);
+ADD_UTF8(
+
+"Texture name: %s",
+
+"Назва текстури: %s"
+
+);
+ADD_UTF8(
+
+"Frame name: %s",
+
+"Ім'я кадру: %s"
+
+);
+ADD_UTF8(
+
+"Layout options: %s",
+
+"Параметри лайаута: %s"
+
+);
+ADD_UTF8(
+
+" Update Parent Layout",
+
+" Оновити Батьківський Лайаут"
+
+);
+ADD_UTF8(
+
+"Auto Scale",
+
+"Авто масштаб"
+
+);
+ADD_UTF8(
+
+"Default",
+
+"Дефолт"
+
+);
+ADD_UTF8(
+
+"Enable",
+
+"Включать"
+
+);
+ADD_UTF8(
+
+"Disable",
+
+"Відключивши"
+
+);
+ADD_UTF8(
+
+"Break Line",
+
+"Розрив лінії"
+
+);
+ADD_UTF8(
+
+"Same Line",
+
+"Та сама лінія"
+
+);
+ADD_UTF8(
+
+"Scale Priority",
+
+"Пріоритет Масштабу"
+
+);
+ADD_UTF8(
+
+"Offset",
+
+"Офсет"
+
+);
+ADD_UTF8(
+
+" Add AxisLayoutOptions",
+
+" Додати AxisLayoutOptions"
+
+);
+ADD_UTF8(
+
+" Add AnchorLayoutOptions",
+
+" Додати AnchorLayoutOptions"
+
+);
+ADD_UTF8(
+
+"Touch Priority",
+
+"Пріоритет Торкань"
+
+);
+ADD_UTF8(
+
+"Layout: %s",
+
+"Лайаут: %s"
+
+);
+ADD_UTF8(
+
+" Update Layout",
+
+" Оновити Лайаут"
+
+);
+ADD_UTF8(
+
+" Add Test Child",
+
+" Додати тестовий елемент"
+
+);
+ADD_UTF8(
+
+" Add AxisLayout",
+
+" Додати AxisLayout"
+
+);
+ADD_UTF8(
+
+" Add AnchorLayout",
+
+" Додати AnchorLayout"
+
+);
+ADD_UTF8(
+
+"Select a Node to Edit in the Scene or Tree",
+
+"Виберіть Нод для редагування в сцені або дереві"
+
+);
+ADD_UTF8(
+
+" Tree###devtools/tree",
+
+" Древо###devtools/tree"
+
+);
+ADD_UTF8(
+
+" Settings###devtools/settings",
+
+" Налаштування###devtools/settings"
+
+);
+ADD_UTF8(
+
+" Settings###devtools/settings",
+
+" Налаштування###devtools/settings"
+
+);
+ADD_UTF8(
+
+" Advanced Settings###devtools/advanced/settings",
+
+" Розширені налаштування###devtools/advanced/settings"
+
+);
+ADD_UTF8(
+
+" Attributes###devtools/attributes",
+
+" Атрибути###devtools/attributes"
+
+);
+ADD_UTF8(
+
+" Preview###devtools/preview",
+
+" Огляд###devtools/preview"
+
+);
+ADD_UTF8(
+
+" Mod Graph###devtools/advanced/mod-graph",
+
+" Графік модів###devtools/advanced/mod-graph"
+
+);
+ADD_UTF8(
+
+"Memory viewer",
+
+"Засіб Огляду Пам'яті"
+
+);
+ADD_UTF8(
+
+"Dear ImGui Style Editor",
+
+"Dear Imgui Редактор Стилів"
+
+);
+ADD_UTF8(
+
+"Addr",
+
+"Адрес"
+
+);
+ADD_UTF8(
+
+"Size",
+
+"Розмір"
+
+);
+ADD_UTF8(
+
+"Show raw bytes",
+
+"Показати сирі байти"
+
+);
+ADD_UTF8(
+
+"Selected Node",
+
+"Обраний Нод"
+
+);
+ADD_UTF8(
+
+"Refresh",
+
+"Оновити"
+
+);
+ADD_UTF8(
+
+"Save to file",
+
+"Зберегти у файл"
+
+);

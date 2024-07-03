@@ -26,7 +26,8 @@ struct matjson::Serialize<Settings> {
             .showMemoryViewer = value.try_get<bool>("show_memory_viewer").value_or(defaultSettings.showMemoryViewer),
             .theme = value.try_get<std::string>("theme").value_or(defaultSettings.theme),
             .FontGlobalScale = (float)value.try_get<double>("font_global_scale").value_or(defaultSettings.FontGlobalScale),
-            .DearImGuiWindows = value.try_get<bool>("dear_imgui_windows").value_or(defaultSettings.DearImGuiWindows)
+            .DearImGuiWindows = value.try_get<bool>("dear_imgui_windows").value_or(defaultSettings.DearImGuiWindows),
+            .lang = value.try_get<int>("lang").value_or(defaultSettings.lang)
         };
     }
 
@@ -43,6 +44,7 @@ struct matjson::Serialize<Settings> {
         obj["theme"] = settings.theme;
         obj["font_global_scale"] = settings.FontGlobalScale;
         obj["dear_imgui_windows"] = settings.DearImGuiWindows;
+        obj["lang"] = settings.lang;
         return obj;
     }
 
@@ -120,9 +122,9 @@ void DevTools::drawPages() {
         ImGui::DockBuilderDockWindow("###devtools/attributes", bottomLeftTopHalfDock);
         ImGui::DockBuilderDockWindow("###devtools/preview", leftDock);
         ImGui::DockBuilderDockWindow("###devtools/geometry-dash", id);
-        ImGui::DockBuilderDockWindow("Dear ImGui Style Editor", id);
-        ImGui::DockBuilderDockWindow("Dear ImGui Metrics/Debugger", id);
-        ImGui::DockBuilderDockWindow("Memory viewer", bottomRightDock);
+        ImGui::DockBuilderDockWindow("Dear ImGui Style Editor"_LOCALE, id);
+        ImGui::DockBuilderDockWindow("Dear ImGui Metrics/Debugger"_LOCALE, id);
+        ImGui::DockBuilderDockWindow("Memory viewer"_LOCALE, bottomRightDock);
         ImGui::DockBuilderDockWindow("###devtools/advanced/mod-graph", topLeftDock);
         ImGui::DockBuilderDockWindow("###devtools/advanced/mod-index", topLeftDock);
 
@@ -130,49 +132,49 @@ void DevTools::drawPages() {
     }
 
     this->drawPage(
-        U8STR(FEATHER_GIT_MERGE " Tree###devtools/tree"),
+        LOCALE_WTH_FEATHER_ICON(FEATHER_GIT_MERGE, " Tree###devtools/tree"),
         &DevTools::drawTree
     );
 
     this->drawPage(
-        U8STR(FEATHER_SETTINGS " Settings###devtools/settings"),
+        LOCALE_WTH_FEATHER_ICON(FEATHER_SETTINGS, " Settings###devtools/settings"),
         &DevTools::drawSettings
     );
 
     if (m_settings.advancedSettings) {
         this->drawPage(
-                U8STR(FEATHER_SETTINGS " Advanced Settings###devtools/advanced/settings"),
+            LOCALE_WTH_FEATHER_ICON(FEATHER_SETTINGS, " Advanced Settings###devtools/advanced/settings"),
                 &DevTools::drawAdvancedSettings
         );
     }
 
     this->drawPage(
-        U8STR(FEATHER_TOOL " Attributes###devtools/attributes"),
+        LOCALE_WTH_FEATHER_ICON(FEATHER_TOOL, " Attributes###devtools/attributes"),
         &DevTools::drawAttributes
     );
 
     // TODO: fix preview tab
 #if 0
     this->drawPage(
-        U8STR(FEATHER_DATABASE " Preview###devtools/preview"),
+        LOCALE_WTH_FEATHER_ICON(FEATHER_DATABASE, " Preview###devtools/preview"),
         &DevTools::drawPreview
     );
 #endif
 
     if (m_showModGraph) {
         this->drawPage(
-            U8STR(FEATHER_SHARE_2 " Mod Graph###devtools/advanced/mod-graph"),
+            LOCALE_WTH_FEATHER_ICON(FEATHER_SHARE_2, " Mod Graph###devtools/advanced/mod-graph"),
             &DevTools::drawModGraph
         );
     }
 
     if (m_settings.showMemoryViewer) {
-        this->drawPage("Memory viewer", &DevTools::drawMemory);
+        this->drawPage("Memory viewer"_LOCALE, &DevTools::drawMemory);
     }
 
     if (m_settings.DearImGuiWindows)
     {
-        ImGui::Begin(U8STR("Dear ImGui Style Editor"), &m_settings.DearImGuiWindows); {
+        ImGui::Begin("Dear ImGui Style Editor"_LOCALE, &m_settings.DearImGuiWindows); {
             ImGui::ShowStyleEditor();
         } ImGui::End();
         ImGui::ShowMetricsWindow();
@@ -196,7 +198,6 @@ void DevTools::draw(GLRenderCtx* ctx) {
         );
 
         //ImGui::PushFont(m_defaultFont);
-        ImGui::GetIO().FontDefault = m_defaultFont;
         this->drawPages();
         if (m_selectedNode) {
             this->highlightNode(m_selectedNode, HighlightMode::Selected);
@@ -208,7 +209,6 @@ void DevTools::draw(GLRenderCtx* ctx) {
 
 void DevTools::setupFonts() {
     auto& io = ImGui::GetIO();
-    io.Fonts->Clear();
 
     static const ImWchar def_ranges[] = {
         0x0020, 0x00FF, // Basic Latin + Latin Supplement
@@ -222,25 +222,57 @@ void DevTools::setupFonts() {
 
     static constexpr auto add_font = [](
         void* font, size_t realSize, float size, const ImWchar* range, std::string name = "UndefFont"
-    ) {
-        auto& io = ImGui::GetIO();
-        ImFontConfig config;
-        config.MergeMode = true;
-        for (int i = 0; i < name.size(); i++) config.Name[i] = name.at(i);
-        auto* result = io.Fonts->AddFontFromMemoryTTF(
-            font, realSize, size, nullptr, range
-        );
-        io.Fonts->AddFontFromMemoryTTF(
-            Font_FeatherIcons, sizeof(Font_FeatherIcons), size - 4.f, &config, icon_ranges
-        );
-        io.Fonts->Build();
-        return result;
-    };
+        ) {
+            auto& io = ImGui::GetIO();
+            //tar font
+            ImFontConfig config;
+            for (int i = 0; i < name.size(); i++) config.Name[i] = name.at(i);
+            //tar add
+            auto* result = io.Fonts->AddFontFromMemoryTTF(
+                font, realSize, size, &config, range
+            );
+            //add FeatherIcons
+            ImFontConfig FeatherIconsConfig;
+            FeatherIconsConfig.MergeMode = true;
+            auto FeatherIconsNameStr = std::string("FeatherIcons");
+            for (int i = 0; i < FeatherIconsNameStr.size(); i++) FeatherIconsConfig.Name[i] = FeatherIconsNameStr.at(i);
+            io.Fonts->AddFontFromMemoryTTF(
+                Font_FeatherIcons, sizeof(Font_FeatherIcons), size - 4.f, &FeatherIconsConfig, icon_ranges
+            );
+            //build up all
+            io.Fonts->Build();
+            return result;
+        };
+    static constexpr auto add_font_ttf = [](
+        std::string name, float size, const ImWchar* range
+        ) {
+            auto& io = ImGui::GetIO();
+            //tar font
+            ImFontConfig config;
+            for (int i = 0; i < name.size(); i++) config.Name[i] = name.at(i);
+            std::string fontPath = CCFileUtils::sharedFileUtils()->fullPathForFilename(name.c_str(), 0);
+            auto* result = io.Fonts->AddFontFromFileTTF(
+                fontPath.c_str(), size, nullptr, range
+            );
+            //add FeatherIcons
+            ImFontConfig FeatherIconsConfig;
+            FeatherIconsConfig.MergeMode = true;
+            auto FeatherIconsNameStr = std::string("FeatherIcons");
+            for (int i = 0; i < FeatherIconsNameStr.size(); i++) FeatherIconsConfig.Name[i] = FeatherIconsNameStr.at(i);
+            io.Fonts->AddFontFromMemoryTTF(
+                Font_FeatherIcons, sizeof(Font_FeatherIcons), size - 4.f, &FeatherIconsConfig, icon_ranges
+            );
+            //build up all
+            io.Fonts->Build();
+            return result;
+        };
 
     m_defaultFont = add_font(Font_OpenSans, sizeof(Font_OpenSans), 18.f, def_ranges, "OpenSans (defaultFont) [18]");
     m_smallFont = add_font(Font_OpenSans, sizeof(Font_OpenSans), 10.f, def_ranges, "OpenSans (smallFont) [10]");
     m_monoFont = add_font(Font_RobotoMono, sizeof(Font_RobotoMono), 18.f, def_ranges, "RobotoMono (monoFont) [18]");
     m_boxFont = add_font(Font_SourceCodeProLight, sizeof(Font_SourceCodeProLight), 23.f, box_ranges, "SourceCodeProLight (boxFont) [23]");
+
+    ImGui::GetIO().FontDefault = m_defaultFont;
 }
 
 void DevTools::setup() {
@@ -264,6 +296,8 @@ void DevTools::setup() {
 
     this->setupFonts();
     this->setupPlatform();
+
+    setLang(m_settings.lang);
 
 #ifdef GEODE_IS_MOBILE
     ImGui::GetStyle().ScrollbarSize = 42.f;

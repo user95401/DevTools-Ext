@@ -20,47 +20,47 @@ void DevTools::drawSettings() {
     // TODO: fix this option as it hasnt worked in a while lol
 #if 0
     //GD in Window
-    ImGui::Checkbox("GD in Window", &m_settings.GDInWindow);
-    if (ImGui::IsItemHovered()) ImGui::SetTooltip("Show GD inside a window when DevTools are open");
+    ImGui::Checkbox("GD in Window"_LOCALE, &m_settings.GDInWindow);
+    if (ImGui::IsItemHovered()) ImGui::SetTooltip("Show GD inside a window when DevTools are open"_LOCALE);
     //Attributes in Tree
-    ImGui::Checkbox("Attributes in Tree", &m_settings.attributesInTree);
-    if (ImGui::IsItemHovered()) ImGui::SetTooltip("Show node attributes in the Tree");
+    ImGui::Checkbox("Attributes in Tree"_LOCALE, &m_settings.attributesInTree);
+    if (ImGui::IsItemHovered()) ImGui::SetTooltip("Show node attributes in the Tree"_LOCALE);
 #endif
     //Highlight Nodes
-    ImGui::Checkbox("Highlight Nodes", &m_settings.alwaysHighlight);
+    ImGui::Checkbox("Highlight Nodes"_LOCALE, &m_settings.alwaysHighlight);
     if (ImGui::IsItemHovered()) ImGui::SetTooltip(
-            "Always highlight nodes when hovered in the Tree. "
-            "When disabled, you can highlight by pressing Shift."
+            "Always highlight nodes when hovered in the Tree.\n"
+            "When disabled, you can highlight by pressing Shift."_LOCALE
         );
     //Highlight Layouts
-    ImGui::Checkbox("Highlight Layouts", &m_settings.highlightLayouts);
-    if (ImGui::IsItemHovered()) ImGui::SetTooltip("Highlights the borders of all layouts applied to nodes");
+    ImGui::Checkbox("Highlight Layouts"_LOCALE, &m_settings.highlightLayouts);
+    if (ImGui::IsItemHovered()) ImGui::SetTooltip("Highlights the borders of all layouts applied to nodes"_LOCALE);
     //Arrow to Expand
-    ImGui::Checkbox("Arrow to Expand", &m_settings.arrowExpand);
+    ImGui::Checkbox("Arrow to Expand"_LOCALE, &m_settings.arrowExpand);
     if (ImGui::IsItemHovered()) ImGui::SetTooltip(
-            "If enabled, expanding nodes in the Tree only works with the arrow. "
-            "Makes selecting nodes less annoying."
-        );
+            "If enabled, expanding nodes in the Tree only works with the arrow.\n"
+            "Makes selecting nodes less annoying."_LOCALE
+    );
     //Order Node Children
-    ImGui::Checkbox("Order Node Children", &m_settings.orderChildren);
+    ImGui::Checkbox("Order Node Children"_LOCALE, &m_settings.orderChildren);
     if (ImGui::IsItemHovered()) ImGui::SetTooltip(
             "When enabled (default behavior) node children are sorted by Z Order.\n"
             "When disabled, children have the same order they do during init functions (maybe).\n"
-            "As a side effect to disabling this, things may render incorrectly."
+            "As a side effect to disabling this, things may render incorrectly."_LOCALE
         );
     //Advanced Settings
-    ImGui::Checkbox("Advanced Settings", &m_settings.advancedSettings);
-    if (ImGui::IsItemHovered()) ImGui::SetTooltip("Shows advanced settings. Mostly useful only for development of Geode itself.");
+    ImGui::Checkbox("Advanced Settings"_LOCALE, &m_settings.advancedSettings);
+    if (ImGui::IsItemHovered()) ImGui::SetTooltip("Shows advanced settings. Mostly useful only for development of Geode itself."_LOCALE);
     //Show Memory Viewer
-    ImGui::Checkbox("Show Memory Viewer", &m_settings.showMemoryViewer);
-    if (ImGui::IsItemHovered()) ImGui::SetTooltip("Shows the memory viewer window.");
+    ImGui::Checkbox("Show Memory Viewer"_LOCALE, &m_settings.showMemoryViewer);
+    if (ImGui::IsItemHovered()) ImGui::SetTooltip("Shows the memory viewer window."_LOCALE);
     //next ones shoud be latest always
-    ImGui::Checkbox("Show ImGui Debug", &m_settings.DearImGuiWindows);
-    if (ImGui::IsItemHovered()) ImGui::SetTooltip(U8STR("ѕоказывает редактор стилей и показатели ImGui."));//Shows ImGui Style Editor and Metrics
+    ImGui::Checkbox("Show ImGui Debug"_LOCALE, &m_settings.DearImGuiWindows);
+    if (ImGui::IsItemHovered()) ImGui::SetTooltip("Shows ImGui Style Editor and Metrics."_LOCALE);//Shows ImGui Style Editor and Metrics
     //Font Size
     ImGui::PopStyleVar();
     ImGui::Separator();
-    ImGui::DragFloat("Font Size", &m_settings.FontGlobalScale, 0.01f, 1.0f, 3.0f);
+    ImGui::DragFloat("Font Size"_LOCALE, &m_settings.FontGlobalScale, 0.01f, 1.0f, 3.0f);
     ImGui::Separator();
 
     // TODO: undo later
@@ -151,21 +151,27 @@ void DevTools::drawSettings() {
     ImGui::Separator();
 #endif
 
-    ImGui::Text("Theme");
+    ImGui::Text("Theme"_LOCALE);
     static auto SELECTED = static_cast<int>(getThemeIndex(m_settings.theme));
-    if (ImGui::Combo("##devtools/theme", &SELECTED,
-        (ranges::join(getThemeOptions(), std::string(1, '\0')) + '\0').c_str()
-    )) {
+    if (ImGui::Combo("##devtools/theme", &SELECTED, (ranges::join(getThemeOptions(), std::string(1, '\0')) + '\0').c_str())) {
         m_settings.theme = getThemeAtIndex(SELECTED);
         m_reloadTheme = true;
     }
     if (ImGui::IsItemHovered()) {
-        ImGui::SetTooltip("Select Theme");
+        ImGui::SetTooltip("Select Theme"_LOCALE);
     }
 
     ImGui::Separator();
 
-    ImGui::TextWrapped("Developed by ");
+    ImGui::Text("Language"_LOCALE);
+    if (ImGui::Combo("##devtools/lang", &m_settings.lang, (ranges::join(lang_list, std::string(1, '\0')) + '\0').c_str())) {
+        setLang(m_settings.lang);
+    }
+    if (ImGui::IsItemHovered()) ImGui::SetTooltip("Select Language"_LOCALE);
+
+    ImGui::Separator();
+
+    ImGui::TextWrapped("Developed by "_LOCALE);
 
     RAINBOW_HUE += 0.01f;
     if (RAINBOW_HUE >= 1.f) {
@@ -184,12 +190,12 @@ void DevTools::drawSettings() {
     }
 
     ImGui::TextWrapped(
-        "Running Geode %s, DevTools %s",
+        "Running Geode %s, DevTools %s"_LOCALE,
         Loader::get()->getVersion().toString().c_str(),
         Mod::get()->getVersion().toString().c_str()
     );
 
-    if (ImGui::Button("Reset Layout")) {
+    if (ImGui::Button("Reset Layout"_LOCALE)) {
         m_shouldRelayout = true;
     }
 }
