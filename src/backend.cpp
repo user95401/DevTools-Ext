@@ -344,8 +344,8 @@ class $modify(CCLayerExt, CCLayer) {
         VK_TO_ADD_KEY_EVENT(SNAPSHOT, PrintScreen);//0X2C,
         VK_TO_ADD_KEY_EVENT(INSERT, Insert);//0X2D,
         VK_TO_ADD_KEY_EVENT(DELETE, Delete);//0X2E,
-        VK_TO_ADD_KEY_EVENT(LSHIFT, LeftShift);//0XA0,
-        VK_TO_ADD_KEY_EVENT(RSHIFT, RightShift);//0XA1
+        //IS_SENT_BY_DISPATCHER..VK_TO_ADD_KEY_EVENT(LSHIFT, LeftShift);//0XA0,
+        //IS_SET_IN_NEWFRAME...VK_TO_ADD_KEY_EVENT(RSHIFT, RightShift);//0XA1
     }
     bool init() {
         //ily schedule
@@ -416,8 +416,8 @@ class $modify(CCLayerExt, CCLayer) {
         KeyDownToAddKeyEvent(F11);//0x7A,
         KeyDownToAddKeyEvent(F12);//0x7B,
         KeyDownToAddKeyEvent(ScrollLock);//0x91,
-        KeyDownToAddKeyEvent(LeftShift);//0xA0,
-        KeyDownToAddKeyEvent(RightShift);//0xA1
+        //IS_SET_IN_NEWFRAME...KeyDownToAddKeyEvent(LeftShift);//0xA0,
+        //IS_SET_IN_NEWFRAME...KeyDownToAddKeyEvent(RightShift);//0xA1
     }
 #endif // GEODE_IS_WINDOWS
 };

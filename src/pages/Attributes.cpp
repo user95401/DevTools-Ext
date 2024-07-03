@@ -170,16 +170,18 @@ void DevTools::drawNodeAttributes(CCNode* node) {
     );
 
     if (auto spriteNode = typeinfo_cast<CCSprite*>(node)) {
-        checkbox("Flip X", spriteNode, &CCSprite::isFlipX, &CCSprite::setFlipX);
+//#ifndef GEODE_IS_MACOS //Undefined symbols...?
+        checkbox("Flip X", spriteNode, &cocos2d::CCSprite::isFlipX, &cocos2d::CCSprite::setFlipX);
         if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip(
             "Whether the sprite is flipped horizontally or not." "\n"
             "It only flips the texture of the sprite, and not the texture of the sprite's children."
         );
-        checkbox("Flip Y", spriteNode, &CCSprite::isFlipY, &CCSprite::setFlipY);
+        checkbox("Flip Y", spriteNode, &cocos2d::CCSprite::isFlipY, &cocos2d::CCSprite::setFlipY);
         if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip(
             "Whether the sprite is flipped vertically or not." "\n"
             "It only flips the texture of the sprite, and not the texture of the sprite's children."
         );
+//#endif
     }
     
     if (auto rgbaNode = typeinfo_cast<CCRGBAProtocol*>(node)) {
