@@ -242,6 +242,10 @@ void DevTools::drawNodeAttributes(CCNode* node) {
         }
     }
 
+    ImGui::NewLine();
+    ImGui::Separator();
+    ImGui::NewLine();
+
     if (auto rawOpts = node->getLayoutOptions()) {
         ImGui::Text("Layout options: %s", typeid(*rawOpts).name());
 

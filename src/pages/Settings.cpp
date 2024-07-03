@@ -1,3 +1,4 @@
+#include "../fonts/FeatherIcons.hpp"
 #include "../DevTools.hpp"
 #include <Geode/loader/Loader.hpp>
 #include <Geode/loader/Mod.hpp>
@@ -54,10 +55,8 @@ void DevTools::drawSettings() {
     ImGui::Checkbox("Show Memory Viewer", &m_settings.showMemoryViewer);
     if (ImGui::IsItemHovered()) ImGui::SetTooltip("Shows the memory viewer window.");
     //next ones shoud be latest always
-    ImGui::Checkbox("Show Dear ImGui Metrics", &m_settings.DearImGuiMetrics);
-    if (ImGui::IsItemHovered()) ImGui::SetTooltip("Shows an ImGui metrics window.");
-    ImGui::Checkbox("Show Style Editor", &m_settings.StyleEditor);
-    if (ImGui::IsItemHovered()) ImGui::SetTooltip("Shows an ImGui Style Editor.");
+    ImGui::Checkbox("Show ImGui Debug", &m_settings.DearImGuiWindows);
+    if (ImGui::IsItemHovered()) ImGui::SetTooltip(U8STR("ѕоказывает редактор стилей и показатели ImGui."));//Shows ImGui Style Editor and Metrics
     //Font Size
     ImGui::PopStyleVar();
     ImGui::Separator();
@@ -200,7 +199,7 @@ class $modify(AppDelegate) {
         AppDelegate::applicationWillEnterForeground();
         if (DevTools::get()->pausedGame()) {
             // TODO: undo later
-            // FMODAudioEngine::sharedEngine()->m_globalChannel->setPaused(true);
+            FMODAudioEngine::sharedEngine()->m_globalChannel->setPaused(true);
         }
     }
 };

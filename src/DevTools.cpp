@@ -26,8 +26,7 @@ struct matjson::Serialize<Settings> {
             .showMemoryViewer = value.try_get<bool>("show_memory_viewer").value_or(defaultSettings.showMemoryViewer),
             .theme = value.try_get<std::string>("theme").value_or(defaultSettings.theme),
             .FontGlobalScale = (float)value.try_get<double>("font_global_scale").value_or(defaultSettings.FontGlobalScale),
-            .DearImGuiMetrics = value.try_get<bool>("dear_imgui_metrics").value_or(defaultSettings.DearImGuiMetrics),
-            .StyleEditor = value.try_get<bool>("style_editor").value_or(defaultSettings.StyleEditor)
+            .DearImGuiWindows = value.try_get<bool>("dear_imgui_windows").value_or(defaultSettings.DearImGuiWindows)
         };
     }
 
@@ -43,8 +42,7 @@ struct matjson::Serialize<Settings> {
         obj["show_memory_viewer"] = settings.showMemoryViewer;
         obj["theme"] = settings.theme;
         obj["font_global_scale"] = settings.FontGlobalScale;
-        obj["dear_imgui_metrics"] = settings.DearImGuiMetrics;
-        obj["style_editor"] = settings.StyleEditor;
+        obj["dear_imgui_windows"] = settings.DearImGuiWindows;
         return obj;
     }
 
@@ -122,10 +120,11 @@ void DevTools::drawPages() {
         ImGui::DockBuilderDockWindow("###devtools/attributes", bottomLeftTopHalfDock);
         ImGui::DockBuilderDockWindow("###devtools/preview", leftDock);
         ImGui::DockBuilderDockWindow("###devtools/geometry-dash", id);
+        ImGui::DockBuilderDockWindow("Dear ImGui Style Editor", id);
+        ImGui::DockBuilderDockWindow("Dear ImGui Metrics/Debugger", id);
+        ImGui::DockBuilderDockWindow("Memory viewer", bottomRightDock);
         ImGui::DockBuilderDockWindow("###devtools/advanced/mod-graph", topLeftDock);
         ImGui::DockBuilderDockWindow("###devtools/advanced/mod-index", topLeftDock);
-        ImGui::DockBuilderDockWindow("Memory viewer", bottomRightDock);
-        ImGui::DockBuilderDockWindow("Dear ImGui Metrics/Debugger", topLeftDock);
 
         ImGui::DockBuilderFinish(id);
     }
@@ -171,13 +170,12 @@ void DevTools::drawPages() {
         this->drawPage("Memory viewer", &DevTools::drawMemory);
     }
 
-    if (m_settings.DearImGuiMetrics) ImGui::ShowMetricsWindow(&m_settings.DearImGuiMetrics);
-
-    if (m_settings.StyleEditor)
+    if (m_settings.DearImGuiWindows)
     {
-        ImGui::Begin("Dear ImGui Style Editor", &m_settings.StyleEditor);
-        ImGui::ShowStyleEditor();
-        ImGui::End();
+        ImGui::Begin(U8STR("Dear ImGui Style Editor"), &m_settings.DearImGuiWindows); {
+            ImGui::ShowStyleEditor();
+        } ImGui::End();
+        ImGui::ShowMetricsWindow();
     }
 }
 
@@ -197,27 +195,38 @@ void DevTools::draw(GLRenderCtx* ctx) {
             nullptr, ImGuiDockNodeFlags_PassthruCentralNode
         );
 
-        ImGui::PushFont(m_defaultFont);
+        //ImGui::PushFont(m_defaultFont);
+        ImGui::GetIO().FontDefault = m_defaultFont;
         this->drawPages();
         if (m_selectedNode) {
             this->highlightNode(m_selectedNode, HighlightMode::Selected);
         }
         if (this->shouldUseGDWindow()) this->drawGD(ctx);
-        ImGui::PopFont();
+        //ImGui::PopFont();
     }
 }
 
 void DevTools::setupFonts() {
-    static const ImWchar icon_ranges[] = { FEATHER_MIN_FA, FEATHER_MAX_FA, 0 };
-    static const ImWchar box_ranges[]  = { BOX_DRAWING_MIN_FA, BOX_DRAWING_MAX_FA, 0 };
-    static const ImWchar* def_ranges   = ImGui::GetIO().Fonts->GetGlyphRangesDefault();
+    auto& io = ImGui::GetIO();
+    io.Fonts->Clear();
+
+    static const ImWchar def_ranges[] = {
+        0x0020, 0x00FF, // Basic Latin + Latin Supplement
+        0x0400, 0x052F, // Cyrillic + Cyrillic Supplement
+        0x2DE0, 0x2DFF, // Cyrillic Extended-A
+        0xA640, 0xA69F, // Cyrillic Extended-B
+        0,
+    };
+    static const ImWchar icon_ranges[] = { FEATHER_MIN_FA, FEATHER_MAX_FA, 0};
+    static const ImWchar box_ranges[] = { BOX_DRAWING_MIN_FA, BOX_DRAWING_MAX_FA, 0 };
 
     static constexpr auto add_font = [](
-        void* font, size_t realSize, float size, const ImWchar* range
+        void* font, size_t realSize, float size, const ImWchar* range, std::string name = "UndefFont"
     ) {
         auto& io = ImGui::GetIO();
         ImFontConfig config;
         config.MergeMode = true;
+        for (int i = 0; i < name.size(); i++) config.Name[i] = name.at(i);
         auto* result = io.Fonts->AddFontFromMemoryTTF(
             font, realSize, size, nullptr, range
         );
@@ -228,10 +237,10 @@ void DevTools::setupFonts() {
         return result;
     };
 
-    m_defaultFont = add_font(Font_OpenSans, sizeof(Font_OpenSans), 18.f, def_ranges);
-    m_smallFont = add_font(Font_OpenSans, sizeof(Font_OpenSans), 10.f, def_ranges);
-    m_monoFont = add_font(Font_RobotoMono, sizeof(Font_RobotoMono), 18.f, def_ranges);
-    m_boxFont = add_font(Font_SourceCodeProLight, sizeof(Font_SourceCodeProLight), 23.f, box_ranges);
+    m_defaultFont = add_font(Font_OpenSans, sizeof(Font_OpenSans), 18.f, def_ranges, "OpenSans (defaultFont) [18]");
+    m_smallFont = add_font(Font_OpenSans, sizeof(Font_OpenSans), 10.f, def_ranges, "OpenSans (smallFont) [10]");
+    m_monoFont = add_font(Font_RobotoMono, sizeof(Font_RobotoMono), 18.f, def_ranges, "RobotoMono (monoFont) [18]");
+    m_boxFont = add_font(Font_SourceCodeProLight, sizeof(Font_SourceCodeProLight), 23.f, box_ranges, "SourceCodeProLight (boxFont) [23]");
 }
 
 void DevTools::setup() {
