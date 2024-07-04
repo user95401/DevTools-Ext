@@ -56,7 +56,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
             clipboard::write(nodeID);
         }
     } else {
-        ImGui::Text("Node ID: N/A"_LOCALE);
+        ImGui::Text("%s", "Node ID: N/A"_LOCALE);
     }
 
     if (auto menuItemNode = typeinfo_cast<CCMenuItem*>(node)) {
@@ -83,7 +83,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
     if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip("\"CCPoint({}, {})\"<={pos[0], pos[1]}");
     ImGui::DragFloat2("Position"_LOCALE, pos);
     if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip(
-        "Gets the position (x,y) of the node in OpenGL coordinates."_LOCALE
+        "%s", "Gets the position (x,y) of the node in OpenGL coordinates."_LOCALE
     );
     node->setPosition(pos[0], pos[1]);
 
@@ -92,7 +92,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
     if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip("\"({}, {})\"<={scale[1], scale[2]}");
     ImGui::DragFloat3("Scale"_LOCALE, scale, 0.025f);
     if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip(
-        "The scale factor of the node."_LOCALE
+        "%s", "The scale factor of the node."_LOCALE
     );
     if (node->getScale() != scale[0]) {
         node->setScale(scale[0]);
@@ -105,7 +105,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
     if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip("\"{}\"<={rot[0]} or \"{} {} {}\"<={rot[0], rot[1], rot[2]} if rot[1,2] != 0");
     ImGui::DragFloat3("Rotation"_LOCALE, rot);
     if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip(
-        "The rotation of the node in degrees."_LOCALE
+        "%s", "The rotation of the node in degrees."_LOCALE
     );
     if (node->getRotation() != rot[0]) {
         node->setRotation(rot[0]);
@@ -119,7 +119,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
     if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip("\"{} {}\"<={skew[0], skew[1]}");
     ImGui::DragFloat2("Skew"_LOCALE, skew);
     if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip(
-        "The skew angle of the node in degrees."_LOCALE
+        "%s", "The skew angle of the node in degrees."_LOCALE
     );
     node->setSkewX(skew[0]);
     node->setSkewY(skew[1]);
@@ -129,7 +129,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
     if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip("\"CCPoint({}, {})\"<={anchor.x, anchor.y}");
     ImGui::DragFloat2("Anchor Point"_LOCALE, &anchor.x, 0.05f, 0.f, 1.f);
     if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip(
-        "The anchor point in percent."_LOCALE
+        "%s", "The anchor point in percent."_LOCALE
     );
     node->setAnchorPoint(anchor);
 
@@ -138,7 +138,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
     if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip("\"CCSize({}, {})\"<={contentSize.width, contentSize.height}");
     ImGui::DragFloat2("Content Size"_LOCALE, &contentSize.width);
     if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip(
-        "The untransformed size of the node."_LOCALE
+        "%s", "The untransformed size of the node."_LOCALE
     );
     if (contentSize != node->getContentSize()) {
         node->setContentSize(contentSize);
@@ -150,7 +150,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
     if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip("\"{}\"<={zOrder}");
     ImGui::InputInt("Z Order"_LOCALE, &zOrder);
     if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip(
-        "The z order which stands for the drawing order."_LOCALE
+        "%s", "The z order which stands for the drawing order."_LOCALE
     );
     if (node->getZOrder() != zOrder) node->setZOrder(zOrder);
 
@@ -161,24 +161,24 @@ void DevTools::drawNodeAttributes(CCNode* node) {
         &CCNode::ignoreAnchorPointForPosition
     );
     if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip(
-        "Whether the anchor point will be (0,0) when you position this node."_LOCALE
+        "%s", "Whether the anchor point will be (0,0) when you position this node."_LOCALE
     );
     
     checkbox("Visible"_LOCALE, node, &CCNode::isVisible, &CCNode::setVisible);
     if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip(
-        "Whether the node is visible."_LOCALE
+        "%s", "Whether the node is visible."_LOCALE
     );
 
     if (auto spriteNode = typeinfo_cast<CCSprite*>(node)) {
 #ifndef GEODE_IS_ARM_MAC //Undefined symbols...?
         checkbox("Flip X"_LOCALE, spriteNode, &cocos2d::CCSprite::isFlipX, &cocos2d::CCSprite::setFlipX);
         if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip(
-            "Whether the sprite is flipped horizontally or not." "\n"
+            "%s", "Whether the sprite is flipped horizontally or not." "\n"
             "It only flips the texture of the sprite, and not the texture of the sprite's children."_LOCALE
         );
         checkbox("Flip Y"_LOCALE, spriteNode, &cocos2d::CCSprite::isFlipY, &cocos2d::CCSprite::setFlipY);
         if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip(
-            "Whether the sprite is flipped vertically or not." "\n"
+            "%s", "Whether the sprite is flipped vertically or not." "\n"
             "It only flips the texture of the sprite, and not the texture of the sprite's children."_LOCALE
         );
 #endif
@@ -187,7 +187,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
     if (auto rgbaNode = typeinfo_cast<CCRGBAProtocol*>(node)) {
         checkbox("Cascade Color"_LOCALE, rgbaNode, &CCRGBAProtocol::isCascadeColorEnabled, &CCRGBAProtocol::setCascadeColorEnabled);
         if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip(
-                "Whether or not color should be propagated to its children."_LOCALE
+                "%s", "Whether or not color should be propagated to its children."_LOCALE
             );
         auto color = rgbaNode->getColor();
         float _color[4] = { color.r / 255.f, color.g / 255.f, color.b / 255.f, rgbaNode->getOpacity() / 255.f };
@@ -256,7 +256,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
         if (auto opts = typeinfo_cast<AxisLayoutOptions*>(rawOpts)) {
             bool updateLayout = false;
 
-            ImGui::Text("Auto Scale"_LOCALE);
+            ImGui::Text("%s", "Auto Scale"_LOCALE);
             auto updateAxis = false;
             int autoScale = opts->getAutoScale() ? opts->getAutoScale().value() + 1 : 0;
             updateAxis |= ImGui::RadioButton("Default"_LOCALE, &autoScale, 0);
@@ -374,7 +374,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
             bool updateLayout = false;
 
             auto axis = static_cast<int>(layout->getAxis());
-            ImGui::Text("Axis"_LOCALE);
+            ImGui::Text("%s", "Axis"_LOCALE);
             auto updateAxis = false;
             updateAxis |= ImGui::RadioButton("Row"_LOCALE,    &axis, static_cast<int>(Axis::Row));
             ImGui::SameLine();
@@ -403,7 +403,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
 
             {
                 auto align = static_cast<int>(layout->getAxisAlignment());
-                ImGui::Text("Axis Alignment"_LOCALE);
+                ImGui::Text("%s", "Axis Alignment"_LOCALE);
                 bool updateAlign = false;
                 updateAlign |= ImGui::RadioButton(
                     "Start"_LOCALE, &align, static_cast<int>(AxisAlignment::Start)
@@ -432,7 +432,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
 
             {
                 auto align = static_cast<int>(layout->getCrossAxisAlignment());
-                ImGui::Text("Cross Axis Alignment"_LOCALE);
+                ImGui::Text("%s", "Cross Axis Alignment"_LOCALE);
                 bool updateAlign = false;
                 updateAlign |= ImGui::RadioButton(
                     "Start##cross0"_LOCALE, &align, static_cast<int>(AxisAlignment::Start)
@@ -461,7 +461,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
 
             {
                 auto align = static_cast<int>(layout->getCrossAxisLineAlignment());
-                ImGui::Text("Cross Axis Line Alignment"_LOCALE);
+                ImGui::Text("%s", "Cross Axis Line Alignment"_LOCALE);
                 bool updateAlign = false;
                 updateAlign |= ImGui::RadioButton(
                     "Start##crossline0"_LOCALE, &align, static_cast<int>(AxisAlignment::Start)
@@ -529,7 +529,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
 
 void DevTools::drawAttributes() {
     if (!m_selectedNode) {
-        ImGui::TextWrapped("Select a Node to Edit in the Scene or Tree"_LOCALE);
+        ImGui::TextWrapped("%s", "Select a Node to Edit in the Scene or Tree"_LOCALE);
     } else {
         this->drawNodeAttributes(m_selectedNode);
     }
