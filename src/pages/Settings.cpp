@@ -8,6 +8,10 @@
 #include <fmod.hpp>
 #include <numeric>
 
+#include <Geode/ui/GeodeUI.hpp>
+class ModSettingsPopup : public FLAlertLayer {};
+class ModPopup : public FLAlertLayer {};
+
 using namespace geode::prelude;
 
 static float RAINBOW_HUE = 0.f;
@@ -168,6 +172,7 @@ void DevTools::drawSettings() {
         setLang(m_settings.lang);
     }
     if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", "Select Language"_LOCALE);
+    if (std::string(lang_inf).size() > 1) ImGui::TextWrapped("%s", lang_inf);
 
     ImGui::Separator();
 
@@ -190,14 +195,35 @@ void DevTools::drawSettings() {
     }
 
     ImGui::TextWrapped(
-        "Running Geode %s, DevTools %s"_LOCALE,
+        "Running Geode %s, DevTools %s"
+        "\nPlatform: %s"
+        "\nGame Version: %.3lf"_LOCALE,
         Loader::get()->getVersion().toString().c_str(),
-        Mod::get()->getVersion().toString().c_str()
+        Mod::get()->getVersion().toString().c_str(),
+        GEODE_PLATFORM_NAME,
+        GEODE_GD_VERSION
     );
 
     if (ImGui::Button("Reset Layout"_LOCALE)) {
         m_shouldRelayout = true;
     }
+    if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", "Reset the windows docking and stuff."_LOCALE);
+
+    ImGui::SameLine();
+
+    if (ImGui::Button("Mod Settings"_LOCALE)) {
+        //try find already opened mod popup of devtools
+        auto devToolsPopup = findFirstChildRecursive<ModPopup>(
+            CCDirector::get()->m_pRunningScene, 
+            [](auto testNode) {
+                auto firstLabel = findFirstChildRecursive<CCLabelBMFont>(testNode, [](auto) { return true; });
+                if (firstLabel; Mod::get()->getName() == firstLabel->getString()) return true;
+                return false; 
+            }
+        );
+        if (not devToolsPopup) openIndexPopup(Mod::get());
+    }
+    if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", "Actually opens mod popup where you can open settings, read smth and go some links for example."_LOCALE);
 }
 
 class $modify(AppDelegate) {

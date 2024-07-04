@@ -305,7 +305,7 @@ void DevTools::setup() {
     ImGui::GetStyle().GrabMinSize = 30.f;
     ImGui::GetStyle().ItemSpacing = { 16.f, 16.f };
     ImGui::GetStyle().FramePadding = { 12.f, 10.f };
-    io.ConfigFlags |= ImGuiConfigFlags_IsTouchScreen;
+    //io.ConfigFlags |= ImGuiConfigFlags_IsTouchScreen;
 #endif
 }
 
@@ -325,8 +325,8 @@ void DevTools::show(bool visible) {
 void DevTools::toggle() {
     this->show(!m_visible);
     if (!m_visible) {
-        //ImGui::GetIO().WantCaptureMouse = false;
-        //ImGui::GetIO().WantCaptureKeyboard = false;
+        ImGui::GetIO().WantCaptureMouse = false;
+        ImGui::GetIO().WantCaptureKeyboard = false;
     }
 }
 

@@ -6,11 +6,14 @@
 
 inline std::vector<std::string> lang_list = { "None (eng)", "Russian", "Ukrainian (translator)", "Spanish (translator)" };
 inline std::string lang = "None (eng)";
+inline const char* lang_inf = "";
 inline void setLang(int listVecPoint) {
 	lang = lang_list.size() > listVecPoint ? lang_list.at(listVecPoint) : lang_list.at(0);
 };
 inline auto locale_str(const char* pChar) {
 	//geode::log::debug("{}(pChar \"{}\");", __FUNCTION__, pChar);
+	//clear lang inf
+	lang_inf = "";
 	//russian
 #define NEXT_LANG_TO_SETUP "Russian" 
 #include <lang/setup_next_macro.h>

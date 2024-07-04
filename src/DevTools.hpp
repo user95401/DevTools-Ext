@@ -3,6 +3,7 @@
 #include "platform/platform.hpp"
 #include <imgui.h>
 #include "themes.hpp"
+#include "ImGui.hpp"
 #include <cocos2d.h>
 #include <Geode/utils/cocos.hpp>
 #include <Geode/utils/addresser.hpp>
