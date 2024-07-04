@@ -15,6 +15,8 @@
 
 using namespace geode::prelude;
 
+#include <utils.hpp>
+
 enum class HighlightMode {
     Selected,
     Hovered,
@@ -34,19 +36,26 @@ struct Settings {
     float FontGlobalScale = 1.0;
     bool DearImGuiWindows = false;
     int lang = 0;
+#ifdef GEODE_IS_DESKTOP
+    std::string openBtnID = "none (dont use any btn)";
+#else
+    std::string openBtnID = "more-games-button";
+#endif
+    bool openBtnCallOriginal = false;
 };
 
 class DevTools {
-protected:
     bool m_visible = false;
     bool m_setup = false;
     bool m_reloadTheme = true;
     bool m_shouldRelayout = false;
     bool m_showModGraph = false;
     bool m_pauseGame = false;
+    bool m_listenForBtnSetup = false;
     Settings m_settings;
     ImGuiID m_dockspaceID;
     ImFont* m_defaultFont  = nullptr;
+    ImFont* m_bigFont    = nullptr;
     ImFont* m_smallFont    = nullptr;
     ImFont* m_monoFont     = nullptr;
     ImFont* m_boxFont      = nullptr;
@@ -87,6 +96,10 @@ public:
     static DevTools* get();
     void loadSettings();
     void saveSettings();
+    auto getSettings() { return &m_settings; };
+
+    auto isListenForBtnSetup() { return m_listenForBtnSetup; };
+    auto setListenForBtnSetup(bool listenForBtnSetup) { m_listenForBtnSetup = listenForBtnSetup; };
 
     bool shouldUseGDWindow() const;
 

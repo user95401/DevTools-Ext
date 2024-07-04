@@ -18,53 +18,53 @@ static float RAINBOW_HUE = 0.f;
 
 void DevTools::drawSettings() {
     ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, { 1.f, 1.f });
-#ifdef GEODE_IS_MOBILE
-    ImGui::Dummy({0.f, 60.f});
-#endif
-    // TODO: fix this option as it hasnt worked in a while lol
+
+    //Checkboxes
+    {
+        // TODO: fix this option as it hasnt worked in a while lol
 #if 0
     //GD in Window
-    ImGui::Checkbox("GD in Window"_LOCALE, &m_settings.GDInWindow);
-    if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", "Show GD inside a window when DevTools are open"_LOCALE);
-    //Attributes in Tree
-    ImGui::Checkbox("Attributes in Tree"_LOCALE, &m_settings.attributesInTree);
-    if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", "Show node attributes in the Tree"_LOCALE);
+        ImGui::Checkbox("GD in Window"_LOCALE, &m_settings.GDInWindow);
+        if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", "Show GD inside a window when DevTools are open"_LOCALE);
+        //Attributes in Tree
+        ImGui::Checkbox("Attributes in Tree"_LOCALE, &m_settings.attributesInTree);
+        if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", "Show node attributes in the Tree"_LOCALE);
 #endif
-    //Highlight Nodes
-    ImGui::Checkbox("Highlight Nodes"_LOCALE, &m_settings.alwaysHighlight);
-    if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", 
+        //Highlight Nodes
+        ImGui::Checkbox("Highlight Nodes"_LOCALE, &m_settings.alwaysHighlight);
+        if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s",
             "Always highlight nodes when hovered in the Tree.\n"
             "When disabled, you can highlight by pressing Shift."_LOCALE
         );
-    //Highlight Layouts
-    ImGui::Checkbox("Highlight Layouts"_LOCALE, &m_settings.highlightLayouts);
-    if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", "Highlights the borders of all layouts applied to nodes"_LOCALE);
-    //Arrow to Expand
-    ImGui::Checkbox("Arrow to Expand"_LOCALE, &m_settings.arrowExpand);
-    if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", 
+        //Highlight Layouts
+        ImGui::Checkbox("Highlight Layouts"_LOCALE, &m_settings.highlightLayouts);
+        if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", "Highlights the borders of all layouts applied to nodes"_LOCALE);
+        //Arrow to Expand
+        ImGui::Checkbox("Arrow to Expand"_LOCALE, &m_settings.arrowExpand);
+        if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s",
             "If enabled, expanding nodes in the Tree only works with the arrow.\n"
             "Makes selecting nodes less annoying."_LOCALE
-    );
-    //Order Node Children
-    ImGui::Checkbox("Order Node Children"_LOCALE, &m_settings.orderChildren);
-    if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", 
+        );
+        //Order Node Children
+        ImGui::Checkbox("Order Node Children"_LOCALE, &m_settings.orderChildren);
+        if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s",
             "When enabled (default behavior) node children are sorted by Z Order.\n"
             "When disabled, children have the same order they do during init functions (maybe).\n"
             "As a side effect to disabling this, things may render incorrectly."_LOCALE
         );
-    //Advanced Settings
-    ImGui::Checkbox("Advanced Settings"_LOCALE, &m_settings.advancedSettings);
-    if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", "Shows advanced settings. Mostly useful only for development of Geode itself."_LOCALE);
-    //Show Memory Viewer
-    ImGui::Checkbox("Show Memory Viewer"_LOCALE, &m_settings.showMemoryViewer);
-    if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", "Shows the memory viewer window."_LOCALE);
-    //next ones shoud be latest always
-    ImGui::Checkbox("Show ImGui Debug"_LOCALE, &m_settings.DearImGuiWindows);
-    if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", "Shows ImGui Style Editor and Metrics."_LOCALE);//Shows ImGui Style Editor and Metrics
-    //Font Size
+        //Advanced Settings
+        ImGui::Checkbox("Advanced Settings"_LOCALE, &m_settings.advancedSettings);
+        if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", "Shows advanced settings. Mostly useful only for development of Geode itself."_LOCALE);
+        //Show Memory Viewer
+        ImGui::Checkbox("Show Memory Viewer"_LOCALE, &m_settings.showMemoryViewer);
+        if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", "Shows the memory viewer window."_LOCALE);
+        //next ones shoud be latest always
+        ImGui::Checkbox("Show ImGui Debug"_LOCALE, &m_settings.DearImGuiWindows);
+        if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", "Shows ImGui Style Editor and Metrics."_LOCALE);//Shows ImGui Style Editor and Metrics
+    };
+
     ImGui::PopStyleVar();
-    ImGui::Separator();
-    ImGui::DragFloat("Font Size"_LOCALE, &m_settings.FontGlobalScale, 0.01f, 1.0f, 3.0f);
+
     ImGui::Separator();
 
     // TODO: undo later
@@ -91,7 +91,7 @@ void DevTools::drawSettings() {
         GameManager::get()->m_resolution = selectedResolution;
 
         // TODO: idk how to do this on macos
-    #ifdef GEODE_IS_WINDOWS
+#ifdef GEODE_IS_WINDOWS
         if (selectedResolution != 0) {
             auto size = GameManager::get()->resolutionForKey(selectedResolution);
             CCEGLView::get()->resizeWindow(size.width, size.height);
@@ -100,7 +100,7 @@ void DevTools::drawSettings() {
             CCEGLView::get()->resizeWindow(customResolution.width, customResolution.height);
         }
         CCEGLView::get()->centerWindow();
-    #endif
+#endif
     }
 
     if (selectedResolution == 0) {
@@ -113,13 +113,13 @@ void DevTools::drawSettings() {
             size[1] = std::fabs(size[1]);
             customResolution = CCSizeMake(size[0], size[1]);
         }
-    #ifdef GEODE_IS_WINDOWS
+#ifdef GEODE_IS_WINDOWS
         if (ImGui::Button("Apply##size-apply")) {
             GameManager::get()->m_resolution = 0;
             CCEGLView::get()->resizeWindow(customResolution.width, customResolution.height);
             CCEGLView::get()->centerWindow();
         }
-    #endif
+#endif
     }
 
     ImGui::TextWrapped(
@@ -155,75 +155,120 @@ void DevTools::drawSettings() {
     ImGui::Separator();
 #endif
 
-    ImGui::Text("%s", "Theme"_LOCALE);
-    static auto SELECTED = static_cast<int>(getThemeIndex(m_settings.theme));
-    if (ImGui::Combo("##devtools/theme", &SELECTED, (ranges::join(getThemeOptions(), std::string(1, '\0')) + '\0').c_str())) {
-        m_settings.theme = getThemeAtIndex(SELECTED);
-        m_reloadTheme = true;
-    }
-    if (ImGui::IsItemHovered()) {
-        ImGui::SetTooltip("%s", "Select Theme"_LOCALE);
+    //Select Theme
+    {
+        ImGui::PushFont(m_bigFont);
+        ImGui::Text("%s", "Theme"_LOCALE);
+        ImGui::PopFont();
+        static auto SELECTED = static_cast<int>(getThemeIndex(m_settings.theme));
+        if (ImGui::Combo("##devtools/theme", &SELECTED, (ranges::join(getThemeOptions(), std::string(1, '\0')) + '\0').c_str())) {
+            m_settings.theme = getThemeAtIndex(SELECTED);
+            m_reloadTheme = true;
+        }
+        if (ImGui::IsItemHovered()) {
+            ImGui::SetTooltip("%s", "Select Theme"_LOCALE);
+        }
+        ImGui::DragFloat("Font Size"_LOCALE, &m_settings.FontGlobalScale, 0.01f, 1.0f, 3.0f);
+    };
+
+    ImGui::Separator();
+
+    //Select Language
+    {
+        ImGui::PushFont(m_bigFont);
+        ImGui::Text("%s", "Language"_LOCALE);
+        ImGui::PopFont();
+        if (ImGui::Combo("##devtools/lang", &m_settings.lang, (ranges::join(lang_list, std::string(1, '\0')) + '\0').c_str())) {
+            setLang(m_settings.lang);
+        }
+        if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", "Select Language"_LOCALE);
+        if (std::string(lang_inf).size() > 1) ImGui::TextWrapped("%s", lang_inf);
     }
 
     ImGui::Separator();
 
-    ImGui::Text("%s", "Language"_LOCALE);
-    if (ImGui::Combo("##devtools/lang", &m_settings.lang, (ranges::join(lang_list, std::string(1, '\0')) + '\0').c_str())) {
-        setLang(m_settings.lang);
-    }
-    if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", "Select Language"_LOCALE);
-    if (std::string(lang_inf).size() > 1) ImGui::TextWrapped("%s", lang_inf);
+    //Setup Open DevTools Button in Game UI
+    {
+        ImGui::PushFont(m_bigFont);
+        ImGui::TextWrapped("%s", "Setup Open DevTools Button in Game UI"_LOCALE);
+        ImGui::PopFont();
+
+        ImGui::TextWrapped("%s\"%s\"", "Current button is "_LOCALE, (m_settings.openBtnID.c_str()));
+
+        ImGui::Checkbox("Call original"_LOCALE, &m_settings.openBtnCallOriginal);
+
+        if (ImGui::Button("Unset Button"_LOCALE)) {
+            m_settings.openBtnID = "none (dont use any btn)";
+            m_listenForBtnSetup = false;
+        }
+
+        ImGui::SameLine();
+
+        if (ImGui::Button(m_listenForBtnSetup ? "Listening for click..."_LOCALE : "Select Button"_LOCALE)) {
+            m_listenForBtnSetup = !m_listenForBtnSetup;
+        }
+    };
 
     ImGui::Separator();
 
-    ImGui::TextWrapped("%s", "Developed by "_LOCALE);
+    //info section idk
+    {
+        ImGui::PushFont(m_bigFont);
+        ImGui::TextWrapped("%s", "DevTools"_LOCALE);
+        ImGui::PopFont();
 
-    RAINBOW_HUE += 0.01f;
-    if (RAINBOW_HUE >= 1.f) {
-        RAINBOW_HUE = 0.f;
-    }
+        ImGui::TextWrapped("%s", "Developed by "_LOCALE);
 
-    float hue = RAINBOW_HUE;
+        RAINBOW_HUE += 0.01f;
+        if (RAINBOW_HUE >= 1.f) {
+            RAINBOW_HUE = 0.f;
+        }
 
-    ImVec4 color;
-    color.w = 1.f;
-    for (auto c : std::string("Geode Team"_LOCALE)) {
-        hue += 0.04f;
-        ImGui::SameLine(0.f, 0.f);
-        ImGui::ColorConvertHSVtoRGB(hue, .5f, 1.f, color.x, color.y, color.z);
-        ImGui::TextColored(color, "%c", c);
-    }
+        float hue = RAINBOW_HUE;
 
-    ImGui::TextWrapped(
-        "Running Geode %s, DevTools %s"
-        "\nPlatform: %s"
-        "\nGame Version: %.3lf"_LOCALE,
-        Loader::get()->getVersion().toString().c_str(),
-        Mod::get()->getVersion().toString().c_str(),
-        GEODE_PLATFORM_NAME,
-        GEODE_GD_VERSION
-    );
+        ImVec4 color;
+        color.w = 1.f;
+        for (auto c : std::string("Geode Team"_LOCALE)) {
+            hue += 0.04f;
+            ImGui::SameLine(0.f, 0.f);
+            ImGui::ColorConvertHSVtoRGB(hue, .5f, 1.f, color.x, color.y, color.z);
+            ImGui::TextColored(color, "%c", c);
+        }
 
-    if (ImGui::Button("Reset Layout"_LOCALE)) {
-        m_shouldRelayout = true;
-    }
-    if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", "Reset the windows docking and stuff."_LOCALE);
-
-    ImGui::SameLine();
-
-    if (ImGui::Button("Mod Settings"_LOCALE)) {
-        //try find already opened mod popup of devtools
-        auto devToolsPopup = findFirstChildRecursive<ModPopup>(
-            CCDirector::get()->m_pRunningScene, 
-            [](auto testNode) {
-                auto firstLabel = findFirstChildRecursive<CCLabelBMFont>(testNode, [](auto) { return true; });
-                if (firstLabel; Mod::get()->getName() == firstLabel->getString()) return true;
-                return false; 
-            }
+        ImGui::TextWrapped(
+            "Running Geode %s, DevTools %s"
+            "\nPlatform: %s"
+            "\nGame Version: %.3lf"_LOCALE,
+            Loader::get()->getVersion().toString().c_str(),
+            Mod::get()->getVersion().toString().c_str(),
+            GEODE_PLATFORM_NAME,
+            GEODE_GD_VERSION
         );
-        if (not devToolsPopup) openIndexPopup(Mod::get());
-    }
-    if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", "Actually opens mod popup where you can open settings, read smth and go some links for example."_LOCALE);
+
+        if (ImGui::Button("Reset Layout"_LOCALE)) {
+            m_shouldRelayout = true;
+        }
+        if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", "Reset the windows docking and stuff."_LOCALE);
+
+        if (ImGui::Button("Mod Settings"_LOCALE)) {
+            //try find already opened mod popup of devtools
+            auto devToolsPopup = findFirstChildRecursive<ModPopup>(
+                CCDirector::get()->m_pRunningScene,
+                [](auto testNode) {
+                    auto firstLabel = findFirstChildRecursive<CCLabelBMFont>(testNode, [](auto) { return true; });
+                    if (firstLabel; Mod::get()->getName() == firstLabel->getString()) return true;
+                    return false;
+                }
+            );
+            if (not devToolsPopup) openIndexPopup(Mod::get());
+        }
+        if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", "Actually opens mod popup where you can open settings, read smth and go some links for example."_LOCALE);
+
+        if (ImGui::Button("Toggle DevTools"_LOCALE)) {
+            DevTools::get()->toggle();
+        }
+        if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", "Yea, close this thing."_LOCALE);
+    };
 }
 
 class $modify(AppDelegate) {

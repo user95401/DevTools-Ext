@@ -30,16 +30,65 @@ class $modify(CCKeyboardDispatcher) {
     }
 };
 
-#ifdef GEODE_IS_MOBILE
-// lol
-#include <Geode/modify/MenuLayer.hpp>
-class $modify(MenuLayer) {
-    void onMoreGames(CCObject*) {
-        DevTools::get()->toggle();
+#include <Geode/modify/CCMenuItem.hpp>
+class $modify(CCMenuItem) {
+    auto getIdOrSprName() {
+        if (not this or this == nullptr) return std::string("bad node");
+        auto id = this->getID();
+        auto sprite_name = cocos::frameName(this);
+        return id.size() > 1 ? id : sprite_name;
+    }
+    void activate() {
+        if (this) log::debug("{}->{}(), ID: {}, DevTools openBtnID: {}", this, __func__, this->getIdOrSprName(), DevTools::get()->getSettings()->openBtnID);
+        else log::error("{}->{}(), ID: {}, DevTools openBtnID: {}", this, __func__, this->getIdOrSprName(), DevTools::get()->getSettings()->openBtnID);
+        if (DevTools::get()->getSettings()->openBtnID == this->getIdOrSprName()) {
+            DevTools::get()->toggle();
+            if (DevTools::get()->getSettings()->openBtnCallOriginal) CCMenuItem::activate();
+        }
+        else CCMenuItem::activate();
+        if (DevTools::get()->isListenForBtnSetup()) {
+            DevTools::get()->getSettings()->openBtnID = this->getIdOrSprName();
+            DevTools::get()->setListenForBtnSetup(false);
+        }
     }
 };
 
-#endif
+#include <Geode/loader/Setting.hpp>
+#include <Geode/loader/SettingNode.hpp>
+//class ToggleBtnSettingNode : public SettingNode "toggle-btn"
+class ToggleBtnSettingValue : public SettingValue {public:ToggleBtnSettingValue(std::string const& key, std::string const& modID, int asd) : SettingValue(key, modID) {}bool load(matjson::Value const& json) override { return true; }; bool save(matjson::Value& json) const override { return true; }; SettingNode* createNode(float width) override;};
+class ToggleBtnSettingNode : public SettingNode {
+public:
+    void ToggleFinallya(CCObject*) {
+        DevTools::get()->toggle();
+    }
+    bool init(ToggleBtnSettingValue* value, float width) {
+        if (!SettingNode::init(value)) return false;
+        this->setContentSize({ width, 40.f });
+        auto item = CCMenuItemSpriteExtra::create(
+            CCLabelBMFont::create("Toggle DevTools", "bigFont.fnt"),
+            this,
+            menu_selector(ToggleBtnSettingNode::ToggleFinallya)
+        );
+        item->getNormalImage()->setScale(0.5f);
+        item->getNormalImage()->setAnchorPoint({ 0.f, 0.5f });
+        this->addChild(CCMenu::createWithItem(item));
+        item->getParent()->setPositionX(this->getContentHeight() / 2);
+        item->getParent()->setPositionY(this->getContentHeight() / 2);
+        return true;
+    }
+    void commit() override { this->dispatchCommitted(); } bool hasUncommittedChanges() override { return false; } bool hasNonDefaultValue() override { return false; } void resetToDefault() override {}
+    static ToggleBtnSettingNode* create(ToggleBtnSettingValue* value, float width) {
+        auto ret = new ToggleBtnSettingNode;
+        if (ret->init(value, width)) {
+            ret->autorelease();
+            return ret;
+        }
+        delete ret;
+        return nullptr;
+    }
+}; SettingNode* ToggleBtnSettingValue::createNode(float width) { return ToggleBtnSettingNode::create(this, width); }
+$on_mod(Loaded) { Mod::get()->addCustomSetting<ToggleBtnSettingValue>("toggle-btn", 1337); }
 
 class $modify(AchievementNotifier) {
     void willSwitchToScene(CCScene* scene) {

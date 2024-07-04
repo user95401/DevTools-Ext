@@ -151,6 +151,53 @@ u8"Russian translation by user95401" "\n"
 	
 	"На самом деле откроет окно мода, где ты например, можешь открыть настройки, перейти по ссылкам, почитать инфу."
 	);
+	ADD_UTF8(
+	"Toggle DevTools",
+	
+	"Переключить DevTools"
+	);
+
+	ADD_UTF8(
+	"Yea, close this thing.",
+	
+	"Ага, закрыть эту штуку."
+	);
+	
+	ADD_UTF8(
+	"Setup Open DevTools Button in Game UI",
+	
+	"Установка Кнопки Открытия DevTools в Игровом UI"
+	);
+	
+	ADD_UTF8(
+	"Current button is ",
+	
+	"Текущая кнопка "
+	);
+	
+	ADD_UTF8(
+	"Call original",
+	
+	"Вызывать оригинал"
+	);
+	
+	ADD_UTF8(
+	"Unset Button",
+	
+	"Убрать Кнопку"
+	);
+	
+	ADD_UTF8(
+	"Listening for click...",
+	
+	"Ожидается нажатие..."
+	);
+	
+	ADD_UTF8(
+	"Select Button",
+	
+	"Выбрать Кнопку"
+	);
 	
 }//settings
 
@@ -489,7 +536,8 @@ u8"Russian translation by user95401" "\n"
 	
 }//attributes
 
-{ //windows
+//windows
+{ 
 
 	ADD_UTF8(
 	" Tree"
@@ -552,7 +600,8 @@ u8"Russian translation by user95401" "\n"
 
 } //windows
 
-{ //Memory viewer
+//Memory viewer
+{ 
 	
 	ADD_UTF8(
 	"Addr",

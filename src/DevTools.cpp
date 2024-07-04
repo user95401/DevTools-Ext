@@ -27,7 +27,9 @@ struct matjson::Serialize<Settings> {
             .theme = value.try_get<std::string>("theme").value_or(defaultSettings.theme),
             .FontGlobalScale = (float)value.try_get<double>("font_global_scale").value_or(defaultSettings.FontGlobalScale),
             .DearImGuiWindows = value.try_get<bool>("dear_imgui_windows").value_or(defaultSettings.DearImGuiWindows),
-            .lang = value.try_get<int>("lang").value_or(defaultSettings.lang)
+            .lang = value.try_get<int>("lang").value_or(defaultSettings.lang),
+            .openBtnID = value.try_get<std::string>("openBtnID").value_or(defaultSettings.openBtnID),
+            .openBtnCallOriginal = value.try_get<bool>("openBtnCallOriginal").value_or(defaultSettings.openBtnCallOriginal),
         };
     }
 
@@ -45,6 +47,8 @@ struct matjson::Serialize<Settings> {
         obj["font_global_scale"] = settings.FontGlobalScale;
         obj["dear_imgui_windows"] = settings.DearImGuiWindows;
         obj["lang"] = settings.lang;
+        obj["openBtnID"] = settings.openBtnID;
+        obj["openBtnCallOriginal"] = settings.openBtnCallOriginal;
         return obj;
     }
 
@@ -180,7 +184,6 @@ void DevTools::drawPages() {
         ImGui::ShowMetricsWindow();
     }
 }
-
 void DevTools::draw(GLRenderCtx* ctx) {
     if (m_visible) {
 
@@ -269,6 +272,7 @@ void DevTools::setupFonts() {
 
     m_defaultFont = add_font(Font_OpenSans, sizeof(Font_OpenSans), 18.f, def_ranges, "OpenSans (defaultFont) [18]");
     m_smallFont = add_font(Font_OpenSans, sizeof(Font_OpenSans), 10.f, def_ranges, "OpenSans (smallFont) [10]");
+    m_bigFont = add_font(Font_OpenSans, sizeof(Font_OpenSans), 22.f, def_ranges, "OpenSans (bigFont) [22]");
     m_monoFont = add_font(Font_RobotoMono, sizeof(Font_RobotoMono), 18.f, def_ranges, "RobotoMono (monoFont) [18]");
     m_boxFont = add_font(Font_SourceCodeProLight, sizeof(Font_SourceCodeProLight), 23.f, box_ranges, "SourceCodeProLight (boxFont) [23]");
 
