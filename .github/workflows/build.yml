@@ -65,4 +65,5 @@ jobs:
            The build workflow run for this release goes in [#${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
           tag_name: "nightly"
           prerelease: true
+          fail_on_unmatched_files: true
           files: "${{steps.build.outputs.build-output}}/*"
