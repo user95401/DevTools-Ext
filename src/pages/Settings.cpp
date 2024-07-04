@@ -21,42 +21,42 @@ void DevTools::drawSettings() {
 #if 0
     //GD in Window
     ImGui::Checkbox("GD in Window"_LOCALE, &m_settings.GDInWindow);
-    if (ImGui::IsItemHovered()) ImGui::SetTooltip("Show GD inside a window when DevTools are open"_LOCALE);
+    if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", "Show GD inside a window when DevTools are open"_LOCALE);
     //Attributes in Tree
     ImGui::Checkbox("Attributes in Tree"_LOCALE, &m_settings.attributesInTree);
-    if (ImGui::IsItemHovered()) ImGui::SetTooltip("Show node attributes in the Tree"_LOCALE);
+    if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", "Show node attributes in the Tree"_LOCALE);
 #endif
     //Highlight Nodes
     ImGui::Checkbox("Highlight Nodes"_LOCALE, &m_settings.alwaysHighlight);
-    if (ImGui::IsItemHovered()) ImGui::SetTooltip(
+    if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", 
             "Always highlight nodes when hovered in the Tree.\n"
             "When disabled, you can highlight by pressing Shift."_LOCALE
         );
     //Highlight Layouts
     ImGui::Checkbox("Highlight Layouts"_LOCALE, &m_settings.highlightLayouts);
-    if (ImGui::IsItemHovered()) ImGui::SetTooltip("Highlights the borders of all layouts applied to nodes"_LOCALE);
+    if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", "Highlights the borders of all layouts applied to nodes"_LOCALE);
     //Arrow to Expand
     ImGui::Checkbox("Arrow to Expand"_LOCALE, &m_settings.arrowExpand);
-    if (ImGui::IsItemHovered()) ImGui::SetTooltip(
+    if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", 
             "If enabled, expanding nodes in the Tree only works with the arrow.\n"
             "Makes selecting nodes less annoying."_LOCALE
     );
     //Order Node Children
     ImGui::Checkbox("Order Node Children"_LOCALE, &m_settings.orderChildren);
-    if (ImGui::IsItemHovered()) ImGui::SetTooltip(
+    if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", 
             "When enabled (default behavior) node children are sorted by Z Order.\n"
             "When disabled, children have the same order they do during init functions (maybe).\n"
             "As a side effect to disabling this, things may render incorrectly."_LOCALE
         );
     //Advanced Settings
     ImGui::Checkbox("Advanced Settings"_LOCALE, &m_settings.advancedSettings);
-    if (ImGui::IsItemHovered()) ImGui::SetTooltip("Shows advanced settings. Mostly useful only for development of Geode itself."_LOCALE);
+    if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", "Shows advanced settings. Mostly useful only for development of Geode itself."_LOCALE);
     //Show Memory Viewer
     ImGui::Checkbox("Show Memory Viewer"_LOCALE, &m_settings.showMemoryViewer);
-    if (ImGui::IsItemHovered()) ImGui::SetTooltip("Shows the memory viewer window."_LOCALE);
+    if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", "Shows the memory viewer window."_LOCALE);
     //next ones shoud be latest always
     ImGui::Checkbox("Show ImGui Debug"_LOCALE, &m_settings.DearImGuiWindows);
-    if (ImGui::IsItemHovered()) ImGui::SetTooltip("Shows ImGui Style Editor and Metrics."_LOCALE);//Shows ImGui Style Editor and Metrics
+    if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", "Shows ImGui Style Editor and Metrics."_LOCALE);//Shows ImGui Style Editor and Metrics
     //Font Size
     ImGui::PopStyleVar();
     ImGui::Separator();
@@ -151,27 +151,27 @@ void DevTools::drawSettings() {
     ImGui::Separator();
 #endif
 
-    ImGui::Text("Theme"_LOCALE);
+    ImGui::Text("%s", "Theme"_LOCALE);
     static auto SELECTED = static_cast<int>(getThemeIndex(m_settings.theme));
     if (ImGui::Combo("##devtools/theme", &SELECTED, (ranges::join(getThemeOptions(), std::string(1, '\0')) + '\0').c_str())) {
         m_settings.theme = getThemeAtIndex(SELECTED);
         m_reloadTheme = true;
     }
     if (ImGui::IsItemHovered()) {
-        ImGui::SetTooltip("Select Theme"_LOCALE);
+        ImGui::SetTooltip("%s", "Select Theme"_LOCALE);
     }
 
     ImGui::Separator();
 
-    ImGui::Text("Language"_LOCALE);
+    ImGui::Text("%s", "Language"_LOCALE);
     if (ImGui::Combo("##devtools/lang", &m_settings.lang, (ranges::join(lang_list, std::string(1, '\0')) + '\0').c_str())) {
         setLang(m_settings.lang);
     }
-    if (ImGui::IsItemHovered()) ImGui::SetTooltip("Select Language"_LOCALE);
+    if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", "Select Language"_LOCALE);
 
     ImGui::Separator();
 
-    ImGui::TextWrapped("Developed by "_LOCALE);
+    ImGui::TextWrapped("%s", "Developed by "_LOCALE);
 
     RAINBOW_HUE += 0.01f;
     if (RAINBOW_HUE >= 1.f) {
@@ -182,7 +182,7 @@ void DevTools::drawSettings() {
 
     ImVec4 color;
     color.w = 1.f;
-    for (auto c : std::string("Geode Team")) {
+    for (auto c : std::string("Geode Team"_LOCALE)) {
         hue += 0.04f;
         ImGui::SameLine(0.f, 0.f);
         ImGui::ColorConvertHSVtoRGB(hue, .5f, 1.f, color.x, color.y, color.z);
