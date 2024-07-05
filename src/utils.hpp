@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #define public_cast(value, member) [](auto* v) { \
 	class FriendClass__; \
@@ -48,10 +48,9 @@ namespace geode::cocos {
 namespace ImGui {
     inline static Ref<CCTextInputNode> g_textInputForSomeFunStuff = CCTextInputNode::create(100.f, 20.f, "asd", "goldFont.fnt");
     inline auto AddTooltip(const char* text) {
-        auto oldHoverDelay = GetIO().HoverDelayNormal;
-        GetIO().HoverDelayNormal = 1.f;
-        if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) ImGui::SetTooltip("%s", text);
-        GetIO().HoverDelayNormal = oldHoverDelay;
+        if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal)) {
+            ImGui::SetTooltip("%s", text);
+        }
         return;
     }
     inline auto InputTextMultilineWithAutoHeight(const char* label, std::string* str) {
@@ -61,8 +60,13 @@ namespace ImGui {
         int lines_count = std::count(str->begin(), str->end(), '\n') + 1;
         const auto size = CalcItemSize({ 0, 0 }, CalcItemWidth(), (g.FontSize * lines_count) + style.FramePadding.y * 2.0f);
         auto textunput_rtn = InputTextMultiline(label, str, size);
-        g_textInputForSomeFunStuff->onClickTrackNode(ImGui::IsItemActive());
-        io.WantCaptureKeyboard = ImGui::IsItemActive();
+        //open virtual keyboard for non desktop one thing
+        if (ImGui::IsItemActivated()) {
+            g_textInputForSomeFunStuff->onClickTrackNode(true);
+        }
+        if (ImGui::IsItemDeactivated()) {
+            g_textInputForSomeFunStuff->onClickTrackNode(false);
+        }
         return textunput_rtn;
     }
 }
