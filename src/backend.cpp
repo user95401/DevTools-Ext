@@ -344,13 +344,53 @@ class $modify(CCLayerExt, CCLayer) {
         VK_TO_ADD_KEY_EVENT(SNAPSHOT, PrintScreen);//0X2C,
         VK_TO_ADD_KEY_EVENT(INSERT, Insert);//0X2D,
         VK_TO_ADD_KEY_EVENT(DELETE, Delete);//0X2E,
-        //IS_SENT_BY_DISPATCHER..VK_TO_ADD_KEY_EVENT(LSHIFT, LeftShift);//0XA0,
-        //IS_SET_IN_NEWFRAME...VK_TO_ADD_KEY_EVENT(RSHIFT, RightShift);//0XA1
+        VK_TO_ADD_KEY_EVENT(LSHIFT, LeftShift);//0XA0,
+        VK_TO_ADD_KEY_EVENT(RSHIFT, RightShift);//0XA1
+        VK_TO_ADD_KEY_EVENT(LCONTROL, LeftCtrl);//0XA1
+        VK_TO_ADD_KEY_EVENT(RCONTROL, RightCtrl);//0XA1
+        VK_TO_ADD_KEY_EVENT(CONTROL, ModCtrl);//0XA1
+        VK_TO_ADD_KEY_EVENT(CAPITAL, ModAlt);//0XA1
+        VK_TO_ADD_KEY_EVENT(F2, F2);
+        VK_TO_ADD_KEY_EVENT(F3, F3);
+        VK_TO_ADD_KEY_EVENT(F4, F4);
+        VK_TO_ADD_KEY_EVENT(F5, F5);
+        VK_TO_ADD_KEY_EVENT(F6, F6);
+        VK_TO_ADD_KEY_EVENT(F7, F7);
+        VK_TO_ADD_KEY_EVENT(F8, F8);
+        VK_TO_ADD_KEY_EVENT(F9, F9);
+        VK_TO_ADD_KEY_EVENT(F10, F10);
+        VK_TO_ADD_KEY_EVENT(F11, F11);
+        VK_TO_ADD_KEY_EVENT(F12, F12);
     }
-    bool init() {
-        //ily schedule
-        this->schedule(schedule_selector(CCLayerExt::listenForWinVK), 0.0f);
-        return CCLayer::init();
+    void keyDown(enumKeyCodes key) {
+        auto& io = ImGui::GetIO();
+        if (!io.WantCaptureKeyboard) CCLayer::keyDown(key);
+        KeyDownToAddKeyEvent(A);//0x41,
+        KeyDownToAddKeyEvent(B);//0x42,
+        KeyDownToAddKeyEvent(C);//0x43,
+        KeyDownToAddKeyEvent(D);//0x44,
+        KeyDownToAddKeyEvent(E);//0x45,
+        KeyDownToAddKeyEvent(F);//0x46,
+        KeyDownToAddKeyEvent(G);//0x47,
+        KeyDownToAddKeyEvent(H);//0x48,
+        KeyDownToAddKeyEvent(I);//0x49,
+        KeyDownToAddKeyEvent(J);//0x4A,
+        KeyDownToAddKeyEvent(K);//0x4B,
+        KeyDownToAddKeyEvent(L);//0x4C,
+        KeyDownToAddKeyEvent(M);//0x4D,
+        KeyDownToAddKeyEvent(N);//0x4E,
+        KeyDownToAddKeyEvent(O);//0x4F,
+        KeyDownToAddKeyEvent(P);//0x50,
+        KeyDownToAddKeyEvent(Q);//0x51,
+        KeyDownToAddKeyEvent(R);//0x52,
+        KeyDownToAddKeyEvent(S);//0x53,
+        KeyDownToAddKeyEvent(T);//0x54,
+        KeyDownToAddKeyEvent(U);//0x55,
+        KeyDownToAddKeyEvent(V);//0x56,
+        KeyDownToAddKeyEvent(W);//0x57,
+        KeyDownToAddKeyEvent(X);//0x58,
+        KeyDownToAddKeyEvent(Y);//0x59,
+        KeyDownToAddKeyEvent(Z);//0x5A,
     }
 #else //NOT GEODE_IS_WINDOWS
     void keyDown(enumKeyCodes key) {
@@ -420,6 +460,12 @@ class $modify(CCLayerExt, CCLayer) {
         //IS_SET_IN_NEWFRAME...KeyDownToAddKeyEvent(RightShift);//0xA1
     }
 #endif // GEODE_IS_WINDOWS
+    bool init() {
+#ifdef GEODE_IS_WINDOWS
+        this->schedule(schedule_selector(CCLayerExt::listenForWinVK), 0.0f);
+#endif // GEODE_IS_WINDOWS
+        return CCLayer::init();
+    }
 };
 
 #include <Geode/modify/CCIMEDispatcher.hpp>
@@ -427,7 +473,6 @@ class $modify(CCIMEDispatcherExt, CCIMEDispatcher) {
     void dispatchInsertText(const char* text, int len, enumKeyCodes key) {
         auto& io = ImGui::GetIO();
         if (!io.WantCaptureKeyboard) CCIMEDispatcher::dispatchInsertText(text, len, key);
-        //log::debug("{}(text \"{}\", len {}, key {}), io.WantCaptureKeyboard: {}", __FUNCTION__, text, len, (int)key != -1 ? CCKeyboardDispatcher::get()->keyToString(key) : utils::numToString(key), io.WantCaptureKeyboard);
         std::string str(text, len);
         io.AddInputCharactersUTF8(str.c_str());
     }

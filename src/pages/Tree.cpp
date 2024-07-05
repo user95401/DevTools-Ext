@@ -33,13 +33,19 @@ void DevTools::drawTreeBranch(CCNode* node, size_t index) {
     if (selected) {
         flags |= ImGuiTreeNodeFlags_Selected;
     }
-    if (!node->getChildrenCount())
-    {
+    if (node == m_isAboutToSelectNode) {
+        flags |= ImGuiTreeNodeFlags_Framed;
+        m_isAboutToSelectNode = nullptr;
+    }
+    if (!node->getChildrenCount()) {
         flags |= ImGuiTreeNodeFlags_Leaf;
     }
-    if (m_settings.arrowExpand)
-    {
+    if (m_settings.arrowExpand) {
         flags |= ImGuiTreeNodeFlags_OpenOnArrow;
+    }
+    if (m_settings.doubleClickExpand)
+    {
+        flags |= ImGuiTreeNodeFlags_OpenOnDoubleClick;
     }
     std::stringstream name;
     name << "[" << index << "] " << getNodeName(node) << " ";
@@ -74,9 +80,5 @@ void DevTools::drawTreeBranch(CCNode* node, size_t index) {
 }
 
 void DevTools::drawTree() {
-#ifdef GEODE_IS_MOBILE
-    ImGui::Dummy({0.f, 60.f});
-#endif
-
-    this->drawTreeBranch(CCDirector::get()->getRunningScene(), 0);
+    this->drawTreeBranch(CCDirector::get()->m_pRunningScene, 0);
 }

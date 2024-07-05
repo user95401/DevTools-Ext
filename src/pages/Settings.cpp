@@ -23,44 +23,50 @@ void DevTools::drawSettings() {
     {
         // TODO: fix this option as it hasnt worked in a while lol
 #if 0
-    //GD in Window
+        //GD in Window
         ImGui::Checkbox("GD in Window"_LOCALE, &m_settings.GDInWindow);
-        if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", "Show GD inside a window when DevTools are open"_LOCALE);
+        ImGui::AddTooltip("Show GD inside a window when DevTools are open"_LOCALE);
+#endif
+        //makes tree ugly
+#if 0
         //Attributes in Tree
         ImGui::Checkbox("Attributes in Tree"_LOCALE, &m_settings.attributesInTree);
-        if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", "Show node attributes in the Tree"_LOCALE);
+        ImGui::AddTooltip("Show node attributes in the Tree"_LOCALE);
 #endif
         //Highlight Nodes
         ImGui::Checkbox("Highlight Nodes"_LOCALE, &m_settings.alwaysHighlight);
-        if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s",
+        ImGui::AddTooltip(
             "Always highlight nodes when hovered in the Tree.\n"
             "When disabled, you can highlight by pressing Shift."_LOCALE
         );
         //Highlight Layouts
         ImGui::Checkbox("Highlight Layouts"_LOCALE, &m_settings.highlightLayouts);
-        if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", "Highlights the borders of all layouts applied to nodes"_LOCALE);
+        ImGui::AddTooltip("Highlights the borders of all layouts applied to nodes"_LOCALE);
         //Arrow to Expand
         ImGui::Checkbox("Arrow to Expand"_LOCALE, &m_settings.arrowExpand);
-        if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s",
+        ImGui::AddTooltip(
             "If enabled, expanding nodes in the Tree only works with the arrow.\n"
             "Makes selecting nodes less annoying."_LOCALE
         );
+        //doubleClickExpand
+        ImGui::Checkbox("Double click to Expand"_LOCALE, &m_settings.doubleClickExpand);
+        ImGui::AddTooltip("Need double-click to open node in Tree."_LOCALE);
         //Order Node Children
         ImGui::Checkbox("Order Node Children"_LOCALE, &m_settings.orderChildren);
-        if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s",
+        ImGui::AddTooltip(
             "When enabled (default behavior) node children are sorted by Z Order.\n"
             "When disabled, children have the same order they do during init functions (maybe).\n"
             "As a side effect to disabling this, things may render incorrectly."_LOCALE
         );
         //Advanced Settings
         ImGui::Checkbox("Advanced Settings"_LOCALE, &m_settings.advancedSettings);
-        if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", "Shows advanced settings. Mostly useful only for development of Geode itself."_LOCALE);
+        ImGui::AddTooltip("Shows advanced settings. Mostly useful only for development of Geode itself."_LOCALE);
         //Show Memory Viewer
         ImGui::Checkbox("Show Memory Viewer"_LOCALE, &m_settings.showMemoryViewer);
-        if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", "Shows the memory viewer window."_LOCALE);
+        ImGui::AddTooltip("Shows the memory viewer window."_LOCALE);
         //next ones shoud be latest always
         ImGui::Checkbox("Show ImGui Debug"_LOCALE, &m_settings.DearImGuiWindows);
-        if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", "Shows ImGui Style Editor and Metrics."_LOCALE);//Shows ImGui Style Editor and Metrics
+        ImGui::AddTooltip("Shows ImGui Style Editor and Metrics."_LOCALE);//Shows ImGui Style Editor and Metrics
     };
 
     ImGui::PopStyleVar();
@@ -165,9 +171,7 @@ void DevTools::drawSettings() {
             m_settings.theme = getThemeAtIndex(SELECTED);
             m_reloadTheme = true;
         }
-        if (ImGui::IsItemHovered()) {
-            ImGui::SetTooltip("%s", "Select Theme"_LOCALE);
-        }
+        ImGui::AddTooltip("Select Theme"_LOCALE);
         ImGui::DragFloat("Font Size"_LOCALE, &m_settings.FontGlobalScale, 0.01f, 1.0f, 3.0f);
     };
 
@@ -181,7 +185,7 @@ void DevTools::drawSettings() {
         if (ImGui::Combo("##devtools/lang", &m_settings.lang, (ranges::join(lang_list, std::string(1, '\0')) + '\0').c_str())) {
             setLang(m_settings.lang);
         }
-        if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", "Select Language"_LOCALE);
+        ImGui::AddTooltip("Select Language"_LOCALE);
         if (std::string(lang_inf).size() > 1) ImGui::TextWrapped("%s", lang_inf);
     }
 
@@ -248,7 +252,7 @@ void DevTools::drawSettings() {
         if (ImGui::Button("Reset Layout"_LOCALE)) {
             m_shouldRelayout = true;
         }
-        if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", "Reset the windows docking and stuff."_LOCALE);
+        ImGui::AddTooltip("Reset the windows docking and stuff."_LOCALE);
 
         if (ImGui::Button("Mod Settings"_LOCALE)) {
             //try find already opened mod popup of devtools
@@ -262,12 +266,12 @@ void DevTools::drawSettings() {
             );
             if (not devToolsPopup) openIndexPopup(Mod::get());
         }
-        if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", "Actually opens mod popup where you can open settings, read smth and go some links for example."_LOCALE);
+        ImGui::AddTooltip("Actually opens mod popup where you can open settings, read smth and go some links for example."_LOCALE);
 
         if (ImGui::Button("Toggle DevTools"_LOCALE)) {
             DevTools::get()->toggle();
         }
-        if (ImGui::IsItemHovered()) ImGui::SetTooltip("%s", "Yea, close this thing."_LOCALE);
+        ImGui::AddTooltip("Yea, close this thing."_LOCALE);
     };
 }
 

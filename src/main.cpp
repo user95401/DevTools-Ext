@@ -39,8 +39,6 @@ class $modify(CCMenuItem) {
         return id.size() > 1 ? id : sprite_name;
     }
     void activate() {
-        if (this) log::debug("{}->{}(), ID: {}, DevTools openBtnID: {}", this, __func__, this->getIdOrSprName(), DevTools::get()->getSettings()->openBtnID);
-        else log::error("{}->{}(), ID: {}, DevTools openBtnID: {}", this, __func__, this->getIdOrSprName(), DevTools::get()->getSettings()->openBtnID);
         if (DevTools::get()->getSettings()->openBtnID == this->getIdOrSprName()) {
             DevTools::get()->toggle();
             if (DevTools::get()->getSettings()->openBtnCallOriginal) CCMenuItem::activate();

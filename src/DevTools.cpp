@@ -21,6 +21,7 @@ struct matjson::Serialize<Settings> {
             .alwaysHighlight = value.try_get<bool>("always_highlight").value_or(defaultSettings.alwaysHighlight),
             .highlightLayouts = value.try_get<bool>("highlight_layouts").value_or(defaultSettings.highlightLayouts),
             .arrowExpand = value.try_get<bool>("arrow_expand").value_or(defaultSettings.arrowExpand),
+            .doubleClickExpand = value.try_get<bool>("double_click_expand").value_or(defaultSettings.doubleClickExpand),
             .orderChildren = value.try_get<bool>("order_children").value_or(defaultSettings.orderChildren),
             .advancedSettings = value.try_get<bool>("advanced_settings").value_or(defaultSettings.advancedSettings),
             .showMemoryViewer = value.try_get<bool>("show_memory_viewer").value_or(defaultSettings.showMemoryViewer),
@@ -40,6 +41,7 @@ struct matjson::Serialize<Settings> {
         obj["always_highlight"] = settings.alwaysHighlight;
         obj["highlight_layouts"] = settings.highlightLayouts;
         obj["arrow_expand"] = settings.arrowExpand;
+        obj["double_click_expand"] = settings.doubleClickExpand;
         obj["order_children"] = settings.orderChildren;
         obj["advanced_settings"] = settings.advancedSettings;
         obj["show_memory_viewer"] = settings.showMemoryViewer;

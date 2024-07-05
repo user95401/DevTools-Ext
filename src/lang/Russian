@@ -61,7 +61,7 @@ u8"Russian translation by user95401" "\n"
 	ADD_UTF8(
 	"Arrow to Expand",
 	
-	"Расширe Стрелкой"
+	"Расширять Стрелкой"
 	);
 
 	ADD_UTF8(
@@ -70,6 +70,18 @@ u8"Russian translation by user95401" "\n"
 	
 	"Если включено, расширение нодов в древе работает только на стрелку.\n"
 	"Делает выбор узлов менее раздражающим."
+	);
+
+	ADD_UTF8(
+	"Double click to Expand",
+	
+	"Двойной клик для Расширения"
+	);
+
+	ADD_UTF8(
+	"Need double-click to open node in Tree.",
+	
+	"Нужен двойной клик, чтобы раскрыть нод в древе."
 	);
 
 	ADD_UTF8(
@@ -259,6 +271,18 @@ u8"Russian translation by user95401" "\n"
 	);
 
 	ADD_UTF8(
+	"CCMenuItem listener: %s",
+	
+	"Слушатель CCMenuItem: %s"
+	);
+
+	ADD_UTF8(
+	"Select Node##selmenuitemlistener",
+	
+	"Выбрать Нод##selmenuitemlistener"
+	);
+
+	ADD_UTF8(
 	"Position",
 	
 	"Позиция"
@@ -418,6 +442,18 @@ u8"Russian translation by user95401" "\n"
 	);
 
 	ADD_UTF8(
+	"Font",
+	
+	"Шрифт"
+	);
+
+	ADD_UTF8(
+	"file don't exists in search paths!",
+	
+	"нет такого файлв по путям поиска!"
+	);
+
+	ADD_UTF8(
 	"Texture name: %s",
 	
 	"Имя текстуры: %s"
@@ -439,54 +475,6 @@ u8"Russian translation by user95401" "\n"
 	" Update Parent Layout",
 	
 	" Обновить Родительский Лайаут"
-	);
-
-	ADD_UTF8(
-	"Auto Scale",
-	
-	"Авто масштаб"
-	);
-
-	ADD_UTF8(
-	"Default",
-	
-	"Дефолт"
-	);
-
-	ADD_UTF8(
-	"Enable",
-	
-	"Включить"
-	);
-
-	ADD_UTF8(
-	"Disable",
-	
-	"Отключить"
-	);
-
-	ADD_UTF8(
-	"Break Line",
-	
-	"Разрыв линии"
-	);
-
-	ADD_UTF8(
-	"Same Line",
-	
-	"Та же Линия"
-	);
-
-	ADD_UTF8(
-	"Scale Priority",
-	
-	"Приоритет Масштаба"
-	);
-
-	ADD_UTF8(
-	"Offset",
-	
-	"Офсет"
 	);
 
 	ADD_UTF8(

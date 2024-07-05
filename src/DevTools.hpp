@@ -4,6 +4,7 @@
 #include <imgui.h>
 #include "themes.hpp"
 #include "ImGui.hpp"
+#include <misc/cpp/imgui_stdlib.h>
 #include <cocos2d.h>
 #include <Geode/utils/cocos.hpp>
 #include <Geode/utils/addresser.hpp>
@@ -14,8 +15,6 @@
 #include <lang/incl.h>
 
 using namespace geode::prelude;
-
-#include <utils.hpp>
 
 enum class HighlightMode {
     Selected,
@@ -29,6 +28,7 @@ struct Settings {
     bool alwaysHighlight = true;
     bool highlightLayouts = false;
     bool arrowExpand = false;
+    bool doubleClickExpand = false;
     bool orderChildren = true;
     bool advancedSettings = false;
     bool showMemoryViewer = false;
@@ -55,11 +55,12 @@ class DevTools {
     Settings m_settings;
     ImGuiID m_dockspaceID;
     ImFont* m_defaultFont  = nullptr;
-    ImFont* m_bigFont    = nullptr;
+    ImFont* m_bigFont      = nullptr;
     ImFont* m_smallFont    = nullptr;
     ImFont* m_monoFont     = nullptr;
     ImFont* m_boxFont      = nullptr;
     Ref<CCNode> m_selectedNode;
+    Ref<CCNode> m_isAboutToSelectNode;
     std::vector<std::pair<CCNode*, HighlightMode>> m_toHighlight;
 
     void setupFonts();
@@ -100,6 +101,17 @@ public:
 
     auto isListenForBtnSetup() { return m_listenForBtnSetup; };
     auto setListenForBtnSetup(bool listenForBtnSetup) { m_listenForBtnSetup = listenForBtnSetup; };
+     
+    //defaultFont, bigFont, smallFont, monoFont, boxFont
+    auto getFont(std::string name) {
+        std::map<std::string, ImFont*> eeee;
+        eeee["defaultFont"] = m_defaultFont;
+        eeee["bigFont"] = m_bigFont;
+        eeee["smallFont"] = m_smallFont;
+        eeee["monoFont"] = m_monoFont;
+        eeee["boxFont"] = m_boxFont;
+        return eeee.at(name);
+    };
 
     bool shouldUseGDWindow() const;
 
@@ -123,3 +135,5 @@ public:
     void show(bool visible);
     void toggle();
 };
+
+#include <utils.hpp>
