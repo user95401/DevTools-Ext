@@ -4,7 +4,7 @@
 #include <Geode/loader/Log.hpp>
 #include "../fonts/chars.hpp"
 
-inline std::vector<std::string> lang_list = { "None (eng)", "Russian", "Ukrainian (translator)", "Spanish (translator)" };
+inline std::vector<std::string> lang_list = { "None (eng)", "Russian", "Ukrainian", "Spanish" };
 inline std::string lang = "None (eng)";
 inline const char* lang_inf = "";
 inline void setLang(int listVecPoint) {
@@ -16,13 +16,13 @@ inline auto locale_str(const char* pChar) {
 	lang_inf = "";
 	//russian
 #define NEXT_LANG_TO_SETUP "Russian" 
-#include <lang/setup_next_macro.h>
+#include <lang/_setup_next_macro.h>
 	//uk_(test)
-#define NEXT_LANG_TO_SETUP "Ukrainian (translator)" 
-#include <lang/setup_next_macro.h>
+#define NEXT_LANG_TO_SETUP "Ukrainian" 
+#include <lang/_setup_next_macro.h>
 	//Spanish (translator)
-#define NEXT_LANG_TO_SETUP "Spanish (translator)"
-#include <lang/setup_next_macro.h>
+#define NEXT_LANG_TO_SETUP "Spanish"
+#include <lang/_setup_next_macro.h>
 	//geode::log::debug("{}(pChar) return pChar \"{}\";", __FUNCTION__, pChar);
 	return pChar;
 }

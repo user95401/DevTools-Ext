@@ -317,163 +317,90 @@ class $modify(CCTouchDispatcher) {
     }
 };
 
-#include <Geode/modify/CCLayer.hpp>
-#ifdef GEODE_IS_WINDOWS
-    #define VK_TO_ADD_KEY_EVENT(keyName1, keyName2) io.AddKeyAnalogEvent(ImGuiKey_##keyName2, (GetKeyState(VK_##keyName1) & 0x8000), 0.f);
-#endif // GEODE_IS_WINDOWS
-#define KeyDownToAddKeyEvent(keyName) if (key == KEY_##keyName) { io.AddKeyEvent(ImGuiKey_##keyName, 1); io.AddKeyEvent(ImGuiKey_##keyName, 0); }
-#define KeyDownToAddKeyEventArrow(keyName) if (key == KEY_##keyName or key == KEY_Arrow##keyName) { io.AddKeyEvent(ImGuiKey_##keyName##Arrow, 1); io.AddKeyEvent(ImGuiKey_##keyName##Arrow, 0); }
-class $modify(CCLayerExt, CCLayer) {
-#ifdef GEODE_IS_WINDOWS
-    void listenForWinVK(float) {
-        auto& io = ImGui::GetIO();
-        VK_TO_ADD_KEY_EVENT(LEFT, LeftArrow);
-        VK_TO_ADD_KEY_EVENT(RIGHT, RightArrow);
-        VK_TO_ADD_KEY_EVENT(DOWN, DownArrow);
-        VK_TO_ADD_KEY_EVENT(UP, UpArrow);
-        //IS_SENT_BY_DISPATCHER...KEYDOWNTOADDKEYEVENT(SPACE);
-        VK_TO_ADD_KEY_EVENT(BACK, Backspace);//0X08,
-        VK_TO_ADD_KEY_EVENT(TAB, Tab);//0X09,
-        VK_TO_ADD_KEY_EVENT(RETURN, Enter);//0X0D,
-        VK_TO_ADD_KEY_EVENT(PAUSE, Pause);//0X13,
-        VK_TO_ADD_KEY_EVENT(CAPITAL, CapsLock);//0X14,
-        VK_TO_ADD_KEY_EVENT(ESCAPE, Escape);//0X1B,
-        VK_TO_ADD_KEY_EVENT(SPACE, Space);//0X20,
-        VK_TO_ADD_KEY_EVENT(END, End);//0X23,
-        VK_TO_ADD_KEY_EVENT(HOME, Home);//0X24,
-        VK_TO_ADD_KEY_EVENT(SNAPSHOT, PrintScreen);//0X2C,
-        VK_TO_ADD_KEY_EVENT(INSERT, Insert);//0X2D,
-        VK_TO_ADD_KEY_EVENT(DELETE, Delete);//0X2E,
-        VK_TO_ADD_KEY_EVENT(LSHIFT, LeftShift);//0XA0,
-        VK_TO_ADD_KEY_EVENT(RSHIFT, RightShift);//0XA1
-        VK_TO_ADD_KEY_EVENT(LCONTROL, LeftCtrl);//0XA1
-        VK_TO_ADD_KEY_EVENT(RCONTROL, RightCtrl);//0XA1
-        VK_TO_ADD_KEY_EVENT(CONTROL, ModCtrl);//0XA1
-        VK_TO_ADD_KEY_EVENT(CAPITAL, ModAlt);//0XA1
-        VK_TO_ADD_KEY_EVENT(F2, F2);
-        VK_TO_ADD_KEY_EVENT(F3, F3);
-        VK_TO_ADD_KEY_EVENT(F4, F4);
-        VK_TO_ADD_KEY_EVENT(F5, F5);
-        VK_TO_ADD_KEY_EVENT(F6, F6);
-        VK_TO_ADD_KEY_EVENT(F7, F7);
-        VK_TO_ADD_KEY_EVENT(F8, F8);
-        VK_TO_ADD_KEY_EVENT(F9, F9);
-        VK_TO_ADD_KEY_EVENT(F10, F10);
-        VK_TO_ADD_KEY_EVENT(F11, F11);
-        VK_TO_ADD_KEY_EVENT(F12, F12);
-    }
-    void keyDown(enumKeyCodes key) {
-        auto& io = ImGui::GetIO();
-        if (!io.WantCaptureKeyboard) CCLayer::keyDown(key);
-        KeyDownToAddKeyEvent(A);//0x41,
-        KeyDownToAddKeyEvent(B);//0x42,
-        KeyDownToAddKeyEvent(C);//0x43,
-        KeyDownToAddKeyEvent(D);//0x44,
-        KeyDownToAddKeyEvent(E);//0x45,
-        KeyDownToAddKeyEvent(F);//0x46,
-        KeyDownToAddKeyEvent(G);//0x47,
-        KeyDownToAddKeyEvent(H);//0x48,
-        KeyDownToAddKeyEvent(I);//0x49,
-        KeyDownToAddKeyEvent(J);//0x4A,
-        KeyDownToAddKeyEvent(K);//0x4B,
-        KeyDownToAddKeyEvent(L);//0x4C,
-        KeyDownToAddKeyEvent(M);//0x4D,
-        KeyDownToAddKeyEvent(N);//0x4E,
-        KeyDownToAddKeyEvent(O);//0x4F,
-        KeyDownToAddKeyEvent(P);//0x50,
-        KeyDownToAddKeyEvent(Q);//0x51,
-        KeyDownToAddKeyEvent(R);//0x52,
-        KeyDownToAddKeyEvent(S);//0x53,
-        KeyDownToAddKeyEvent(T);//0x54,
-        KeyDownToAddKeyEvent(U);//0x55,
-        KeyDownToAddKeyEvent(V);//0x56,
-        KeyDownToAddKeyEvent(W);//0x57,
-        KeyDownToAddKeyEvent(X);//0x58,
-        KeyDownToAddKeyEvent(Y);//0x59,
-        KeyDownToAddKeyEvent(Z);//0x5A,
-    }
-#else //NOT GEODE_IS_WINDOWS
-    void keyDown(enumKeyCodes key) {
-        auto& io = ImGui::GetIO();
-        if (!io.WantCaptureKeyboard) CCLayer::keyDown(key);
-        //log::debug("{}(key {}), io.WantCaptureKeyboard: {}", __FUNCTION__, (int)key != -1 ? CCKeyboardDispatcher::get()->keyToString(key) : utils::numToString(key), io.WantCaptureKeyboard);
-        //fucking sucks
-        KeyDownToAddKeyEventArrow(Left);
-        KeyDownToAddKeyEventArrow(Right);
-        KeyDownToAddKeyEventArrow(Down);
-        KeyDownToAddKeyEventArrow(Up);
-        //IS_SENT_BY_DISPATCHER...KeyDownToAddKeyEvent(Space);
-        KeyDownToAddKeyEvent(Backspace);//0x08,
-        KeyDownToAddKeyEvent(Tab);//0x09,
-        KeyDownToAddKeyEvent(Enter);//0x0D,
-        KeyDownToAddKeyEvent(Pause);//0x13,
-        KeyDownToAddKeyEvent(CapsLock);//0x14,
-        KeyDownToAddKeyEvent(Escape);//0x1B,
-        KeyDownToAddKeyEvent(Space);//0x20,
-        KeyDownToAddKeyEvent(PageUp);//0x21,
-        KeyDownToAddKeyEvent(PageDown);//0x22,
-        KeyDownToAddKeyEvent(End);//0x23,
-        KeyDownToAddKeyEvent(Home);//0x24,
-        KeyDownToAddKeyEvent(PrintScreen);//0x2C,
-        KeyDownToAddKeyEvent(Insert);//0x2D,
-        KeyDownToAddKeyEvent(Delete);//0x2E,
-        KeyDownToAddKeyEvent(A);//0x41,
-        KeyDownToAddKeyEvent(B);//0x42,
-        KeyDownToAddKeyEvent(C);//0x43,
-        KeyDownToAddKeyEvent(D);//0x44,
-        KeyDownToAddKeyEvent(E);//0x45,
-        KeyDownToAddKeyEvent(F);//0x46,
-        KeyDownToAddKeyEvent(G);//0x47,
-        KeyDownToAddKeyEvent(H);//0x48,
-        KeyDownToAddKeyEvent(I);//0x49,
-        KeyDownToAddKeyEvent(J);//0x4A,
-        KeyDownToAddKeyEvent(K);//0x4B,
-        KeyDownToAddKeyEvent(L);//0x4C,
-        KeyDownToAddKeyEvent(M);//0x4D,
-        KeyDownToAddKeyEvent(N);//0x4E,
-        KeyDownToAddKeyEvent(O);//0x4F,
-        KeyDownToAddKeyEvent(P);//0x50,
-        KeyDownToAddKeyEvent(Q);//0x51,
-        KeyDownToAddKeyEvent(R);//0x52,
-        KeyDownToAddKeyEvent(S);//0x53,
-        KeyDownToAddKeyEvent(T);//0x54,
-        KeyDownToAddKeyEvent(U);//0x55,
-        KeyDownToAddKeyEvent(V);//0x56,
-        KeyDownToAddKeyEvent(W);//0x57,
-        KeyDownToAddKeyEvent(X);//0x58,
-        KeyDownToAddKeyEvent(Y);//0x59,
-        KeyDownToAddKeyEvent(Z);//0x5A,
-        KeyDownToAddKeyEvent(F1);//0x70,
-        KeyDownToAddKeyEvent(F2);//0x71,
-        KeyDownToAddKeyEvent(F3);//0x72,
-        KeyDownToAddKeyEvent(F4);//0x73,
-        KeyDownToAddKeyEvent(F5);//0x74,
-        KeyDownToAddKeyEvent(F6);//0x75,
-        KeyDownToAddKeyEvent(F7);//0x76,
-        KeyDownToAddKeyEvent(F8);//0x77,
-        KeyDownToAddKeyEvent(F9);//0x78,
-        KeyDownToAddKeyEvent(F10);//0x79,
-        KeyDownToAddKeyEvent(F11);//0x7A,
-        KeyDownToAddKeyEvent(F12);//0x7B,
-        KeyDownToAddKeyEvent(ScrollLock);//0x91,
-        //IS_SET_IN_NEWFRAME...KeyDownToAddKeyEvent(LeftShift);//0xA0,
-        //IS_SET_IN_NEWFRAME...KeyDownToAddKeyEvent(RightShift);//0xA1
-    }
-#endif // GEODE_IS_WINDOWS
-    bool init() {
-#ifdef GEODE_IS_WINDOWS
-        this->schedule(schedule_selector(CCLayerExt::listenForWinVK), 0.0f);
-#endif // GEODE_IS_WINDOWS
-        return CCLayer::init();
-    }
-};
-
 #include <Geode/modify/CCIMEDispatcher.hpp>
 class $modify(CCIMEDispatcherExt, CCIMEDispatcher) {
     void dispatchInsertText(const char* text, int len, enumKeyCodes key) {
+        //log::debug("{}(\"{}\", {}, {})", __FUNCTION__, text, len, CCKeyboardDispatcher::get()->keyToString(((int)key > 1 ? key : KEY_ApplicationsKey)));
         auto& io = ImGui::GetIO();
         if (!io.WantCaptureKeyboard) CCIMEDispatcher::dispatchInsertText(text, len, key);
         std::string str(text, len);
         io.AddInputCharactersUTF8(str.c_str());
+    }
+};
+
+#define AddKeyEvent(keyName) if (key == KEY_##keyName) io.AddKeyAnalogEvent(ImGuiKey_##keyName, down, 1.f)
+#define AddKeyModEvent(keyName) if (key == KEY_##keyName) io.AddKeyAnalogEvent(ImGuiKey_Mod##keyName, down, 1.f);
+#define AddKeyEventArrow(keyName) if (key == KEY_##keyName or key == KEY_Arrow##keyName) io.AddKeyAnalogEvent(ImGuiKey_##keyName##Arrow, down, 1.f)
+#include <Geode/modify/CCKeyboardDispatcher.hpp>
+class $modify(CCKeyboardDispatcher) {
+    bool dispatchKeyboardMSG(enumKeyCodes key, bool down, bool arr) {
+        //log::debug("{}({},{},{})", __FUNCTION__, CCKeyboardDispatcher::get()->keyToString(((int)key > 1 ? key : KEY_ApplicationsKey)), down, arr);
+        auto& io = ImGui::GetIO(); 
+        {
+            if (key == KEY_Control) io.AddKeyAnalogEvent(ImGuiKey_ModCtrl, down, 1.f);
+            AddKeyModEvent(Shift);
+            AddKeyModEvent(Alt);
+            //fucking sucks
+            AddKeyEventArrow(Left);
+            AddKeyEventArrow(Right);
+            AddKeyEventArrow(Down);
+            AddKeyEventArrow(Up);
+            AddKeyEvent(Space);
+            AddKeyEvent(Backspace);//0x09,
+            AddKeyEvent(Tab);//0x09,
+            AddKeyEvent(Enter);//0x0D,
+            AddKeyEvent(Pause);//0x13,
+            AddKeyEvent(CapsLock);//0x14,
+            AddKeyEvent(Escape);//0x1B,
+            AddKeyEvent(Space);//0x20,
+            AddKeyEvent(PageUp);//0x21,
+            AddKeyEvent(PageDown);//0x22,
+            AddKeyEvent(End);//0x23,
+            AddKeyEvent(Home);//0x24,
+            AddKeyEvent(PrintScreen);//0x2C,
+            AddKeyEvent(Insert);//0x2D,
+            AddKeyEvent(Delete);//0x2E,
+            AddKeyEvent(A);//0x41,
+            AddKeyEvent(B);//0x42,
+            AddKeyEvent(C);//0x43,
+            AddKeyEvent(D);//0x44,
+            AddKeyEvent(E);//0x45,
+            AddKeyEvent(F);//0x46,
+            AddKeyEvent(G);//0x47,
+            AddKeyEvent(H);//0x48,
+            AddKeyEvent(I);//0x49,
+            AddKeyEvent(J);//0x4A,
+            AddKeyEvent(K);//0x4B,
+            AddKeyEvent(L);//0x4C,
+            AddKeyEvent(M);//0x4D,
+            AddKeyEvent(N);//0x4E,
+            AddKeyEvent(O);//0x4F,
+            AddKeyEvent(P);//0x50,
+            AddKeyEvent(Q);//0x51,
+            AddKeyEvent(R);//0x52,
+            AddKeyEvent(S);//0x53,
+            AddKeyEvent(T);//0x54,
+            AddKeyEvent(U);//0x55,
+            AddKeyEvent(V);//0x56,
+            AddKeyEvent(W);//0x57,
+            AddKeyEvent(X);//0x58,
+            AddKeyEvent(Y);//0x59,
+            AddKeyEvent(Z);//0x5A,
+            AddKeyEvent(F1);//0x70,
+            AddKeyEvent(F2);//0x71,
+            AddKeyEvent(F3);//0x72,
+            AddKeyEvent(F4);//0x73,
+            AddKeyEvent(F5);//0x74,
+            AddKeyEvent(F6);//0x75,
+            AddKeyEvent(F7);//0x76,
+            AddKeyEvent(F8);//0x77,
+            AddKeyEvent(F9);//0x78,
+            AddKeyEvent(F10);//0x79,
+            AddKeyEvent(F11);//0x7A,
+            AddKeyEvent(F12);//0x7B,
+            AddKeyEvent(ScrollLock);//0x91,
+        };
+        if (io.WantCaptureKeyboard) return true;
+        return CCKeyboardDispatcher::dispatchKeyboardMSG(key, down, arr);
     }
 };

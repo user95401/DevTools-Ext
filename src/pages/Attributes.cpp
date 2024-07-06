@@ -254,10 +254,11 @@ void DevTools::drawNodeAttributes(CCNode* node) {
         if (ImGui::Button(U8STR(FEATHER_COPY"##copylabeltext"))) clipboard::write(fmt::format("{}", str)); ImGui::SameLine();
         ImGui::AddTooltip("\"{}\"<={str}");
         //ImGui::InputText("Text"_LOCALE, &str, { 0, 20 });
-        if (ImGui::InputTextMultilineWithAutoHeight("Text"_LOCALE, &str)) {
+        if (ImGui::BetterInputText("Text"_LOCALE, &str)) {
             labelNode->setString(str.c_str());
         }
     }
+
     //bitMapLabelNode
     auto bitMapLabelNode = typeinfo_cast<CCLabelBMFont*>(node);
     auto ttfLabelNode = typeinfo_cast<CCLabelTTF*>(node);
@@ -285,7 +286,29 @@ void DevTools::drawNodeAttributes(CCNode* node) {
         };
     }
 
-    //textureProtocol
+    //Display Frame
+    if (auto spriteNode = typeinfo_cast<CCSprite*>(node)) {
+        std::string frameName = cocos::frameName(spriteNode);
+        //copy
+        if (ImGui::Button(U8STR(FEATHER_COPY"##copysprframename"))) clipboard::write(fmt::format("{}", frameName)); ImGui::SameLine();
+        ImGui::AddTooltip("\"{}\"<={frameName}");
+        //imput
+        auto InputText = ImGui::InputText("Display Frame"_LOCALE, &frameName);
+        auto tempFrame = CCSpriteFrameCache::get()->spriteFrameByName(frameName.c_str());
+        //force
+        if (not tempFrame) {
+            ImGui::TextColored(
+                ImVec4(1.f, 0.4f, 0.4f, 1.f ),
+                "\"%s\" %s", frameName.c_str(), " is not standing for any cached frame! (failed at getting by name)"_LOCALE
+            );
+        };
+        //setup
+        if (InputText) {
+            if (spriteNode and tempFrame) spriteNode->setDisplayFrame(tempFrame);
+        };
+    }
+
+    //Texture name
     if (auto textureProtocol = typeinfo_cast<CCTextureProtocol*>(node)) {
         if (auto texture = textureProtocol->getTexture()) {
             auto* cachedTextures = CCTextureCache::sharedTextureCache()->m_pTextures;
@@ -295,22 +318,6 @@ void DevTools::drawNodeAttributes(CCNode* node) {
                     break;
                 }
             }
-
-            if (auto spriteNode = typeinfo_cast<CCSprite*>(node)) {
-                auto* cachedFrames = CCSpriteFrameCache::sharedSpriteFrameCache()->m_pSpriteFrames;
-                const auto rect = spriteNode->getTextureRect();
-                for (auto [key, frame] : CCDictionaryExt<std::string, CCSpriteFrame*>(cachedFrames)) {
-                    if (frame->getTexture() == texture && frame->getRect() == rect) {
-                        ImGui::Text("Frame name: %s"_LOCALE, key.c_str());
-                        ImGui::SameLine();
-                        if (ImGui::Button(LOCALE_WTH_FEATHER_ICON(FEATHER_COPY, " Copy##copysprframename"))) {
-                            clipboard::write(key);
-                        }
-                        break;
-                    }
-                }
-            }
-
         }
     }
 

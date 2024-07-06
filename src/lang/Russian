@@ -460,9 +460,15 @@ u8"Russian translation by user95401" "\n"
 	);
 
 	ADD_UTF8(
-	"Frame name: %s",
+	"Display Frame",
 	
-	"Имя фрейма: %s"
+	"Отображ. Фрейм"
+	);
+
+	ADD_UTF8(
+	" is not standing for any cached frame! (failed at getting by name)",
+	
+	" не обозначает какой-либо кэшированный фрейм! (не удалось получить по имени)"
 	);
 
 	ADD_UTF8(

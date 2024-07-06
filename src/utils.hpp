@@ -53,20 +53,22 @@ namespace ImGui {
         }
         return;
     }
-    inline auto InputTextMultilineWithAutoHeight(const char* label, std::string* str) {
+    inline auto BetterInputText(const char* label, std::string* str) {
         ImGuiContext& g = *GImGui;
         ImGuiIO& io = g.IO;
         const ImGuiStyle& style = g.Style;
         int lines_count = std::count(str->begin(), str->end(), '\n') + 1;
         const auto size = CalcItemSize({ 0, 0 }, CalcItemWidth(), (g.FontSize * lines_count) + style.FramePadding.y * 2.0f);
         auto textunput_rtn = InputTextMultiline(label, str, size);
-        //open virtual keyboard for non desktop one thing
+        //open virtual keyboard for non desktop ones
+#ifndef GEODE_IS_DESKTOP
         if (ImGui::IsItemActivated()) {
             g_textInputForSomeFunStuff->onClickTrackNode(true);
         }
         if (ImGui::IsItemDeactivated()) {
             g_textInputForSomeFunStuff->onClickTrackNode(false);
         }
+#endif // !GEODE_IS_DESKTOP
         return textunput_rtn;
     }
 }
