@@ -262,7 +262,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
     auto bitMapLabelNode = typeinfo_cast<CCLabelBMFont*>(node);
     auto ttfLabelNode = typeinfo_cast<CCLabelTTF*>(node);
     if (bitMapLabelNode or ttfLabelNode) {
-#ifndef GEODE_IS_ARM_MAC //Undefined symbols...?
+#ifndef GEODE_IS_MACOS //Undefined symbols...?
         std::string font = bitMapLabelNode ? bitMapLabelNode->getFntFile() : ttfLabelNode->getFontName();
 #else
         std::string font = bitMapLabelNode->getFntFile();
@@ -283,7 +283,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
         //setup
         if (InputText) {
             if (bitMapLabelNode and fileExists) bitMapLabelNode->setFntFile(font.c_str());
-#ifndef GEODE_IS_ARM_MAC //Undefined symbols...?
+#ifndef GEODE_IS_MACOS //Undefined symbols...?
             else if (ttfLabelNode) ttfLabelNode->setFontName(font.c_str());
 #endif
         };
