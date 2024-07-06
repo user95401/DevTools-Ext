@@ -282,8 +282,8 @@ void DevTools::drawNodeAttributes(CCNode* node) {
         if (InputText) {
             if (bitMapLabelNode and fileExists) bitMapLabelNode->setFntFile(font.c_str());
             else if (ttfLabelNode) ttfLabelNode->setFontName(font.c_str());
-#endif
         };
+#endif
     }
 
     //Display Frame
