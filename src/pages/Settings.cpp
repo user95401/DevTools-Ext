@@ -8,10 +8,6 @@
 #include <fmod.hpp>
 #include <numeric>
 
-#include <Geode/ui/GeodeUI.hpp>
-class ModSettingsPopup : public FLAlertLayer {};
-class ModPopup : public FLAlertLayer {};
-
 using namespace geode::prelude;
 
 static float RAINBOW_HUE = 0.f;
@@ -264,7 +260,7 @@ void DevTools::drawSettings() {
                     return false;
                 }
             );
-            if (not devToolsPopup) openIndexPopup(Mod::get());
+            if (not devToolsPopup) openInfoPopup(Mod::get());
         }
         ImGui::AddTooltip("Actually opens mod popup where you can open settings, read smth and go some links for example."_LOCALE);
 

@@ -1,1297 +1,672 @@
-﻿ADD_UTF8(
+﻿lang_inf = U8STR(
+u8"Translation by user95401 with google translator"
+);
 
+//configuraciones
+{
 
-
+ADD_UTF8(
 "Shows ImGui Style Editor and Metrics.", 
 
-
-
 "Muestra el editor de estilos y las métricas de ImGui."
-
-
-
 );
 
 ADD_UTF8(
+"Show ImGui Debug",
 
-
-
-"Show ImGui Debug", 
-
-
-
-"Mostrar ventanas de desarrollador de ImGui"
-
-
-
+"Mostrar la descripción general de ImGui"
 );
 
 ADD_UTF8(
-
-
-
 "Show Memory Viewer", 
 
-
-
-"Mostrar navegador de memoria"
-
-
-
+"Mostrar el visor de memoria"
 );
 
 ADD_UTF8(
+"Shows the memory viewer window.",
 
-
-
-"Shows the memory viewer window.", 
-
-
-
-"Muestra la ventana de exploración de la memoria..."
-
-
-
+"Muestra la ventana del visor de memoria..."
 );
 
 ADD_UTF8(
-
-
-
 "Advanced Settings",
 
-
-
-"Ajustes avanzados"
-
-
-
+"Configuración avanzada"
 );
 
 ADD_UTF8(
-
-
-
 "Shows advanced settings. Mostly useful only for development of Geode itself.",
 
-
-
-"Muestra configuraciones avanzadas. Básicamente, sólo es útil para desarrollar la propia Geode."
-
-
-
+"Responde a las direcciones IP. Por supuesto, solo se utiliza para la configuración de Geode."
 );
 
 ADD_UTF8(
-
-
-
 "Order Node Children",
 
-
-
-"Ordenar nodos secundarios"
-
-
-
+"Nodos de orden secundario"
 );
 
 ADD_UTF8(
-
-
-
 "When enabled (default behavior) node children are sorted by Z Order.\n"
-
 "When disabled, children have the same order they do during init functions (maybe).\n"
-
 "As a side effect to disabling this, things may render incorrectly.",
 
-
-
-"Cuando esta característica está habilitada (la opción predeterminada), los hijos de un nodo se ordenan según su orden z.\n"
-
-"Si lo desactivas, los elementos secundarios conservarán el mismo orden que tenían cuando se cargó la página por primera vez (posiblemente).\n"
-
-"Desactivar esta función puede provocar que algunos elementos se muestren incorrectamente."
-
-
-
+"Si esta función está activada (por defecto), la siguiente energía se almacena en el servidor. con sus ojos cerrados.\n"
+"Si lees esto, te sugiero que lo hagas, ya que la parte superior de la página está en la primera página de las páginas. (muy bien).\n"
+"Al revisar esta función, las opciones de energía no deseadas pueden abrirse de forma no deseada."
 );
 
 ADD_UTF8(
-
-
-
 "Arrow to Expand",
 
-
-
-"Flecha para expandir"
-
-
-
+"Desplegar la barra espaciadora"
 );
 
 ADD_UTF8(
-
-
-
 "If enabled, expanding nodes in the Tree only works with the arrow.\n"
-
 "Makes selecting nodes less annoying.",
 
-
-
-"Si está habilitado, expandir nodos en el árbol solo funciona con una flecha.\n"
-
-"Hace que la selección de nodos sea menos molesta"
-
-
-
+"Si es así, los nodos ubicados en la parte posterior del árbol solo funcionan en la columna.\n"
+"Deja un comentario en la parte inferior razonable."
 );
 
 ADD_UTF8(
+"Double click to Expand",
 
+"Clic doble para ruso"
+);
 
+ADD_UTF8(
+"Need double-click to open node in Tree.",
 
+"Es necesario hacer doble clic para abrir el nodo en el árbol."
+);
+
+ADD_UTF8(
 "Highlight Layouts",
 
-
-
-"Seleccionar diseños"
-
-
-
+"Resaltar letras"
 );
 
 ADD_UTF8(
-
-
-
 "Highlights the borders of all layouts applied to nodes",
 
-
-
-"Resalta los límites de todos los diseños aplicados a los nodos"
-
-
-
+"Resalta los bordes de todos los diseños aplicados a los nodos"
 );
 
 ADD_UTF8(
+"Resaltar nodos",
 
-
-
-"Highlight Nodes",
-
-
-
-"Seleccionar nodos"
-
-
-
+"Resaltar nodos"
 );
 
 ADD_UTF8(
-
-
-
 "Always highlight nodes when hovered in the Tree.\n"
-
 "When disabled, you can highlight by pressing Shift.",
 
-
-
-"Siempre resalte los nodos al pasar el cursor del mouse en el árbol.\n"
-
-"Si esta opción está deshabilitada, puedes resaltarla presionando Shift."
-
-
-
+"Todos los nodos deben estar resaltados en la parte inferior de la pantalla.\n"
+"Si este parámetro está desactivado, puede resaltarlos presionando Shift. Limpiar Entonces, presiona Shift."
 );
 
 ADD_UTF8(
-
-
-
 "Font Size",
 
-
-
-"Tamaño de fuente"
-
-
-
+"Rango de fuente"
 );
 
 ADD_UTF8(
-
-
-
 "Theme",
 
-
-
-"Tema de estilo"
-
-
-
+"Tema de la página"
 );
 
 ADD_UTF8(
-
-
-
 "Select Theme",
 
-
-
-"Seleccionar tema"
-
-
-
+"Abrir tema"
 );
 
 ADD_UTF8(
-
-
-
 "Language",
 
-
-
-"Idioma"
-
-
-
+"Seleccionar idioma"
 );
 
 ADD_UTF8(
-
-
-
 "Select Language",
 
-
-
-"Seleccione el idioma"
-
-
-
+"Seleccionar idioma"
 );
 
 ADD_UTF8(
-
-
-
 "Reset Layout",
 
-
-
-"Reinstalar diseño"
-
-
-
+"Reiniciar Layout"
 );
 
 ADD_UTF8(
+"Reset the windows docking and stuff.",
 
+"Reinicie la ventana de configuración y todo lo demás."
+);
 
+ADD_UTF8(
+"Mod Settings",
 
+"Configuración del mod"
+);
+
+ADD_UTF8(
+"Actually opens mod popup where you can open settings, read smth and go some links for example.",
+
+"Aquí también abre un pequeño mod, cuando tu amigo te pida que abra una ventana, luego haz clic en el botón de Aceptar."
+);
+ADD_UTF8(
+"Toggle DevTools",
+
+"Activar DevTools"
+);
+
+ADD_UTF8(
+"Yea, close this thing.",
+
+"Sí, cierra esta puerta."
+);
+
+ADD_UTF8(
+"Setup Open DevTools Button in Game UI",
+
+"Usar el botón Abrir DevTools en la interfaz de usuario del juego"
+);
+
+ADD_UTF8(
+"Current button is ",
+
+"Botón táctil "
+);
+
+ADD_UTF8(
+"Call original",
+
+"Llamar al original"
+);
+
+ADD_UTF8(
+"Unset Button",
+
+"Activar botón"
+);
+
+ADD_UTF8(
+"Listening for click...",
+
+"Observa el resultado..."
+);
+
+ADD_UTF8(
+"Select Button",
+
+"Presione el botón"
+);
+
+}//settings
+
+//atributos
+{
+
+ADD_UTF8(
 "Deselect",
 
-
-
-"Cancelar selección"
-
-
-
+"Eliminar selección"
 );
 
 ADD_UTF8(
-
-
-
 "Address: %s",
 
-
-
 "Dirección: %s"
-
-
-
 );
 
 ADD_UTF8(
-
-
-
 " Copy",
 
-
-
-"Copiar"
-
-
-
+" copiar"
 );
 
 ADD_UTF8(
-
-
-
 "User data: 0x%p",
 
-
-
 "Datos de usuario: %s"
-
-
-
 );
 
 ADD_UTF8(
-
-
-
 "Node ID: %s",
 
-
-
 "ID: %s"
-
-
-
 );
 
 ADD_UTF8(
-
-
-
 "Node ID: N/A",
 
-
-
 "ID: NO"
-
-
-
 );
 
 ADD_UTF8(
-
-
-
 " Copy##copynodeid",
 
-
-
-"copia##copynodeid"
-
-
-
+" copiar##copynodeid"
 );
 
 ADD_UTF8(
-
-
-
 "CCMenuItem selector: %s",
 
-
-
-"Selector de elementos CCMenu: %s"
-
-
-
+"Seleccionador CCMenuItem: %s"
 );
 
 ADD_UTF8(
-
-
-
 " Copy##copymenuitem",
 
-
-
-"copiadora.##copymenuitem"
-
-
-
+" Copiar.##copymenuitem"
 );
 
 ADD_UTF8(
+"CCMenuItem listener: %s",
 
+"Seleccionar nodo de CCMenuItem: %s"
+);
 
+ADD_UTF8(
+"Select Node##selmenuitemlistener",
 
+"Seleccionar nodo ##selmenuitemlistener"
+);
+
+ADD_UTF8(
 "Position",
 
-
-
 "Posición"
-
-
-
 );
 
 ADD_UTF8(
-
-
-
 "Gets the position (x,y) of the node in OpenGL coordinates.",
 
-
-
-"Devuelve la posición (x,y) del nodo en coordenadas OpenGL."
-
-
-
+"Obtiene la posición (x,y) del nodo en coordenadas OpenGL."
 );
 
 ADD_UTF8(
-
-
-
 "Scale",
 
-
-
-"Escala"
-
-
-
+"Masaje"
 );
 
 ADD_UTF8(
-
-
-
 "The scale factor of the node.",
 
-
-
-"Factor de escala de nodo."
-
-
-
+"El factor de escala del nodo."
 );
 
 ADD_UTF8(
-
-
-
 "Rotation",
 
-
-
 "Rotación"
-
-
-
 );
 
 ADD_UTF8(
-
-
-
 "The rotation of the node in degrees.",
 
-
-
-"Gire el nodo en grados."
-
-
-
+"El nodo está en la dirección correcta."
 );
 
 ADD_UTF8(
-
-
-
 "Skew",
 
-
-
-"Bisel"
-
-
-
+"Esquina"
 );
 
 ADD_UTF8(
-
-
-
 "The skew angle of the node in degrees.",
 
-
-
 "El ángulo de inclinación del nodo en grados."
-
-
-
 );
 
 ADD_UTF8(
-
-
-
 "Anchor Point",
 
-
-
-"Punto de referencia"
-
-
-
+"Punto de anclaje"
 );
 
 ADD_UTF8(
-
-
-
 "The anchor point in percent.",
 
-
-
-"Punto de anclaje en porcentaje."
-
-
-
+"El punto de anclaje se muestra en porcentaje."
 );
 
 ADD_UTF8(
-
-
-
 "Content Size",
 
-
-
 "Tamaño"
-
-
-
 );
 
 ADD_UTF8(
-
-
-
 "The untransformed size of the node.",
 
-
-
-"Tamaño de nodo sin transformar."
-
-
-
+"El tamaño del nodo no transformado."
 );
 
 ADD_UTF8(
-
-
-
 "Z Order",
 
-
-
 "Orden Z"
-
-
-
 );
 
 ADD_UTF8(
-
-
-
 "The z order which stands for the drawing order.",
 
-
-
-"El orden Z indica el orden de dibujo."
-
-
-
+"El orden Z es el orden correctode las posiciones."
 );
 
 ADD_UTF8(
-
-
-
 "Ignore Anchor Point for Position",
 
-
-
-"Ignorar el punto de referencia para la posición"
-
-
-
+"Ignorar punto de anclaje para la posición"
 );
 
 ADD_UTF8(
-
-
-
 "Whether the anchor point will be (0,0) when you position this node.",
 
-
-
-"¿El punto de referencia será igual a (0,0) al colocar este nodo?"
-
-
-
+"Defina el punto de anclaje deseado para la posición (0,0) en la posición de este nodo нода."
 );
 
 ADD_UTF8(
-
-
-
 "Visible",
 
-
-
 "Visible"
-
-
-
 );
 
 ADD_UTF8(
-
-
-
 "Whether the node is visible.",
 
-
-
-"¿Es visible el nodo?"
-
-
-
+"El nodo es visible."
 );
 
 ADD_UTF8(
-
-
-
 "Flip X",
 
-
-
-"Voltear por X"
-
-
-
+"Voltear X"
 );
 
 ADD_UTF8(
-
-
-
 "Whether the sprite is flipped horizontally or not." "\n"
-
 "It only flips the texture of the sprite, and not the texture of the sprite's children.",
 
-
-
-"Si el objeto se voltea horizontalmente o no." "\norte"
-
-"Esto sólo invierte la textura del sprite, no la textura de los hijos del sprite."
-
-
-
+"Voltear el sprite gorizontal o no." "\n"
+"En este caso, solo se muestra la tecnología de la pantalla, pero no la tecnología de las pantallas eléctricas de los dormitorios."
 );
 
 ADD_UTF8(
-
-
-
 "Flip Y",
 
-
-
-"Voltear por Y"
-
-
-
+"Obtenga Y"
 );
 
 ADD_UTF8(
-
-
-
 "Whether the sprite is flipped vertically or not." "\n"
-
 "It only flips the texture of the sprite, and not the texture of the sprite's children.",
 
-
-
-"Si el objeto está volteado verticalmente o no." "\norte"
-
-"Esto sólo invierte la textura del sprite, no la textura de los hijos del sprite."
-
-
-
+"Obtenga un sprite vertical o no." "\n"
+"Cuando esto sucede, también lo hace La tecnología de la pantalla no es una tecnología de pantalla dual."
 );
 
 ADD_UTF8(
-
-
-
 "Cascade Color",
 
-
-
-"Color consistente"
-
-
-
+"Color de la pantalla"
 );
 
 ADD_UTF8(
-
-
-
 "Whether or not color should be propagated to its children.",
 
-
-
-"Si el color debe transmitirse a sus hijos o no."
-
-
-
+"Seleccione el elemento que desea reproducir o no."
 );
 
 ADD_UTF8(
-
-
-
 "Color",
 
-
-
 "Color"
-
-
-
 );
 
 ADD_UTF8(
-
-
-
 "Text",
 
-
-
 "Texto"
-
-
-
 );
 
 ADD_UTF8(
+"Font",
 
+"Fuente"
+);
 
+ADD_UTF8(
+"file don't exists in search paths!",
 
+"¡No hay tal archivo en la lista de búsquedas!"
+);
+
+ADD_UTF8(
 "Texture name: %s",
 
-
-
-"Nombre de textura: %s"
-
-
-
+"Nombre de la textura: %s"
 );
 
 ADD_UTF8(
+"Display Frame",
 
-
-
-"Frame name: %s",
-
-
-
-"Nombre del marco: %s"
-
-
-
+"Obra. Frase"
 );
 
 ADD_UTF8(
+" is not standing for any cached frame! (failed at getting by name)",
 
-
-
-"Layout options: %s",
-
-
-
-"Parámetros de diseño: %s"
-
-
-
+" ¡No es tan bueno como el formato original! (No lo hagas por mí)"
 );
 
 ADD_UTF8(
-
-
-
-" Update Parent Layout",
-
-
-
-"Actualizar diseño parental"
-
-
-
-);
-
-ADD_UTF8(
-
-
-
-"Auto Scale",
-
-
-
-"Auto escala"
-
-
-
-);
-
-ADD_UTF8(
-
-
-
-"Default",
-
-
-
-"Por defecto"
-
-
-
-);
-
-ADD_UTF8(
-
-
-
-"Enable",
-
-
-
-"Encender"
-
-
-
-);
-
-ADD_UTF8(
-
-
-
-"Disable",
-
-
-
-"Desactivar"
-
-
-
-);
-
-ADD_UTF8(
-
-
-
-"Break Line",
-
-
-
-"Salto de línea"
-
-
-
-);
-
-ADD_UTF8(
-
-
-
-"Same Line",
-
-
-
-"Misma línea"
-
-
-
-);
-
-ADD_UTF8(
-
-
-
-"Scale Priority",
-
-
-
-"Prioridad de escala"
-
-
-
-);
-
-ADD_UTF8(
-
-
-
-"Offset",
-
-
-
-"Compensar"
-
-
-
-);
-
-ADD_UTF8(
-
-
-
-" Add AxisLayoutOptions",
-
-
-
-"Agregar opciones de diseño de eje"
-
-
-
-);
-
-ADD_UTF8(
-
-
-
-" Add AnchorLayoutOptions",
-
-
-
-"Agregar opciones de diseño de anclaje"
-
-
-
-);
-
-ADD_UTF8(
-
-
-
 "Touch Priority",
 
-
-
-"Prioridad táctil"
-
-
-
+"Presiona el botón"
 );
 
 ADD_UTF8(
+"Layouts",
 
+"Leyendas"
+);
 
+ADD_UTF8(
+"Layout options: %s",
 
+"Parámetros de diseño: %s"
+);
+
+ADD_UTF8(
+" Update Parent Layout",
+
+"Actualizar archivo de registro"
+);
+
+ADD_UTF8(
+" Add AxisLayoutOptions",
+
+"Agregar AxisLayoutOptions"
+);
+
+ADD_UTF8(
+" Add AnchorLayoutOptions",
+
+"Agregar AnchorLayoutOptions"
+);
+
+ADD_UTF8(
 "Layout: %s",
 
-
-
 "Diseño: %s"
-
-
-
 );
 
 ADD_UTF8(
-
-
-
 " Update Layout",
 
-
-
-"Actualizar diseño"
-
-
-
+"Actualizar Layout"
 );
 
 ADD_UTF8(
-
-
-
 " Add Test Child",
 
-
-
-"Agregar elemento de prueba"
-
-
-
+"Agregar elemento secundario de prueba"
 );
 
 ADD_UTF8(
-
-
-
 " Add AxisLayout",
 
-
-
-"Agregar diseño de eje"
-
-
-
+"Agregar AxisLayout"
 );
 
 ADD_UTF8(
-
-
-
 " Add AnchorLayout",
 
-
-
-"Agregar diseño de anclaje"
-
-
-
+"Agregar AnchorLayout"
 );
 
 ADD_UTF8(
+"Generated Node Setup Code",
 
+"Código de configuración de nodo generado"
+);
 
+ADD_UTF8(
+"Not running node",
 
+"Nodo no funcional"
+);
+
+ADD_UTF8(
 "Select a Node to Edit in the Scene or Tree",
 
+"Inserte un nodo para editarlo en Escena o Árbol"
+);
 
+}//atributos
 
-"Seleccione un nodo para editar en la escena o árbol"
+//ventanas
+{
 
+ADD_UTF8(
+" Tree"
+/* DONT TOUCH THAT */ "###devtools/tree",
 
-
+" Otro"
+/* NO TOQUES ESO */ "###devtools/tree"
 );
 
 ADD_UTF8(
+" Settings"
+/* DONT TOUCH THAT */ "###devtools/settings",
 
-
-
-" Tree###devtools/tree",
-
-
-
-" Árbol###devtools/tree"
-
-
-
+"Configuración"
+/* NO TOQUES ESO */ "###devtools/settings"
 );
 
 ADD_UTF8(
+" Settings"
+/* DONT TOUCH THAT */ "###devtools/settings",
 
-
-
-" Settings###devtools/settings",
-
-
-
-" Configuración###devtools/configuración"
-
-
-
+"Configuración"
+/* NO TOQUES ESO */ "###devtools/settings"
 );
 
 ADD_UTF8(
+" Advanced Settings"
+/* DONT TOUCH THAT */ "###devtools/advanced/settings",
 
-
-
-" Settings###devtools/settings",
-
-
-
-" Configuración###devtools/settings"
-
-
-
+"Configuración avanzada"
+/* NO TOQUES ESO */ "###devtools/advanced/settings"
 );
 
 ADD_UTF8(
+" Attributes"
+/* DONT TOUCH THAT */ "###devtools/attributes",
 
-
-
-" Advanced Settings###devtools/advanced/settings",
-
-
-
-" Configuración avanzada###devtools/advanced/settings"
-
-
-
+"Atributos"
+/* NO TOQUES ESO */ "###devtools/attributes"
 );
 
 ADD_UTF8(
+" Preview"
+/* DONT TOUCH THAT */ "###devtools/preview",
 
-
-
-" Attributes###devtools/attributes",
-
-
-
-" Atributos###devtools/attributes"
-
-
-
+" Vista previa"
+/* NO TOQUES ESO */ "###devtools/preview"
 );
 
 ADD_UTF8(
+" Mod Graph"
+/* DONT TOUCH THAT */ "###devtools/advanced/mod-graph",
 
-
-
-" Preview###devtools/preview",
-
-
-
-" Revisión###devtools/preview"
-
-
-
+" Gráfico de modos"
+/* NO TOQUES ESO */ "###devtools/advanced/mod-graph"
 );
 
 ADD_UTF8(
-
-
-
-" Mod Graph###devtools/advanced/mod-graph",
-
-
-
-"Mod Graph###devtools/advanced/mod-graph"
-
-
-
-);
-
-ADD_UTF8(
-
-
-
 "Memory viewer",
 
-
-
-"Explorador de memoria"
-
-
-
+"Visor de memoria de la aplicación"
 );
 
 ADD_UTF8(
-
-
-
 "Dear ImGui Style Editor",
 
 
-
-"Estimado editor de estilo ImGui"
-
-
-
+"Estimado editor de estilos de ImGui"
 );
 
+} //windows
+
+//Visor de memoria
+{
+
 ADD_UTF8(
-
-
-
 "Addr",
-
-
-
-"DIRECCIÓN"
-
-
-
+"Address"
 );
 
 ADD_UTF8(
-
-
-
 "Size",
 
-
-
-"Tamaño"
-
-
-
+"Ramificador"
 );
 
 ADD_UTF8(
-
-
-
 "Show raw bytes",
 
-
-
-"Mostrar bytes sin formato"
-
-
-
+"Mostrar sus archivos"
 );
 
 ADD_UTF8(
-
-
-
 "Selected Node",
 
-
-
-"Asentimiento elegido"
-
-
-
+"Nodo seleccionado"
 );
 
 ADD_UTF8(
-
-
-
 "Refresh",
 
-
-
 "Actualizar"
-
-
-
 );
 
 ADD_UTF8(
-
-
-
 "Save to file",
 
-
-
 "Guardar en archivo"
-
-
-
 );
+
+} //Visor de memoria

@@ -33,4 +33,4 @@ inline const char* operator "" _LOCALE(const char* str, size_t) {
 	return locale_str(str);
 }
 
-#define LOCALE_WTH_FEATHER_ICON(icon, str) locale_str(U8STR((U8STR(icon) + std::string(str##_LOCALE)).c_str()))
+#define LOCALE_WITH_FEATHER_ICON(icon, str) locale_str(U8STR((U8STR(icon) + std::string(str##_LOCALE)).c_str()))

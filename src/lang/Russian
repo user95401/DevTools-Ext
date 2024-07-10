@@ -1,630 +1,673 @@
 ﻿lang_inf = U8STR(
-u8"Russian translation by user95401" "\n"
-"Перевод на русский выполнил user95401"
+u8"Russian translation by user95401 in the process of dev" "\n"
+"Перевод на русский выполнил user95401 в процессе разработки"
 );
 
 //settings
 {
 
-	ADD_UTF8(
-	"Shows ImGui Style Editor and Metrics.", 
-	
-	"Показывает редактор стилей и показатели ImGui."
-	);
+ADD_UTF8(
+"Shows ImGui Style Editor and Metrics.", 
 
-	ADD_UTF8(
-	"Show ImGui Debug",
-	
-	"Показать окна разработчика ImGui"
-	);
+"Показывает редактор стилей и показатели ImGui."
+);
 
-	ADD_UTF8(
-	"Show Memory Viewer", 
-	
-	"Показать Средство Обзора Памяти"
-	);
+ADD_UTF8(
+"Show ImGui Debug",
 
-	ADD_UTF8(
-	"Shows the memory viewer window.",
-	
-	"Показывает окно просмотра памяти..."
-	);
+"Показать окна разработчика ImGui"
+);
 
-	ADD_UTF8(
-	"Advanced Settings",
-	
-	"Расширенные Настройки"
-	);
+ADD_UTF8(
+"Show Memory Viewer", 
 
-	ADD_UTF8(
-	"Shows advanced settings. Mostly useful only for development of Geode itself.",
-	
-	"Отображает расширенные настройки. По сути, полезен только для разработки самого Geode."
-	);
+"Показать Средство Обзора Памяти"
+);
 
-	ADD_UTF8(
-	"Order Node Children",
-	
-	"Упорядочивание Дочерних Нодов"
-	);
+ADD_UTF8(
+"Shows the memory viewer window.",
 
-	ADD_UTF8(
-	"When enabled (default behavior) node children are sorted by Z Order.\n"
-	"When disabled, children have the same order they do during init functions (maybe).\n"
-	"As a side effect to disabling this, things may render incorrectly.",
-	
-	"Если эта функция включена (по умолчанию), дочерние элементы нода сортируются в соответствии с их z-порядком.\n"
-	"Если вы отключите ее, дочерние элементы сохранят тот же порядок, который был при первой загрузке страницы (возможно).\n"
-	"В результате отключения этой функции некоторые элементы могут отображаться некорректно."
-	);
+"Показывает окно просмотра памяти..."
+);
 
-	ADD_UTF8(
-	"Arrow to Expand",
-	
-	"Расширять Стрелкой"
-	);
+ADD_UTF8(
+"Advanced Settings",
 
-	ADD_UTF8(
-	"If enabled, expanding nodes in the Tree only works with the arrow.\n"
-	"Makes selecting nodes less annoying.",
-	
-	"Если включено, расширение нодов в древе работает только на стрелку.\n"
-	"Делает выбор узлов менее раздражающим."
-	);
+"Расширенные Настройки"
+);
 
-	ADD_UTF8(
-	"Double click to Expand",
-	
-	"Двойной клик для Расширения"
-	);
+ADD_UTF8(
+"Shows advanced settings. Mostly useful only for development of Geode itself.",
 
-	ADD_UTF8(
-	"Need double-click to open node in Tree.",
-	
-	"Нужен двойной клик, чтобы раскрыть нод в древе."
-	);
+"Отображает расширенные настройки. По сути, полезен только для разработки самого Geode."
+);
 
-	ADD_UTF8(
-	"Highlight Layouts",
-	
-	"Выделять Лайауты"
-	);
+ADD_UTF8(
+"Order Node Children",
 
-	ADD_UTF8(
-	"Highlights the borders of all layouts applied to nodes",
-	
-	"Выделяет границы всех лайаутов, примененных к нодам"
-	);
+"Упорядочивание Дочерних Нодов"
+);
 
-	ADD_UTF8(
-	"Highlight Nodes",
-	
-	"Выделять Ноды"
-	);
+ADD_UTF8(
+"When enabled (default behavior) node children are sorted by Z Order.\n"
+"When disabled, children have the same order they do during init functions (maybe).\n"
+"As a side effect to disabling this, things may render incorrectly.",
 
-	ADD_UTF8(
-	"Always highlight nodes when hovered in the Tree.\n"
-	"When disabled, you can highlight by pressing Shift.",
-	
-	"Всегда выделять ноды при наведении курсора мыши в древе.\n"
-	"Если этот параметр отключен, вы можете выделить его, нажав Shift."
-	);
+"Если эта функция включена (по умолчанию), дочерние элементы нода сортируются в соответствии с их z-порядком.\n"
+"Если вы отключите ее, дочерние элементы сохранят тот же порядок, который был при первой загрузке страницы (возможно).\n"
+"В результате отключения этой функции некоторые элементы могут отображаться некорректно."
+);
 
-	ADD_UTF8(
-	"Font Size",
-	
-	"Размер шрифта"
-	);
+ADD_UTF8(
+"Arrow to Expand",
 
-	ADD_UTF8(
-	"Theme",
-	
-	"Тема стиля"
-	);
+"Расширять Стрелкой"
+);
 
-	ADD_UTF8(
-	"Select Theme",
-	
-	"Выбрать Тему"
-	);
+ADD_UTF8(
+"If enabled, expanding nodes in the Tree only works with the arrow.\n"
+"Makes selecting nodes less annoying.",
 
-	ADD_UTF8(
-	"Language",
-	
-	"Язык / Language"
-	);
+"Если включено, расширение нодов в древе работает только на стрелку.\n"
+"Делает выбор узлов менее раздражающим."
+);
 
-	ADD_UTF8(
-	"Select Language",
-	
-	"Выбрать Язык / Select Language"
-	);
+ADD_UTF8(
+"Double click to Expand",
 
-	ADD_UTF8(
-	"Reset Layout",
-	
-	"Переустановить Лайаут"
-	);
+"Двойной клик для Расширения"
+);
 
-	ADD_UTF8(
-	"Reset the windows docking and stuff.",
-	
-	"Переустановить закрепления окон и всё такое."
-	);
+ADD_UTF8(
+"Need double-click to open node in Tree.",
 
-	ADD_UTF8(
-	"Mod Settings",
-	
-	"Настройки Мода"
-	);
+"Нужен двойной клик, чтобы раскрыть нод в древе."
+);
 
-	ADD_UTF8(
-	"Actually opens mod popup where you can open settings, read smth and go some links for example.",
-	
-	"На самом деле откроет окно мода, где ты например, можешь открыть настройки, перейти по ссылкам, почитать инфу."
-	);
-	ADD_UTF8(
-	"Toggle DevTools",
-	
-	"Переключить DevTools"
-	);
+ADD_UTF8(
+"Highlight Layouts",
 
-	ADD_UTF8(
-	"Yea, close this thing.",
-	
-	"Ага, закрыть эту штуку."
-	);
-	
-	ADD_UTF8(
-	"Setup Open DevTools Button in Game UI",
-	
-	"Установка Кнопки Открытия DevTools в Игровом UI"
-	);
-	
-	ADD_UTF8(
-	"Current button is ",
-	
-	"Текущая кнопка "
-	);
-	
-	ADD_UTF8(
-	"Call original",
-	
-	"Вызывать оригинал"
-	);
-	
-	ADD_UTF8(
-	"Unset Button",
-	
-	"Убрать Кнопку"
-	);
-	
-	ADD_UTF8(
-	"Listening for click...",
-	
-	"Ожидается нажатие..."
-	);
-	
-	ADD_UTF8(
-	"Select Button",
-	
-	"Выбрать Кнопку"
-	);
-	
+"Выделять Лайауты"
+);
+
+ADD_UTF8(
+"Highlights the borders of all layouts applied to nodes",
+
+"Выделяет границы всех лайаутов, примененных к нодам"
+);
+
+ADD_UTF8(
+"Highlight Nodes",
+
+"Выделять Ноды"
+);
+
+ADD_UTF8(
+"Always highlight nodes when hovered in the Tree.\n"
+"When disabled, you can highlight by pressing Shift.",
+
+"Всегда выделять ноды при наведении курсора мыши в древе.\n"
+"Если этот параметр отключен, вы можете выделить его, нажав Shift."
+);
+
+ADD_UTF8(
+"Font Size",
+
+"Размер шрифта"
+);
+
+ADD_UTF8(
+"Theme",
+
+"Тема стиля"
+);
+
+ADD_UTF8(
+"Select Theme",
+
+"Выбрать Тему"
+);
+
+ADD_UTF8(
+"Language",
+
+"Язык / Language"
+);
+
+ADD_UTF8(
+"Select Language",
+
+"Выбрать Язык / Select Language"
+);
+
+ADD_UTF8(
+"Reset Layout",
+
+"Переустановить Лайаут"
+);
+
+ADD_UTF8(
+"Reset the windows docking and stuff.",
+
+"Переустановить закрепления окон и всё такое."
+);
+
+ADD_UTF8(
+"Mod Settings",
+
+"Настройки Мода"
+);
+
+ADD_UTF8(
+"Actually opens mod popup where you can open settings, read smth and go some links for example.",
+
+"На самом деле откроет окно мода, где ты например, можешь открыть настройки, перейти по ссылкам, почитать инфу."
+);
+ADD_UTF8(
+"Toggle DevTools",
+
+"Переключить DevTools"
+);
+
+ADD_UTF8(
+"Yea, close this thing.",
+
+"Ага, закрыть эту штуку."
+);
+
+ADD_UTF8(
+"Setup Open DevTools Button in Game UI",
+
+"Установка Кнопки Открытия DevTools в Игровом UI"
+);
+
+ADD_UTF8(
+"Current button is ",
+
+"Текущая кнопка "
+);
+
+ADD_UTF8(
+"Call original",
+
+"Вызывать оригинал"
+);
+
+ADD_UTF8(
+"Unset Button",
+
+"Убрать Кнопку"
+);
+
+ADD_UTF8(
+"Listening for click...",
+
+"Ожидается нажатие..."
+);
+
+ADD_UTF8(
+"Select Button",
+
+"Выбрать Кнопку"
+);
+
 }//settings
 
 //attributes
 {
-	
-	ADD_UTF8(
-	"Deselect",
 
-	"Отменить выбор"
-	);
+ADD_UTF8(
+"Deselect",
 
-	ADD_UTF8(
-	"Address: %s",
-	
-	"Адрес: %s"
-	);
+"Отменить выбор"
+);
 
-	ADD_UTF8(
-	" Copy",
-	
-	" копировать"
-	);
+ADD_UTF8(
+"Address: %s",
 
-	ADD_UTF8(
-	"User data: 0x%p",
-	
-	"Пользов. данные: %s"
-	);
+"Адрес: %s"
+);
 
-	ADD_UTF8(
-	"Node ID: %s",
-	
-	"ID: %s"
-	);
+ADD_UTF8(
+" Copy",
 
-	ADD_UTF8(
-	"Node ID: N/A",
-	
-	"ID: НЕТУ"
-	);
+" копировать"
+);
 
-	ADD_UTF8(
-	" Copy##copynodeid",
-	
-	" копировать##copynodeid"
-	);
+ADD_UTF8(
+"User data: 0x%p",
 
-	ADD_UTF8(
-	"CCMenuItem selector: %s",
-	
-	"Селектор CCMenuItem: %s"
-	);
+"Пользов. данные: %s"
+);
 
-	ADD_UTF8(
-	" Copy##copymenuitem",
-	
-	" копир.##copymenuitem"
-	);
+ADD_UTF8(
+"Node ID: %s",
 
-	ADD_UTF8(
-	"CCMenuItem listener: %s",
-	
-	"Слушатель CCMenuItem: %s"
-	);
+"ID: %s"
+);
 
-	ADD_UTF8(
-	"Select Node##selmenuitemlistener",
-	
-	"Выбрать Нод##selmenuitemlistener"
-	);
+ADD_UTF8(
+"Node ID: N/A",
 
-	ADD_UTF8(
-	"Position",
-	
-	"Позиция"
-	);
+"ID: НЕТУ"
+);
 
-	ADD_UTF8(
-	"Gets the position (x,y) of the node in OpenGL coordinates.",
-	
-	"Возвращает положение (x,y) нода в координатах OpenGL."
-	);
+ADD_UTF8(
+" Copy##copynodeid",
 
-	ADD_UTF8(
-	"Scale",
-	
-	"Масштаб"
-	);
+" копировать##copynodeid"
+);
 
-	ADD_UTF8(
-	"The scale factor of the node.",
-	
-	"Масштабный коэффициент нода."
-	);
+ADD_UTF8(
+"CCMenuItem selector: %s",
 
-	ADD_UTF8(
-	"Rotation",
-	
-	"Вращение"
-	);
+"Селектор CCMenuItem: %s"
+);
 
-	ADD_UTF8(
-	"The rotation of the node in degrees.",
-	
-	"Поворот нода в градусах."
-	);
+ADD_UTF8(
+" Copy##copymenuitem",
 
-	ADD_UTF8(
-	"Skew",
-	
-	"Скос"
-	);
+" копир.##copymenuitem"
+);
 
-	ADD_UTF8(
-	"The skew angle of the node in degrees.",
-	
-	"Угол наклона нода в градусах."
-	);
+ADD_UTF8(
+"CCMenuItem listener: %s",
 
-	ADD_UTF8(
-	"Anchor Point",
-	
-	"Опорная Точка"
-	);
+"Слушатель CCMenuItem: %s"
+);
 
-	ADD_UTF8(
-	"The anchor point in percent.",
-	
-	"Опорная точка в процентах."
-	);
+ADD_UTF8(
+"Select Node##selmenuitemlistener",
 
-	ADD_UTF8(
-	"Content Size",
-	
-	"Размер"
-	);
+"Выбрать Нод##selmenuitemlistener"
+);
 
-	ADD_UTF8(
-	"The untransformed size of the node.",
-	
-	"Нетрансформированный размер нода."
-	);
+ADD_UTF8(
+"Position",
 
-	ADD_UTF8(
-	"Z Order",
-	
-	"Z-Порядок"
-	);
+"Позиция"
+);
 
-	ADD_UTF8(
-	"The z order which stands for the drawing order.",
-	
-	"Z-порядок обозначает порядок отрисовки."
-	);
+ADD_UTF8(
+"Gets the position (x,y) of the node in OpenGL coordinates.",
 
-	ADD_UTF8(
-	"Ignore Anchor Point for Position",
-	
-	"Игнор опорной точки для позиции"
-	);
+"Возвращает положение (x,y) нода в координатах OpenGL."
+);
 
-	ADD_UTF8(
-	"Whether the anchor point will be (0,0) when you position this node.",
-	
-	"Будет ли опорная точка равна (0,0) при размещении этого нода."
-	);
+ADD_UTF8(
+"Scale",
 
-	ADD_UTF8(
-	"Visible",
-	
-	"Видимый"
-	);
+"Масштаб"
+);
 
-	ADD_UTF8(
-	"Whether the node is visible.",
-	
-	"Виден ли нод."
-	);
+ADD_UTF8(
+"The scale factor of the node.",
 
-	ADD_UTF8(
-	"Flip X",
-	
-	"Перевернуть По X"
-	);
+"Масштабный коэффициент нода."
+);
 
-	ADD_UTF8(
-	"Whether the sprite is flipped horizontally or not." "\n"
-	"It only flips the texture of the sprite, and not the texture of the sprite's children.",
-	
-	"Перевернут спрайт по горизонтали или нет." "\n"
-	"При этом переворачивается только текстура спрайта, а не текстура дочерних элементов спрайта."
-	);
+ADD_UTF8(
+"Rotation",
 
-	ADD_UTF8(
-	"Flip Y",
-	"Перевернуть По Y"
-	);
+"Вращение"
+);
 
-	ADD_UTF8(
-	"Whether the sprite is flipped vertically or not." "\n"
-	"It only flips the texture of the sprite, and not the texture of the sprite's children.",
-	
-	"Перевернут спрайт по вертикали или нет." "\n"
-	"При этом переворачивается только текстура спрайта, а не текстура дочерних элементов спрайта."
-	);
+ADD_UTF8(
+"The rotation of the node in degrees.",
 
-	ADD_UTF8(
-	"Cascade Color",
-	
-	"Последовательный цвет"
-	);
+"Поворот нода в градусах."
+);
 
-	ADD_UTF8(
-	"Whether or not color should be propagated to its children.",
-	
-	"Следует ли передавать цвет его дочерним элементам или нет."
-	);
+ADD_UTF8(
+"Skew",
 
-	ADD_UTF8(
-	"Color",
-	
-	"Цвет"
-	);
+"Скос"
+);
 
-	ADD_UTF8(
-	"Text",
-	
-	"Текст"
-	);
+ADD_UTF8(
+"The skew angle of the node in degrees.",
 
-	ADD_UTF8(
-	"Font",
-	
-	"Шрифт"
-	);
+"Угол наклона нода в градусах."
+);
 
-	ADD_UTF8(
-	"file don't exists in search paths!",
-	
-	"нет такого файлв по путям поиска!"
-	);
+ADD_UTF8(
+"Anchor Point",
 
-	ADD_UTF8(
-	"Texture name: %s",
-	
-	"Имя текстуры: %s"
-	);
+"Опорная Точка"
+);
 
-	ADD_UTF8(
-	"Display Frame",
-	
-	"Отображ. Фрейм"
-	);
+ADD_UTF8(
+"The anchor point in percent.",
 
-	ADD_UTF8(
-	" is not standing for any cached frame! (failed at getting by name)",
-	
-	" не обозначает какой-либо кэшированный фрейм! (не удалось получить по имени)"
-	);
+"Опорная точка в процентах."
+);
 
-	ADD_UTF8(
-	"Layout options: %s",
-	
-	"Параметры лайаута: %s"
-	);
+ADD_UTF8(
+"Content Size",
 
-	ADD_UTF8(
-	" Update Parent Layout",
-	
-	" Обновить Родительский Лайаут"
-	);
+"Размер"
+);
 
-	ADD_UTF8(
-	" Add AxisLayoutOptions",
-	" Добавить AxisLayoutOptions"
-	);
+ADD_UTF8(
+"The untransformed size of the node.",
 
-	ADD_UTF8(
-	" Add AnchorLayoutOptions",
-	" Добавить AnchorLayoutOptions"
-	);
+"Нетрансформированный размер нода."
+);
 
-	ADD_UTF8(
-	"Touch Priority",
-	"Приоритет Касаний"
-	);
+ADD_UTF8(
+"Z Order",
 
-	ADD_UTF8(
-	"Layout: %s",
-	"Лайаут: %s"
-	);
+"Z-Порядок"
+);
 
-	ADD_UTF8(
-	" Update Layout",
-	" Обновить Лайаут"
-	);
+ADD_UTF8(
+"The z order which stands for the drawing order.",
 
-	ADD_UTF8(
-	" Add Test Child",
-	" Добавить тестовый элемент"
-	);
+"Z-порядок обозначает порядок отрисовки."
+);
 
-	ADD_UTF8(
-	" Add AxisLayout",
-	" Добавить AxisLayout"
-	);
+ADD_UTF8(
+"Ignore Anchor Point for Position",
 
-	ADD_UTF8(
-	" Add AnchorLayout",
-	" Добавить AnchorLayout"
-	);
+"Игнор опорной точки для позиции"
+);
 
-	ADD_UTF8(
-	"Select a Node to Edit in the Scene or Tree",
-	"Выберите Нод для редактирования в Сцене или Древе"
-	);
-	
+ADD_UTF8(
+"Whether the anchor point will be (0,0) when you position this node.",
+
+"Будет ли опорная точка равна (0,0) при размещении этого нода."
+);
+
+ADD_UTF8(
+"Visible",
+
+"Видимый"
+);
+
+ADD_UTF8(
+"Whether the node is visible.",
+
+"Виден ли нод."
+);
+
+ADD_UTF8(
+"Flip X",
+
+"Перевернуть По X"
+);
+
+ADD_UTF8(
+"Whether the sprite is flipped horizontally or not." "\n"
+"It only flips the texture of the sprite, and not the texture of the sprite's children.",
+
+"Перевернут спрайт по горизонтали или нет." "\n"
+"При этом переворачивается только текстура спрайта, а не текстура дочерних элементов спрайта."
+);
+
+ADD_UTF8(
+"Flip Y",
+
+"Перевернуть По Y"
+);
+
+ADD_UTF8(
+"Whether the sprite is flipped vertically or not." "\n"
+"It only flips the texture of the sprite, and not the texture of the sprite's children.",
+
+"Перевернут спрайт по вертикали или нет." "\n"
+"При этом переворачивается только текстура спрайта, а не текстура дочерних элементов спрайта."
+);
+
+ADD_UTF8(
+"Cascade Color",
+
+"Последовательный цвет"
+);
+
+ADD_UTF8(
+"Whether or not color should be propagated to its children.",
+
+"Следует ли передавать цвет его дочерним элементам или нет."
+);
+
+ADD_UTF8(
+"Color",
+
+"Цвет"
+);
+
+ADD_UTF8(
+"Text",
+
+"Текст"
+);
+
+ADD_UTF8(
+"Font",
+
+"Шрифт"
+);
+
+ADD_UTF8(
+"file don't exists in search paths!",
+
+"нет такого файлв по путям поиска!"
+);
+
+ADD_UTF8(
+"Texture name: %s",
+
+"Имя текстуры: %s"
+);
+
+ADD_UTF8(
+"Display Frame",
+
+"Отображ. Фрейм"
+);
+
+ADD_UTF8(
+" is not standing for any cached frame! (failed at getting by name)",
+
+" не обозначает какой-либо кэшированный фрейм! (не удалось получить по имени)"
+);
+
+ADD_UTF8(
+"Touch Priority",
+
+"Приоритет Касаний"
+);
+
+ADD_UTF8(
+"Layouts",
+
+"Лайауты"
+);
+
+ADD_UTF8(
+"Layout options: %s",
+
+"Параметры лайаута: %s"
+);
+
+ADD_UTF8(
+" Update Parent Layout",
+
+" Обновить Родительский Лайаут"
+);
+
+ADD_UTF8(
+" Add AxisLayoutOptions",
+
+" Добавить AxisLayoutOptions"
+);
+
+ADD_UTF8(
+" Add AnchorLayoutOptions",
+
+" Добавить AnchorLayoutOptions"
+);
+
+ADD_UTF8(
+"Layout: %s",
+
+"Лайаут: %s"
+);
+
+ADD_UTF8(
+" Update Layout",
+
+" Обновить Лайаут"
+);
+
+ADD_UTF8(
+" Add Test Child",
+
+" Добавить тестовый элемент"
+);
+
+ADD_UTF8(
+" Add AxisLayout",
+
+" Добавить AxisLayout"
+);
+
+ADD_UTF8(
+" Add AnchorLayout",
+
+" Добавить AnchorLayout"
+);
+
+ADD_UTF8(
+"Generated Node Setup Code",
+
+"Сгенерированнный Код Установки Нода"
+);
+
+ADD_UTF8(
+"Not running node",
+
+"Не работающий нод"
+);
+
+ADD_UTF8(
+"Select a Node to Edit in the Scene or Tree",
+
+"Выберите Нод для редактирования в Сцене или Древе"
+);
+
 }//attributes
 
 //windows
 { 
 
-	ADD_UTF8(
-	" Tree"
-	/* DONT TOUCH THAT */ "###devtools/tree",
-	" Древо"
-	/* DONT TOUCH THAT */ "###devtools/tree"
-	);
+ADD_UTF8(
+" Tree"
+/* DONT TOUCH THAT */ "###devtools/tree",
 
-	ADD_UTF8(
-	" Settings"
-	/* DONT TOUCH THAT */ "###devtools/settings",
-	" Настройки"
-	/* DONT TOUCH THAT */ "###devtools/settings"
-	);
+" Древо"
+/* DONT TOUCH THAT */ "###devtools/tree"
+);
 
-	ADD_UTF8(
-	" Settings"
-	/* DONT TOUCH THAT */ "###devtools/settings",
-	" Настройки"
-	/* DONT TOUCH THAT */ "###devtools/settings"
-	);
+ADD_UTF8(
+" Settings"
+/* DONT TOUCH THAT */ "###devtools/settings",
 
-	ADD_UTF8(
-	" Advanced Settings"
-	/* DONT TOUCH THAT */ "###devtools/advanced/settings",
-	" Расширенные Настройки"
-	/* DONT TOUCH THAT */ "###devtools/advanced/settings"
-	);
+" Настройки"
+/* DONT TOUCH THAT */ "###devtools/settings"
+);
 
-	ADD_UTF8(
-	" Attributes"
-	/* DONT TOUCH THAT */ "###devtools/attributes",
-	" Атрибуты"
-	/* DONT TOUCH THAT */ "###devtools/attributes"
-	);
+ADD_UTF8(
+" Settings"
+/* DONT TOUCH THAT */ "###devtools/settings",
 
-	ADD_UTF8(
-	" Preview"
-	/* DONT TOUCH THAT */ "###devtools/preview",
-	" Обзор"
-	/* DONT TOUCH THAT */ "###devtools/preview"
-	);
+" Настройки"
+/* DONT TOUCH THAT */ "###devtools/settings"
+);
 
-	ADD_UTF8(
-	" Mod Graph"
-	/* DONT TOUCH THAT */ "###devtools/advanced/mod-graph",
-	" График Модов"
-	/* DONT TOUCH THAT */ "###devtools/advanced/mod-graph"
-	);
+ADD_UTF8(
+" Advanced Settings"
+/* DONT TOUCH THAT */ "###devtools/advanced/settings",
 
-	ADD_UTF8(
-	"Memory viewer",
-	"Средство Обзора Памяти"
-	);
+" Расширенные Настройки"
+/* DONT TOUCH THAT */ "###devtools/advanced/settings"
+);
 
-	ADD_UTF8(
-	"Dear ImGui Style Editor",
-	"Dear ImGui Редактор Стилей"
-	);
+ADD_UTF8(
+" Attributes"
+/* DONT TOUCH THAT */ "###devtools/attributes",
+
+" Атрибуты"
+/* DONT TOUCH THAT */ "###devtools/attributes"
+);
+
+ADD_UTF8(
+" Preview"
+/* DONT TOUCH THAT */ "###devtools/preview",
+
+" Обзор"
+/* DONT TOUCH THAT */ "###devtools/preview"
+);
+
+ADD_UTF8(
+" Mod Graph"
+/* DONT TOUCH THAT */ "###devtools/advanced/mod-graph",
+
+" График Модов"
+/* DONT TOUCH THAT */ "###devtools/advanced/mod-graph"
+);
+
+ADD_UTF8(
+"Memory viewer",
+
+"Средство Обзора Памяти"
+);
+
+ADD_UTF8(
+"Dear ImGui Style Editor",
+
+
+"Dear ImGui Редактор Стилей"
+);
 
 } //windows
 
 //Memory viewer
 { 
-	
-	ADD_UTF8(
-	"Addr",
-	"Адрес"
-	);
 
-	ADD_UTF8(
-	"Size",
-	"Размер"
-	);
+ADD_UTF8(
+"Addr",
+"Адрес"
+);
 
-	ADD_UTF8(
-	"Show raw bytes",
-	"Показать сырые байты"
-	);
+ADD_UTF8(
+"Size",
 
-	ADD_UTF8(
-	"Selected Node",
-	"Выбранный Нод"
-	);
+"Размер"
+);
 
-	ADD_UTF8(
-	"Refresh",
-	"Обновить"
-	);
+ADD_UTF8(
+"Show raw bytes",
 
-	ADD_UTF8(
-	"Save to file",
-	"Сохранить в файл"
-	);
-	
+"Показать сырые байты"
+);
+
+ADD_UTF8(
+"Selected Node",
+
+"Выбранный Нод"
+);
+
+ADD_UTF8(
+"Refresh",
+
+"Обновить"
+);
+
+ADD_UTF8(
+"Save to file",
+
+"Сохранить в файл"
+);
+
 } //Memory viewer

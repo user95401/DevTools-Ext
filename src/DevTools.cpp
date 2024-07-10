@@ -138,38 +138,38 @@ void DevTools::drawPages() {
     }
 
     this->drawPage(
-        LOCALE_WTH_FEATHER_ICON(FEATHER_GIT_MERGE, " Tree###devtools/tree"),
+        LOCALE_WITH_FEATHER_ICON(FEATHER_GIT_MERGE, " Tree###devtools/tree"),
         &DevTools::drawTree
     );
 
     this->drawPage(
-        LOCALE_WTH_FEATHER_ICON(FEATHER_SETTINGS, " Settings###devtools/settings"),
+        LOCALE_WITH_FEATHER_ICON(FEATHER_SETTINGS, " Settings###devtools/settings"),
         &DevTools::drawSettings
     );
 
     if (m_settings.advancedSettings) {
         this->drawPage(
-            LOCALE_WTH_FEATHER_ICON(FEATHER_SETTINGS, " Advanced Settings###devtools/advanced/settings"),
+            LOCALE_WITH_FEATHER_ICON(FEATHER_SETTINGS, " Advanced Settings###devtools/advanced/settings"),
                 &DevTools::drawAdvancedSettings
         );
     }
 
     this->drawPage(
-        LOCALE_WTH_FEATHER_ICON(FEATHER_TOOL, " Attributes###devtools/attributes"),
+        LOCALE_WITH_FEATHER_ICON(FEATHER_TOOL, " Attributes###devtools/attributes"),
         &DevTools::drawAttributes
     );
 
     // TODO: fix preview tab
 #if 0
     this->drawPage(
-        LOCALE_WTH_FEATHER_ICON(FEATHER_DATABASE, " Preview###devtools/preview"),
+        LOCALE_WITH_FEATHER_ICON(FEATHER_DATABASE, " Preview###devtools/preview"),
         &DevTools::drawPreview
     );
 #endif
 
     if (m_showModGraph) {
         this->drawPage(
-            LOCALE_WTH_FEATHER_ICON(FEATHER_SHARE_2, " Mod Graph###devtools/advanced/mod-graph"),
+            LOCALE_WITH_FEATHER_ICON(FEATHER_SHARE_2, " Mod Graph###devtools/advanced/mod-graph"),
             &DevTools::drawModGraph
         );
     }
