@@ -85,13 +85,6 @@ public:
 }; SettingNode* ToggleBtnSettingValue::createNode(float width) { return ToggleBtnSettingNode::create(this, width); }
 $on_mod(Loaded) { Mod::get()->addCustomSetting<ToggleBtnSettingValue>("toggle-btn", 1337); }
 
-class $modify(AchievementNotifier) {
-    void willSwitchToScene(CCScene* scene) {
-        AchievementNotifier::willSwitchToScene(scene);
-        DevTools::get()->sceneChanged();
-    }
-};
-
 class $modify(CCDirector) {
     void drawScene() {
         if (!DevTools::get()->shouldUseGDWindow()) {
