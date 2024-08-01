@@ -110,6 +110,12 @@ ADD_UTF8(
 );
 
 ADD_UTF8(
+"Toggleable Settings",
+
+"Перемикаються Настройки"
+);
+
+ADD_UTF8(
 "Font Size",
 
 "Розмір шрифту"
@@ -273,6 +279,12 @@ ADD_UTF8(
 "CCMenuItem listener: %s",
 
 "Слухач CCMenuItem: %s"
+);
+
+ADD_UTF8(
+"call menuItemNode->",
+
+"визвати menuItemNode->"
 );
 
 ADD_UTF8(

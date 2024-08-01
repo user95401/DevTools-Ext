@@ -186,6 +186,7 @@ void DevTools::drawPages() {
         ImGui::ShowMetricsWindow();
     }
 }
+
 void DevTools::draw(GLRenderCtx* ctx) {
     if (m_visible) {
 
@@ -202,13 +203,11 @@ void DevTools::draw(GLRenderCtx* ctx) {
             nullptr, ImGuiDockNodeFlags_PassthruCentralNode
         );
 
-        //ImGui::PushFont(m_defaultFont);
         this->drawPages();
         if (m_selectedNode) {
             this->highlightNode(m_selectedNode, HighlightMode::Selected);
         }
         if (this->shouldUseGDWindow()) this->drawGD(ctx);
-        //ImGui::PopFont();
     }
 }
 

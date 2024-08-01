@@ -34,14 +34,15 @@ bool checkbox(const char* text, T* ptr, bool(T::* get)() const, R(T::* set)(bool
 }
 
 void DevTools::drawNodeAttributes(CCNode* node) {
-    if (not m_selectedNode) return;
-    if (not m_selectedNode->isRunning()) {
-        if(not ImGui::CollapsingHeader("Not running node"_LOCALE)) return;
+    if (not node->isRunning()) {
+        if (not ImGui::CollapsingHeader("Not running node"_LOCALE)) return;
     }
 
     //Deselect
     if (ImGui::Button("Deselect"_LOCALE)) return this->selectNode(nullptr);
-    
+
+    ImGui::NewLine();
+
     //Address
     {
         ImGui::Text("Address: %s"_LOCALE, fmt::to_string(fmt::ptr(node)).c_str());
@@ -81,7 +82,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
             auto addr = addresser::getNonVirtual(selector);
             auto strOffset = formatAddressIntoOffset(addr, true);
             auto strOffsetNoModule = formatAddressIntoOffset(addr, false);
-            ImGui::Text("MenuItem Selector: %s"_LOCALE, strOffset.c_str());
+            ImGui::Text("CCMenuItem Selector: %s"_LOCALE, strOffset.c_str());
             ImGui::SameLine();
             if (ImGui::SmallButton(LOCALE_WITH_FEATHER_ICON(FEATHER_COPY, " Copy##copymenuitem"))) {
                 clipboard::write(strOffsetNoModule);
@@ -112,7 +113,29 @@ void DevTools::drawNodeAttributes(CCNode* node) {
                 clipboard::write(strOffsetNoModule);
             }
         }
+        //call stuff
+        ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, { 0.f, 0.f });
+        ImGui::Text("menuItemNode->");
+        ImGui::SameLine();
+        if (ImGui::TextLink("activate();")) {
+            menuItemNode->activate();
+        }
+        ImGui::SameLine();
+        ImGui::Text(" / ");
+        ImGui::SameLine();
+        if (ImGui::TextLink("selected();")) {
+            menuItemNode->selected();
+        }
+        ImGui::SameLine();
+        ImGui::Text(" / ");
+        ImGui::SameLine();
+        if (ImGui::TextLink("unselected();")) {
+            menuItemNode->unselected();
+        }
+        ImGui::PopStyleVar();
     }
+
+    ImGui::NewLine();
 
     //pos
     {
@@ -634,7 +657,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
         auto bitMapLabelNode = typeinfo_cast<CCLabelBMFont*>(node);
         auto ttfLabelNode = typeinfo_cast<CCLabelTTF*>(node);
         if (bitMapLabelNode or ttfLabelNode) setFontPart = fmt::format(
-            "\n\t" "nodeToSetup->{}(\"{}\")",
+            "\n\t" "nodeToSetup->{}(\"{}\");",
             (bitMapLabelNode ? "setFntFile" : "setFontName"),
             (bitMapLabelNode ? bitMapLabelNode->getFntFile() : ttfLabelNode->getFontName())
         );
@@ -677,28 +700,6 @@ void DevTools::drawNodeAttributes(CCNode* node) {
             + (spriteNode ? "\n\t" + fmt::format("nodeToSetup->setDisplayFrame(CCSpriteFrameCache::get()->spriteFrameByName(\"{}\"));", cocos::frameName(spriteNode)) : "")
             + "\n}"
         };
-#if 0
-        auto YOUR_NODE_VAR = CCSprite::create();//m_selectedNode; 
-        if (auto& nodeToSetup = YOUR_NODE_VAR) {
-            nodeToSetup->setPosition(CCPoint(302.5f, 270.f));
-            nodeToSetup->setScaleX(1.05f);
-            nodeToSetup->setScaleY(0.6f);
-            nodeToSetup->setRotation(0.f);
-            nodeToSetup->setSkewX(0.f);
-            nodeToSetup->setSkewY(0.f);
-            nodeToSetup->setAnchorPoint(CCPoint(0.5f, 0.5f));
-            nodeToSetup->setContentSize(CCSize(429.f, 52.f)); //may be calculated set! (remove if u dont touched that)
-            nodeToSetup->setZOrder(2);
-            nodeToSetup->ignoreAnchorPointForPosition(false);
-            nodeToSetup->setVisible(true);
-            nodeToSetup->setFlipX(false);
-            nodeToSetup->setFlipY(false);
-            nodeToSetup->setCascadeColorEnabled(false);
-            nodeToSetup->setColor(ccColor3B(31, 0, 255));
-            nodeToSetup->setOpacity(167);
-            nodeToSetup->setDisplayFrame(CCSpriteFrameCache::get()->spriteFrameByName("GJ_logo_001.png"));
-        }
-#endif // 1
         ImGui::SetNextItemWidth(ImGui::GetWindowWidth() - ImGui::GetFontSize() - 50.f);
         ImGui::BetterInputText("##codegen", &code);
         ImGui::SameLine();

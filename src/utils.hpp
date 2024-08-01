@@ -114,4 +114,37 @@ namespace ImGui {
 #endif // !GEODE_IS_DESKTOP
         return textunput_rtn;
     }
+    inline bool TextLink(const char* label) {
+        ImGuiWindow* window = GetCurrentWindow();
+        if (window->SkipItems)
+            return false;
+
+        ImGuiContext& g = *GImGui;
+        const ImGuiID id = window->GetID(label);
+        const char* label_end = FindRenderedTextEnd(label);
+
+        ImVec2 pos = window->DC.CursorPos;
+        ImVec2 size = CalcTextSize(label, label_end, true);
+        ImRect bb(pos, ImVec2(pos.x + size.x, pos.y + size.y));
+        ItemSize(size, 0.0f);
+        if (!ItemAdd(bb, id))
+            return false;
+
+        bool hovered, held;
+        bool pressed = ButtonBehavior(bb, id, &hovered, &held);
+        RenderNavHighlight(bb, id, ImGuiNavHighlightFlags_None);
+
+        const ImU32 col = GetColorU32((held || hovered) ? ImGuiCol_TextDisabled : ImGuiCol_Text);
+        RenderNavHighlight(bb, id);
+
+        float line_y = bb.Min.y - ImFloor(g.Font->Descent * g.FontSize * 0.23f);
+        window->DrawList->AddLine(ImVec2(bb.Min.x, line_y), ImVec2(bb.Max.x, line_y), col); // FIXME-TEXT: Underline mode.
+
+        PushStyleColor(ImGuiCol_Text, col);
+        RenderText(bb.Min, label, label_end);
+        PopStyleColor();
+
+        IMGUI_TEST_ENGINE_ITEM_INFO(id, label, g.LastItemData.StatusFlags);
+        return pressed;
+    }
 }

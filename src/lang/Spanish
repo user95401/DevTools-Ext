@@ -110,6 +110,12 @@ ADD_UTF8(
 );
 
 ADD_UTF8(
+"Toggleable Settings",
+
+"Configuración Conmutable"
+);
+
+ADD_UTF8(
 "Font Size",
 
 "Rango de fuente"
@@ -273,6 +279,12 @@ ADD_UTF8(
 "CCMenuItem listener: %s",
 
 "Seleccionar nodo de CCMenuItem: %s"
+);
+
+ADD_UTF8(
+"call menuItemNode->",
+
+"llamar menuItemNode->"
 );
 
 ADD_UTF8(

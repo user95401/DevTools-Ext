@@ -254,7 +254,7 @@ void DevTools::drawHighlight(CCNode* node, HighlightMode mode) {
 
 void DevTools::drawLayoutHighlights(CCNode* node) {
     // TODO: undo later
-    #if 0
+    #if 1
     for (auto child : ranges::reverse(CCArrayExt<CCNode*>(node->getChildren()))) {
         if (!child->isVisible()) continue;
         if (child->getLayout()) {
@@ -279,7 +279,35 @@ void DevTools::drawGD(GLRenderCtx* gdCtx) {
             "Geometry Dash ({}x{})###devtools/geometry-dash",
             winSize.width, winSize.height
         );
-        if (ImGui::Begin(title.c_str())) {
+        bool game_is_open = 1;
+        if (ImGui::Begin(title.c_str(), &game_is_open, ImGuiWindowFlags_MenuBar)) {
+
+            if (ImGui::BeginMenuBar()) {
+                if (ImGui::MenuItem("Save"_LOCALE)) GameManager::get()->save();
+                ImGui::SameLine();
+                static Ref<CCSet> PAUSED_TARGETS = nullptr;
+                if (ImGui::MenuItem(m_pauseGame ? "Resume"_LOCALE : "Pause"_LOCALE)) {
+                    m_pauseGame ^= 1;
+                    if (m_pauseGame) {
+                        FMODAudioEngine::sharedEngine()->m_backgroundMusicChannel->setPaused(1);
+                        FMODAudioEngine::sharedEngine()->m_currentSoundChannel->setPaused(1);
+                        FMODAudioEngine::sharedEngine()->m_globalChannel->setPaused(1);
+                        PAUSED_TARGETS = CCDirector::get()->getScheduler()->pauseAllTargets();
+                    }
+                    else if (PAUSED_TARGETS) {
+                        FMODAudioEngine::sharedEngine()->m_backgroundMusicChannel->setPaused(0);
+                        FMODAudioEngine::sharedEngine()->m_currentSoundChannel->setPaused(0);
+                        FMODAudioEngine::sharedEngine()->m_globalChannel->setPaused(0);
+                        CCDirector::get()->getScheduler()->resumeTargets(PAUSED_TARGETS);
+                    }
+                }
+                ImGui::SameLine();
+                if (ImGui::MenuItem("Reload"_LOCALE)) GameManager::get()->reloadAll(0, 0, 0);
+                ImGui::SameLine();
+                if (ImGui::MenuItem("Restart"_LOCALE)) game::restart();
+            }
+            ImGui::EndMenuBar();
+
             auto list = ImGui::GetWindowDrawList();
             auto ratio = gdCtx->size().x / gdCtx->size().y;
 
@@ -287,10 +315,10 @@ void DevTools::drawGD(GLRenderCtx* gdCtx) {
 
             auto winPos = ImGui::GetWindowPos() +
                 ImGui::GetWindowContentRegionMin();
-            
+
             auto winSize = ImGui::GetWindowContentRegionMax() -
                 ImGui::GetWindowContentRegionMin();
-            
+
             ImVec2 imgSize = {
                 (winSize.y - pad * 2) * ratio,
                 (winSize.y - pad * 2)
@@ -312,11 +340,11 @@ void DevTools::drawGD(GLRenderCtx* gdCtx) {
                 imgPos.x + imgSize.x,
                 imgPos.y + imgSize.y
             };
-            shouldPassEventsToGDButTransformed() = 
+            shouldPassEventsToGDButTransformed() =
                 // ensure that the some other window isn't on top
                 ImGui::IsWindowHovered() &&
                 getGDWindowRect().Contains(ImGui::GetMousePos());
-            
+
             if (m_settings.highlightLayouts) {
                 this->drawLayoutHighlights(CCDirector::get()->getRunningScene());
             }
@@ -327,5 +355,6 @@ void DevTools::drawGD(GLRenderCtx* gdCtx) {
             m_toHighlight.clear();
         }
         ImGui::End();
+        if (not game_is_open) game::exit();
     }
 }

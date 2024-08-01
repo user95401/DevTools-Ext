@@ -15,7 +15,10 @@ static float RAINBOW_HUE = 0.f;
 void DevTools::drawSettings() {
     ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, { 1.f, 1.f });
 
-    //Checkboxes
+    //Toggleable Settings
+    ImGui::PushFont(m_bigFont);
+    ImGui::Text("%s", "Toggleable Settings"_LOCALE);
+    ImGui::PopFont();
     {
         // TODO: fix this option as it hasnt worked in a while lol
 #if 0
@@ -140,19 +143,6 @@ void DevTools::drawSettings() {
         static_cast<int>(frameSize.width / ratio),
         static_cast<int>(frameSize.height / ratio)
     );
-
-    static Ref<CCSet> PAUSED_TARGETS = nullptr;
-    if (ImGui::Button(m_pauseGame ? "Resume Game" : "Pause Game")) {
-        m_pauseGame ^= 1;
-        if (m_pauseGame) {
-            FMODAudioEngine::sharedEngine()->m_globalChannel->setPaused(true);
-            PAUSED_TARGETS = CCDirector::get()->getScheduler()->pauseAllTargets();
-        }
-        else if (PAUSED_TARGETS) {
-            FMODAudioEngine::sharedEngine()->m_globalChannel->setPaused(false);
-            CCDirector::get()->getScheduler()->resumeTargets(PAUSED_TARGETS);
-        }
-    }
 
     ImGui::Separator();
 #endif

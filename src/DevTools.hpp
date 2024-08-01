@@ -104,13 +104,13 @@ public:
      
     //defaultFont, bigFont, smallFont, monoFont, boxFont
     auto getFont(std::string name) {
-        std::map<std::string, ImFont*> eeee;
-        eeee["defaultFont"] = m_defaultFont;
-        eeee["bigFont"] = m_bigFont;
-        eeee["smallFont"] = m_smallFont;
-        eeee["monoFont"] = m_monoFont;
-        eeee["boxFont"] = m_boxFont;
-        return eeee.at(name);
+        std::map<std::string, ImFont*> fonts;
+        fonts["defaultFont"] = m_defaultFont;
+        fonts["bigFont"] = m_bigFont;
+        fonts["smallFont"] = m_smallFont;
+        fonts["monoFont"] = m_monoFont;
+        fonts["boxFont"] = m_boxFont;
+        return fonts.at(name);
     };
 
     bool shouldUseGDWindow() const;
