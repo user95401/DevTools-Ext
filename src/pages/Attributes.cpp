@@ -683,7 +683,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
                 )
             + "\n\t" + fmt::format("nodeToSetup->setSkewX({});", floatStr(skew[0]))
             + "\n\t" + fmt::format("nodeToSetup->setSkewY({});", floatStr(skew[1]))
-            + "\n\t" + fmt::format("nodeToSetup->setAnchorPoint(CCPointMakeMake({}, {}));", floatStr(anchor.x), floatStr(anchor.y))
+            + "\n\t" + fmt::format("nodeToSetup->setAnchorPoint(CCPointMake({}, {}));", floatStr(anchor.x), floatStr(anchor.y))
             + "\n\t" + fmt::format("nodeToSetup->setContentSize(CCSizeMake({}, {})); //may be calculated set! (remove if u dont touched that)", floatStr(contentSize.width), floatStr(contentSize.height))
             + "\n\t" + fmt::format("nodeToSetup->setZOrder({});", node->getZOrder())
             + "\n\t" + fmt::format("nodeToSetup->ignoreAnchorPointForPosition({});", node->isIgnoreAnchorPointForPosition())
