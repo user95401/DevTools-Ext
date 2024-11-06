@@ -145,11 +145,11 @@ void DevTools::drawNodeAttributes(CCNode* node) {
         };
         if (ImGui::Button(U8STR(FEATHER_COPY"##copypos"))) {
             clipboard::write(fmt::format(
-                "CCPoint({}{}, {}{})",
+                "CCPointMake({}{}, {}{})",
                 pos[0], ((int)pos[0] == pos[0] ? ".f" : "f"), pos[1], ((int)pos[1] == pos[1] ? ".f" : "f")
             ));
         } ImGui::SameLine();
-        ImGui::AddTooltip("\"CCPoint({}, {})\"<={pos[0], pos[1]}");
+        ImGui::AddTooltip("\"CCPointMake({}, {})\"<={pos[0], pos[1]}");
         ImGui::DragFloat2("Position"_LOCALE, pos);
         ImGui::AddTooltip("Gets the position (x,y) of the node in OpenGL coordinates."_LOCALE);
         node->setPosition(pos[0], pos[1]);
@@ -200,8 +200,8 @@ void DevTools::drawNodeAttributes(CCNode* node) {
     //anchor
     {
         auto anchor = node->getAnchorPoint();
-        if (ImGui::Button(U8STR(FEATHER_COPY"##copyanchor"))) clipboard::write(fmt::format("CCPoint({}, {})", anchor.x, anchor.y)); ImGui::SameLine();
-        ImGui::AddTooltip("\"CCPoint({}, {})\"<={anchor.x, anchor.y}");
+        if (ImGui::Button(U8STR(FEATHER_COPY"##copyanchor"))) clipboard::write(fmt::format("CCPointMake({}, {})", anchor.x, anchor.y)); ImGui::SameLine();
+        ImGui::AddTooltip("\"CCPointMake({}, {})\"<={anchor.x, anchor.y}");
         ImGui::DragFloat2("Anchor Point"_LOCALE, &anchor.x, 0.05f, 0.f, 1.f);
         ImGui::AddTooltip("The anchor point in percent."_LOCALE);
         node->setAnchorPoint(anchor);
@@ -210,8 +210,8 @@ void DevTools::drawNodeAttributes(CCNode* node) {
     //contentSize
     {
         auto contentSize = node->getContentSize();
-        if (ImGui::Button(U8STR(FEATHER_COPY"##copycontentsize"))) clipboard::write(fmt::format("CCSize({}, {})", contentSize.width, contentSize.height)); ImGui::SameLine();
-        ImGui::AddTooltip("\"CCSize({}, {})\"<={contentSize.width, contentSize.height}");
+        if (ImGui::Button(U8STR(FEATHER_COPY"##copycontentsize"))) clipboard::write(fmt::format("CCSizeMake({}, {})", contentSize.width, contentSize.height)); ImGui::SameLine();
+        ImGui::AddTooltip("\"CCSizeMake({}, {})\"<={contentSize.width, contentSize.height}");
         ImGui::DragFloat2("Content Size"_LOCALE, &contentSize.width);
         ImGui::AddTooltip("The untransformed size of the node."_LOCALE);
         if (contentSize != node->getContentSize()) {
@@ -264,8 +264,8 @@ void DevTools::drawNodeAttributes(CCNode* node) {
         ImGui::AddTooltip("Whether or not color should be propagated to its children."_LOCALE);
         auto color = rgbaNode->getColor();
         float _color[4] = { color.r / 255.f, color.g / 255.f, color.b / 255.f, rgbaNode->getOpacity() / 255.f };
-        if (ImGui::Button(U8STR(FEATHER_COPY"##copycolor"))) clipboard::write(fmt::format("ccColor3B({}, {}, {})", color.r, color.g, color.b)); ImGui::SameLine();
-        if (ImGui::IsItemHovered()) ImGui::SetTooltip("\"ccColor3B({}, {}, {})\"<={color.r, color.g, color.b}");
+        if (ImGui::Button(U8STR(FEATHER_COPY"##copycolor"))) clipboard::write(fmt::format("ccc3({}, {}, {})", color.r, color.g, color.b)); ImGui::SameLine();
+        if (ImGui::IsItemHovered()) ImGui::SetTooltip("\"ccc3({}, {}, {})\"<={color.r, color.g, color.b}");
         if (ImGui::Button(U8STR(FEATHER_EYE"##copyop"))) clipboard::write(fmt::format("{}", rgbaNode->getOpacity())); ImGui::SameLine();
         ImGui::AddTooltip("\"{}, {}, {}\"<={rgbaNode->getOpacity()}");
         if (ImGui::ColorEdit4("Color"_LOCALE, _color)) {
@@ -650,7 +650,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
         auto contentSize = node->getContentSize();
         auto spriteNode = typeinfo_cast<CCSprite*>(node);
         auto rgbaNode = typeinfo_cast<CCRGBAProtocol*>(node);
-        auto color = (rgbaNode ? rgbaNode->getColor() : ccColor3B(0, 0, 0));
+        auto color = (rgbaNode ? rgbaNode->getColor() : ccc3(0, 0, 0));
         auto labelNode = typeinfo_cast<CCLabelProtocol*>(node);
         std::string setFontPart = "";
 #ifndef GEODE_IS_MACOS //Undefined symbols...
@@ -664,7 +664,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
 #endif
         std::string code = { std::string()
             + fmt::format("if (auto& nodeToSetup = YOUR_NODE_VAR)") + " {"
-            + "\n\t" + fmt::format("nodeToSetup->setPosition(CCPoint({}, {}));", floatStr(pos.x), floatStr(pos.y))
+            + "\n\t" + fmt::format("nodeToSetup->setPosition(CCPointMake({}, {}));", floatStr(pos.x), floatStr(pos.y))
             + (
                 scale[0] != scale[1]
                 ? //one by one
@@ -683,8 +683,8 @@ void DevTools::drawNodeAttributes(CCNode* node) {
                 )
             + "\n\t" + fmt::format("nodeToSetup->setSkewX({});", floatStr(skew[0]))
             + "\n\t" + fmt::format("nodeToSetup->setSkewY({});", floatStr(skew[1]))
-            + "\n\t" + fmt::format("nodeToSetup->setAnchorPoint(CCPoint({}, {}));", floatStr(anchor.x), floatStr(anchor.y))
-            + "\n\t" + fmt::format("nodeToSetup->setContentSize(CCSize({}, {})); //may be calculated set! (remove if u dont touched that)", floatStr(contentSize.width), floatStr(contentSize.height))
+            + "\n\t" + fmt::format("nodeToSetup->setAnchorPoint(CCPointMakeMake({}, {}));", floatStr(anchor.x), floatStr(anchor.y))
+            + "\n\t" + fmt::format("nodeToSetup->setContentSize(CCSizeMake({}, {})); //may be calculated set! (remove if u dont touched that)", floatStr(contentSize.width), floatStr(contentSize.height))
             + "\n\t" + fmt::format("nodeToSetup->setZOrder({});", node->getZOrder())
             + "\n\t" + fmt::format("nodeToSetup->ignoreAnchorPointForPosition({});", node->isIgnoreAnchorPointForPosition())
             + "\n\t" + fmt::format("nodeToSetup->setVisible({});", node->isVisible())
@@ -693,7 +693,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
             + (spriteNode ? "\n\t" + fmt::format("nodeToSetup->setFlipY({});", spriteNode->isFlipY()) : "")
 #endif
             + (rgbaNode ? "\n\t" + fmt::format("nodeToSetup->setCascadeColorEnabled({});", rgbaNode->isCascadeColorEnabled()) : "")
-            + (rgbaNode ? "\n\t" + fmt::format("nodeToSetup->setColor(ccColor3B({}, {}, {}));", color.r, color.g, color.b) : "")
+            + (rgbaNode ? "\n\t" + fmt::format("nodeToSetup->setColor(ccc3({}, {}, {}));", color.r, color.g, color.b) : "")
             + (rgbaNode ? "\n\t" + fmt::format("nodeToSetup->setOpacity({});", rgbaNode->getOpacity()) : "")
             + (labelNode ? "\n\t" + fmt::format("nodeToSetup->setString(\"{}\");", labelNode->getString()) : "")
             + setFontPart

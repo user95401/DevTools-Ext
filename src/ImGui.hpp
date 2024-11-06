@@ -89,7 +89,7 @@ static ImVec2 toVec2(CCSize const& a) {
 static CCPoint toCocos(const ImVec2& pos) {
     const auto winSize = CCDirector::sharedDirector()->getWinSize();
     const auto size = ImGui::GetMainViewport()->Size;
-    return CCPoint(
+    return CCPointMake(
         pos.x / size.x * winSize.width,
         (1.f - pos.y / size.y) * winSize.height
     );

@@ -23,7 +23,7 @@ void DevTools::setupPlatform() {
     io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);
 
     auto* tex2d = new CCTexture2D;
-    tex2d->initWithData(pixels, kCCTexture2DPixelFormat_RGBA8888, width, height, CCSize(width, height));
+    tex2d->initWithData(pixels, kCCTexture2DPixelFormat_RGBA8888, width, height, CCSizeMake(width, height));
 
     // TODO: not leak this :-)
     tex2d->retain();
