@@ -290,13 +290,13 @@ void DevTools::drawGD(GLRenderCtx* gdCtx) {
                     m_pauseGame ^= 1;
                     if (m_pauseGame) {
                         FMODAudioEngine::sharedEngine()->m_backgroundMusicChannel->setPaused(1);
-                        FMODAudioEngine::sharedEngine()->m_currentSoundChannel->setPaused(1);
+                        FMODAudioEngine::sharedEngine()->m_channelGroup2->setPaused(1);
                         FMODAudioEngine::sharedEngine()->m_globalChannel->setPaused(1);
                         PAUSED_TARGETS = CCDirector::get()->getScheduler()->pauseAllTargets();
                     }
                     else if (PAUSED_TARGETS) {
                         FMODAudioEngine::sharedEngine()->m_backgroundMusicChannel->setPaused(0);
-                        FMODAudioEngine::sharedEngine()->m_currentSoundChannel->setPaused(0);
+                        FMODAudioEngine::sharedEngine()->m_channelGroup2->setPaused(0);
                         FMODAudioEngine::sharedEngine()->m_globalChannel->setPaused(0);
                         CCDirector::get()->getScheduler()->resumeTargets(PAUSED_TARGETS);
                     }
