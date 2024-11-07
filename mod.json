@@ -1,6 +1,6 @@
 {
 	"geode": "3.9.0",
-	"version": "v1.7.3",
+	"version": "v1.7.4",
 	"gd": {
 		"android": "*",
 		"win": "2.206",
@@ -14,7 +14,7 @@
 	"links": {
 		"community": "https://discord.gg/6SxAbk3bTA",
 		"homepage": "https://t.me/user95401_channel",
-		"source": "https://github.com/user95401/Mod-Downloader"
+		"source": "https://github.com/user95401/DevTools-Ext"
 	},
 	"settings": {
 		"should-use-gd-window": {
