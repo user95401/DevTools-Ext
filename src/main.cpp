@@ -86,6 +86,10 @@ public:
 $on_mod(Loaded) { Mod::get()->addCustomSetting<ToggleBtnSettingValue>("toggle-btn", 1337); }
 
 class $modify(CCDirector) {
+    /*void willSwitchToScene(CCScene * scene) {
+        CCDirector::willSwitchToScene(scene);
+        DevTools::get()->sceneChanged();
+    }*/
     void drawScene() {
         if (!DevTools::get()->shouldUseGDWindow()) {
             return CCDirector::drawScene();

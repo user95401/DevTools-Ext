@@ -1,13 +1,15 @@
-# DevTools.Ext
+# DevTools.Ext (Developer Tools Extended)
 
-Extended browser-like developer tools version for Geode.
+Extended version of browser-like developer tools for Geode. 
+
+Aimed at more active development and supporting things of this day unlike original mod.
 
 Press `F11` (or `F10` on Mac or `More Games` on Android) to open up the dev tools.
 
 ## New Features
 
 * Now almost all imgui stuff being saved (windows, font size etc)
-* Keyboard inputs fixes :D (like working key mods to do CTRL + C and stuff)
+* Keyboard inputs fixes :D (like working key mods to do CTRL + C)
 * Small Android Adaptations
 * Language translations (Russian, Ukrainian, Spanish)
 * More debug info (imgui metrics, text in settings ...)

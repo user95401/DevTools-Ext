@@ -114,7 +114,7 @@ namespace ImGui {
 #endif // !GEODE_IS_DESKTOP
         return textunput_rtn;
     }
-    inline bool TextLink(const char* label) {
+    inline bool MyTextLink(const char* label) {
         ImGuiWindow* window = GetCurrentWindow();
         if (window->SkipItems)
             return false;

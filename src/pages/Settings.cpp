@@ -203,8 +203,14 @@ void DevTools::drawSettings() {
 
     //info section idk
     {
+        auto mod = Mod::get()->getMetadata().getRawJSON();
+
         ImGui::PushFont(m_bigFont);
-        ImGui::TextWrapped("%s", "DevTools"_LOCALE);
+        ImGui::TextWrapped(
+            "%s %s",
+            mod.try_get<std::string>("name").value_or("???").c_str(),
+            mod.try_get<std::string>("version").value_or("???").c_str()
+        );
         ImGui::PopFont();
 
         ImGui::TextWrapped("%s", "Developed by "_LOCALE);
@@ -226,12 +232,12 @@ void DevTools::drawSettings() {
         }
 
         ImGui::TextWrapped(
-            "Running Geode %s, DevTools %s"
-            "\nPlatform: %s"
-            "\nGame Version: %.3lf"_LOCALE,
-            Loader::get()->getVersion().toString().c_str(),
-            Mod::get()->getVersion().toString().c_str(),
-            GEODE_PLATFORM_NAME,
+            "Platform: %s, SDK: %s" "\n"
+            "Target Game Version: %.3lf",
+
+            GEODE_PLATFORM_NAME, 
+            mod.try_get<std::string>("geode").value_or("???").c_str(),
+
             GEODE_GD_VERSION
         );
 

@@ -117,19 +117,19 @@ void DevTools::drawNodeAttributes(CCNode* node) {
         ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, { 0.f, 0.f });
         ImGui::Text("menuItemNode->");
         ImGui::SameLine();
-        if (ImGui::TextLink("activate();")) {
+        if (ImGui::MyTextLink("activate();")) {
             menuItemNode->activate();
         }
         ImGui::SameLine();
         ImGui::Text(" / ");
         ImGui::SameLine();
-        if (ImGui::TextLink("selected();")) {
+        if (ImGui::MyTextLink("selected();")) {
             menuItemNode->selected();
         }
         ImGui::SameLine();
         ImGui::Text(" / ");
         ImGui::SameLine();
-        if (ImGui::TextLink("unselected();")) {
+        if (ImGui::MyTextLink("unselected();")) {
             menuItemNode->unselected();
         }
         ImGui::PopStyleVar();
