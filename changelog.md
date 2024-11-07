@@ -1,3 +1,6 @@
+## v1.7.4
+fix metadata.
+
 ## v1.7.3
 fix crash when handling dead node
 
