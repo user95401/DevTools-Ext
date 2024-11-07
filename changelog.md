@@ -1,3 +1,20 @@
+## v1.7.1
+The start of DevTools.Ext as standalone project unlike time when it was a fork.
+Soo yea, i admitted that this fork will never be pulled to original DevTools repo.
+
+* Now almost all imgui stuff being saved (windows, font size etc)
+* Keyboard inputs fixes :D (like working key mods to do CTRL + C and stuff)
+* Small Android Adaptations
+* Language translations (Russian, Ukrainian, Spanish)
+* More debug info (imgui metrics, text in settings ...)
+* Toggle DevTools button in settings
+* Ability to change devtools openup button in game
+* More nodes attributes to change!
+* More nodes information!
+* Copy buttons for every attribute
+* The tooltips at lot of things
+* Close, Save, Pause/Resume, Reload, Restart buttons in gd window menu
+
 ## v1.7.0
 
 * Support for 2.206

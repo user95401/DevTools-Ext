@@ -7,13 +7,13 @@
 		"mac": "2.206"
 	},
 	"id": "user95401.devtools",
-	"name": "DevTools.RUINED",
-	"developer": "user95401",
-	"description": "Developer tools for Geode",
-	"repository": "https://github.com/user95401/DevTools",
+	"name": "DevTools.Ext",
+	"developers": [ "user95401", "Geode Team" ],
+	"description": "Extended developer tools version for Geode",
+	"repository": "https://github.com/user95401/DevTools-Ext",
 	"issues": {
-		"url": "https://github.com/user95401/DevTools/issues",
-		"info": "If you encounter an issue using DevTools, please report it to the GitHub issues page."
+		"url": "https://github.com/user95401/DevTools-Ext/issues",
+		"info": "If you encounter an issue using DevTools.Ext, please report it to the GitHub issues page."
 	},
 	"settings": {
 		"should-use-gd-window": {
