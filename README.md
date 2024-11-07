@@ -1,4 +1,4 @@
-# DevTools.Ext (Developer Tools Extended)
+# Developer Tools Extended
 
 Extended version of browser-like developer tools for Geode. 
 
