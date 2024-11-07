@@ -1,3 +1,12 @@
+## v1.7.3
+fix crash when handling dead node
+
+## v1.7.2
+add some changes from original repo
+- update imgui
+- edit metadata
+- edit info in settings
+
 ## v1.7.1
 The start of DevTools.Ext as standalone project unlike time when it was a fork.
 Soo yea, i admitted that this fork will never be pulled to original DevTools repo.

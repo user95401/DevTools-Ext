@@ -27,6 +27,7 @@ std::string getNodeName(CCObject* node) {
 }
 
 void DevTools::drawTreeBranch(CCNode* node, size_t index) {
+    if (!node) return;
     auto selected = DevTools::get()->getSelectedNode() == node;
 
     ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_None;

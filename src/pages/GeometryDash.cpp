@@ -165,6 +165,7 @@ void drawLayoutArrows(
 }
 
 void DevTools::drawHighlight(CCNode* node, HighlightMode mode) {
+    if (!node) return;
 	auto& foreground = *ImGui::GetWindowDrawList();
 	auto parent = node->getParent();
 	auto bounding_box = node->boundingBox();
@@ -253,6 +254,7 @@ void DevTools::drawHighlight(CCNode* node, HighlightMode mode) {
 }
 
 void DevTools::drawLayoutHighlights(CCNode* node) {
+    if (!node) return;
     // TODO: undo later
     #if 1
     for (auto child : ranges::reverse(CCArrayExt<CCNode*>(node->getChildren()))) {

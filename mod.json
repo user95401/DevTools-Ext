@@ -1,6 +1,6 @@
 {
 	"geode": "3.9.0",
-	"version": "v1.7.2",
+	"version": "v1.7.3",
 	"gd": {
 		"android": "*",
 		"win": "2.206",
