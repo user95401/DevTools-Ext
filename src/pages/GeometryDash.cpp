@@ -288,6 +288,7 @@ void DevTools::drawGD(GLRenderCtx* gdCtx) {
                 static Ref<CCSet> PAUSED_TARGETS = nullptr;
                 if (ImGui::MenuItem(m_pauseGame ? "Resume"_LOCALE : "Pause"_LOCALE)) {
                     m_pauseGame ^= 1;
+#ifndef __APPLE__ //#endif
                     if (m_pauseGame) {
                         FMODAudioEngine::sharedEngine()->m_backgroundMusicChannel->setPaused(1);
                         FMODAudioEngine::sharedEngine()->m_channelGroup2->setPaused(1);
@@ -300,6 +301,7 @@ void DevTools::drawGD(GLRenderCtx* gdCtx) {
                         FMODAudioEngine::sharedEngine()->m_globalChannel->setPaused(0);
                         CCDirector::get()->getScheduler()->resumeTargets(PAUSED_TARGETS);
                     }
+#endif
                 }
                 ImGui::SameLine();
                 if (ImGui::MenuItem("Reload"_LOCALE)) GameManager::get()->reloadAll(0, 0, 0);
