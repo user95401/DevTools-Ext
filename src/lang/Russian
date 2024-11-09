@@ -111,6 +111,18 @@ ADD_UTF8(
 );
 
 ADD_UTF8(
+"Draw Mouse Cursor",
+
+"Отрисовывать курсор мыши"
+);
+
+ADD_UTF8(
+"Draw Mouse Cursor by ImGui.",
+
+"Отрисовка курсора мыши от ImGui."
+);
+
+ADD_UTF8(
 "Toggleable Settings",
 
 "Переключающиеся Настройки"

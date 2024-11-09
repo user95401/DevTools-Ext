@@ -147,4 +147,16 @@ namespace ImGui {
         IMGUI_TEST_ENGINE_ITEM_INFO(id, label, g.LastItemData.StatusFlags);
         return pressed;
     }
+    inline void ScrollWhenDragging() {
+        auto delta = ImGui::GetIO().MouseDelta;
+        delta = ImVec2(-delta.x, -delta.y);
+        ImGuiContext& g = *ImGui::GetCurrentContext();
+        ImGuiWindow* window = g.HoveredWindow;
+        if (!window) return;
+        bool held = g.IO.MouseDown[0];
+        if (held && delta.x != 0.0f)
+            ImGui::SetScrollX(window, window->Scroll.x + delta.x);
+        if (held && delta.y != 0.0f)
+            ImGui::SetScrollY(window, window->Scroll.y + delta.y);
+    }
 }

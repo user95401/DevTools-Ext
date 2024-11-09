@@ -63,6 +63,9 @@ void DevTools::drawSettings() {
         //Show Memory Viewer
         ImGui::Checkbox("Show Memory Viewer"_LOCALE, &m_settings.showMemoryViewer);
         ImGui::AddTooltip("Shows the memory viewer window."_LOCALE);
+        //Draw Mouse Cursor
+        ImGui::Checkbox("Draw Mouse Cursor"_LOCALE, &m_settings.MouseDrawCursor);
+        ImGui::AddTooltip("Draw Mouse Cursor by ImGui."_LOCALE);//Draw Mouse Cursor by ImGui
         //next ones shoud be latest always
         ImGui::Checkbox("Show ImGui Debug"_LOCALE, &m_settings.DearImGuiWindows);
         ImGui::AddTooltip("Shows ImGui Style Editor and Metrics."_LOCALE);//Shows ImGui Style Editor and Metrics

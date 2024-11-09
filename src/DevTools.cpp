@@ -31,6 +31,7 @@ struct matjson::Serialize<Settings> {
             .lang = value.try_get<int>("lang").value_or(defaultSettings.lang),
             .openBtnID = value.try_get<std::string>("openBtnID").value_or(defaultSettings.openBtnID),
             .openBtnCallOriginal = value.try_get<bool>("openBtnCallOriginal").value_or(defaultSettings.openBtnCallOriginal),
+            .MouseDrawCursor = value.try_get<bool>("MouseDrawCursor").value_or(defaultSettings.MouseDrawCursor),
         };
     }
 
@@ -51,6 +52,7 @@ struct matjson::Serialize<Settings> {
         obj["lang"] = settings.lang;
         obj["openBtnID"] = settings.openBtnID;
         obj["openBtnCallOriginal"] = settings.openBtnCallOriginal;
+        obj["MouseDrawCursor"] = settings.MouseDrawCursor;
         return obj;
     }
 
@@ -193,6 +195,7 @@ void DevTools::draw(GLRenderCtx* ctx) {
         ImGui::SaveIniSettingsToDisk(ImGui::GetIO().IniFilename);
 
         ImGui::GetIO().FontGlobalScale = m_settings.FontGlobalScale;
+        ImGui::GetIO().MouseDrawCursor = m_settings.MouseDrawCursor;
 
         if (m_reloadTheme) {
             applyTheme(m_settings.theme);
@@ -208,6 +211,8 @@ void DevTools::draw(GLRenderCtx* ctx) {
             this->highlightNode(m_selectedNode, HighlightMode::Selected);
         }
         if (this->shouldUseGDWindow()) this->drawGD(ctx);
+
+        ImGui::ScrollWhenDragging();
     }
 }
 
@@ -298,6 +303,8 @@ void DevTools::setup() {
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard | ImGuiConfigFlags_NavNoCaptureKeyboard;
     io.NavActive = true;
     io.NavVisible = true;
+    io.FontAllowUserScaling = true;
+    GEODE_MACOS(io.ConfigMacOSXBehaviors = true);
 
     this->setupFonts();
     this->setupPlatform();
@@ -306,11 +313,9 @@ void DevTools::setup() {
 
 #ifdef GEODE_IS_MOBILE
     ImGui::GetStyle().ScrollbarSize = 42.f;
-    //ImGui::GetStyle().TabBarBorderSize = 60.f;
     ImGui::GetStyle().GrabMinSize = 30.f;
     ImGui::GetStyle().ItemSpacing = { 16.f, 16.f };
     ImGui::GetStyle().FramePadding = { 12.f, 10.f };
-    //io.ConfigFlags |= ImGuiConfigFlags_IsTouchScreen;
 #endif
 }
 

@@ -1,4 +1,5 @@
 #pragma once
+#pragma warning(disable : 4566)
 
 #include <regex>
 #include <Geode/loader/Log.hpp>

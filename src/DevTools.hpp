@@ -32,7 +32,7 @@ struct Settings {
     bool orderChildren = true;
     bool advancedSettings = false;
     bool showMemoryViewer = false;
-    std::string theme = DARK_THEME;
+    std::string theme = MATERIAL_DARK_THEME;
     float FontGlobalScale = 1.0;
     bool DearImGuiWindows = false;
     int lang = 0;
@@ -42,6 +42,7 @@ struct Settings {
     std::string openBtnID = "more-games-button";
 #endif
     bool openBtnCallOriginal = false;
+    bool MouseDrawCursor = false;
 };
 
 class DevTools {
