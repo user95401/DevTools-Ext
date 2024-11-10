@@ -6,7 +6,8 @@ Aimed at more active development and supporting things of this day unlike origin
 
 Press `F11` (or `F10` on Mac or `More Games` on Android) to open up the dev tools.
 
-![Screenshot_91](https://github.com/user-attachments/assets/90c2a54e-58a4-4761-8f08-a738856319f1)
+![Screenshot_91](https://github.com/user-attachments/assets/f168abf5-5ed1-4c22-9019-9778d82ab9dc)
+
 
 ## New Features
 
