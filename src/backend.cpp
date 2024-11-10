@@ -270,6 +270,9 @@ class $modify(CCTouchDispatcher) {
             return;
         }
 
+        //io.MouseSource = ImGuiMouseSource_TouchScreen;
+        io.AddMouseSourceEvent(ImGuiMouseSource_TouchScreen);
+
         const auto pos = toVec2(touch->getLocation());
         io.AddMousePosEvent(pos.x, pos.y);
         if (io.WantCaptureMouse) {

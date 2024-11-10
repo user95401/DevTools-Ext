@@ -33,7 +33,11 @@ struct Settings {
     bool advancedSettings = false;
     bool showMemoryViewer = false;
     std::string theme = getThemeAtIndex(0);
+#ifdef GEODE_IS_DESKTOP
     float FontGlobalScale = 1.0;
+#else
+    float FontGlobalScale = 1.5;
+#endif
     bool DearImGuiWindows = false;
     int lang = 0;
 #ifdef GEODE_IS_DESKTOP

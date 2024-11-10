@@ -555,16 +555,24 @@ static std::map<std::string, std::function<void()>> THEMES = {
 };
 
 void applyTheme(std::string const& name) {
+
     if (THEMES.contains(name)) THEMES[name]();
     else log::error("at {}! the {} theme is not defined.", __FUNCTION__, name);
+
+	if (string::containsAny("true", { GEODE_ANDROID("true",) "else false" })) {
+		ImGui::GetStyle().ScrollbarSize = 42.f;
+		ImGui::GetStyle().GrabMinSize = 30.f;
+		ImGui::GetStyle().ItemSpacing = { 16.f, 16.f };
+		ImGui::GetStyle().FramePadding = { 12.f, 10.f };
+		ImGui::GetStyle().DockingSeparatorSize = 14.f;
+	};
+
 }
 
 std::vector<std::string> getThemeOptions() {
-	log::debug("{}", __FUNCTION__);
     auto options = std::vector<std::string>();
     for (auto theme : THEMES) {
         options.push_back(theme.first);
-		log::debug("options.push_back({})", theme.first);
     }
     return options;
 }

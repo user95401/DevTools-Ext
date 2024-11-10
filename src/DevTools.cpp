@@ -312,13 +312,6 @@ void DevTools::setup() {
 
     setLang(m_settings.lang);
 
-    if (string::containsAny("true", { GEODE_ANDROID("true",) "else false"})) {
-        ImGui::GetStyle().ScrollbarSize = 42.f;
-        ImGui::GetStyle().GrabMinSize = 30.f;
-        ImGui::GetStyle().ItemSpacing = { 16.f, 16.f };
-        ImGui::GetStyle().FramePadding = { 12.f, 10.f };
-        ImGui::GetStyle().DockingSeparatorSize = 14.f;
-    };
 }
 
 void DevTools::destroy() {
