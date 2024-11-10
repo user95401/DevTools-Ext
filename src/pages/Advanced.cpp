@@ -39,16 +39,16 @@ namespace {
         int minor = (int)version.getMinor();
         int patch = (int)version.getPatch();
         std::optional<VersionTag> tag = version.getTag();
-        ImGui::InputInt("version.major", &major);
-        ImGui::InputInt("version.minor", &minor);
-        ImGui::InputInt("version.patch", &patch);
+        ImGui::InputInt("version.major", &major); ImGui::TryOpenVKForDataInput();
+        ImGui::InputInt("version.minor", &minor); ImGui::TryOpenVKForDataInput();
+        ImGui::InputInt("version.patch", &patch); ImGui::TryOpenVKForDataInput();
         int tagSel = tag ? tag->value + 1 : 0;
         ImGui::Combo("version.tag.value", &tagSel, "std::monostate\0Alpha\0Beta\0Prerelease\0\0");
         if (tagSel == 0)
             tag.reset();
         else {
             int tagNum = tag && tag->number ? (int)*tag->number : -1;
-            ImGui::InputInt("version.tag.number", &tagNum);
+            ImGui::InputInt("version.tag.number", &tagNum); ImGui::TryOpenVKForDataInput();
             auto t = (VersionTag::Type)(tagSel - 1);
             if (tagNum < 0)
                 tag = VersionTag(t);
@@ -61,8 +61,8 @@ namespace {
     std::optional<ModMetadata::IssuesInfo> inputIssues(std::optional<ModMetadata::IssuesInfo> x) {
         ModMetadata::IssuesInfo a = x ? *x : ModMetadata::IssuesInfo{"", std::nullopt};
         std::string url = a.url ? *a.url : "";
-        bool inputInfo = ImGui::InputText("issues.info", &a.info);
-        bool inputUrl = ImGui::InputText("issues.url", &url);
+        bool inputInfo = ImGui::InputText("issues.info", &a.info); ImGui::TryOpenVKForDataInput();
+        bool inputUrl = ImGui::InputText("issues.url", &url); ImGui::TryOpenVKForDataInput();
         if (inputUrl)
             a.url = url;
         return inputInfo || inputUrl ? a : x;

@@ -282,9 +282,9 @@ void DevTools::drawMemory() {
     static auto lastRender = std::chrono::high_resolution_clock::now();
 
     static char buffer[256] = {'0', '\0'};
-    bool changed = ImGui::InputText("Addr"_LOCALE, buffer, sizeof(buffer));
+    bool changed = ImGui::InputText("Addr"_LOCALE, buffer, sizeof(buffer)); ImGui::TryOpenVKForDataInput();
     static int size = 0x100;
-    changed |= ImGui::DragInt("Size"_LOCALE, &size, 16.f, 0, 0, "%x");
+    changed |= ImGui::DragInt("Size"_LOCALE, &size, 16.f, 0, 0, "%x"); ImGui::TryOpenVKForDataInput();
     if (size < 4) {
         size = 4;
     }

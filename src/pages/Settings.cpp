@@ -120,7 +120,7 @@ void DevTools::drawSettings() {
             size[0] = std::fabs(size[0]);
             size[1] = std::fabs(size[1]);
             customResolution = CCSizeMake(size[0], size[1]);
-        }
+        }ImGui::TryOpenVKForDataInput();
 #ifdef GEODE_IS_WINDOWS
         if (ImGui::Button("Apply##size-apply")) {
             GameManager::get()->m_resolution = 0;
@@ -161,7 +161,7 @@ void DevTools::drawSettings() {
             m_reloadTheme = true;
         }
         ImGui::AddTooltip("Select Theme"_LOCALE);
-        ImGui::DragFloat("Font Size"_LOCALE, &m_settings.FontGlobalScale, 0.01f, 1.0f, 3.0f);
+        ImGui::DragFloat("Font Size"_LOCALE, &m_settings.FontGlobalScale, 0.01f, 1.0f, 3.0f); ImGui::TryOpenVKForDataInput();
     };
 
     ImGui::Separator();
