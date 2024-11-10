@@ -314,6 +314,7 @@ void DevTools::setup() {
     io.NavActive = true;
     io.NavVisible = true;
     io.FontAllowUserScaling = true;
+    io.MouseDoubleClickTime = 1.0f;
     GEODE_MACOS(io.ConfigMacOSXBehaviors = true);
 
     this->setupFonts();

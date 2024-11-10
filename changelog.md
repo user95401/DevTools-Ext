@@ -1,3 +1,17 @@
+## v1.7.5
+- Draw Mouse Cursor
+- Scroll When Dragging On Void
+- Rewrite Themes
+- Fix mouse source type (better control in android)
+- Some layer attributes
+- Find node by id or tag
+- Remove node or it's childrens
+- Android default font scale is 2.0
+- Set the TouchExtraPadding
+- Add Virtual Keyboard to all drags and inputs
+- Increase mouse double click time
+- Keep devtools visablity 
+
 ## v1.7.4
 fix metadata.
 
