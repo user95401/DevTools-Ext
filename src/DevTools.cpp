@@ -220,7 +220,6 @@ void DevTools::draw(GLRenderCtx* ctx) {
             this->highlightNode(m_grabbedNode, HighlightMode::Selected);
             this->highlightNode(m_grabbedNode, HighlightMode::Hovered);
             ImGui::SetTooltip("%s", cocos::idOrTypeOfNode(m_grabbedNode.data()).c_str());
-            if (ImGui::GetIO().MouseClicked[0] and !ImGui::IsAnyItemActive()) m_grabbedNode = nullptr;
         }
         if (this->shouldUseGDWindow()) this->drawGD(ctx);
 

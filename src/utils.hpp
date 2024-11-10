@@ -96,13 +96,7 @@ namespace ImGui {
         }
         return;
     }
-    inline auto BetterInputText(const char* label, std::string* str, ImGuiInputTextFlags flags = 0) {
-        ImGuiContext& g = *GImGui;
-        ImGuiIO& io = g.IO;
-        const ImGuiStyle& style = g.Style;
-        int lines_count = std::count(str->begin(), str->end(), '\n') + 1;
-        const auto size = CalcItemSize({ 0, 0 }, CalcItemWidth(), (g.FontSize * lines_count) + style.FramePadding.y * 2.0f);
-        auto textunput_rtn = InputTextMultiline(label, str, size, flags);
+    inline auto TryOpenVKForDataInput() {
         //open virtual keyboard for non desktop ones
 #ifndef GEODE_IS_DESKTOP
         if (ImGui::IsItemActivated()) {
@@ -112,6 +106,15 @@ namespace ImGui {
             g_textInputForSomeFunStuff->onClickTrackNode(false);
         }
 #endif // !GEODE_IS_DESKTOP
+    }
+    inline auto BetterInputText(const char* label, std::string* str, ImGuiInputTextFlags flags = 0) {
+        ImGuiContext& g = *GImGui;
+        ImGuiIO& io = g.IO;
+        const ImGuiStyle& style = g.Style;
+        int lines_count = std::count(str->begin(), str->end(), '\n') + 1;
+        const auto size = CalcItemSize({ 0, 0 }, CalcItemWidth(), (g.FontSize * lines_count) + style.FramePadding.y * 2.0f);
+        auto textunput_rtn = InputTextMultiline(label, str, size, flags);
+        TryOpenVKForDataInput();
         return textunput_rtn;
     }
     inline bool MyTextLink(const char* label) {

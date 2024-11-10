@@ -176,7 +176,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
             ));
         } ImGui::SameLine();
         ImGui::AddTooltip("\"CCPointMake({}, {})\"<={pos[0], pos[1]}");
-        ImGui::DragFloat2("Position"_LOCALE, pos);
+        ImGui::DragFloat2("Position"_LOCALE, pos); ImGui::TryOpenVKForDataInput();
         ImGui::AddTooltip("Gets the position (x,y) of the node in OpenGL coordinates."_LOCALE);
         node->setPosition(pos[0], pos[1]);
     };
@@ -186,7 +186,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
         float scale[3] = { node->getScale(), node->getScaleX(), node->getScaleY() };
         if (ImGui::Button(U8STR(FEATHER_COPY"##copyscale"))) clipboard::write(fmt::format("({}, {})", scale[1], scale[2])); ImGui::SameLine();
         ImGui::AddTooltip("\"({}, {})\"<={scale[1], scale[2]}");
-        ImGui::DragFloat3("Scale"_LOCALE, scale, 0.025f);
+        ImGui::DragFloat3("Scale"_LOCALE, scale, 0.025f); ImGui::TryOpenVKForDataInput();
         ImGui::AddTooltip("The scale factor of the node."_LOCALE);
         if (node->getScale() != scale[0]) {
             node->setScale(scale[0]);
@@ -201,7 +201,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
         float rot[3] = { node->getRotation(), node->getRotationX(), node->getRotationY() };
         if (ImGui::Button(U8STR(FEATHER_COPY"##copyrot"))) clipboard::write(rot[1] != 0.f and rot[2] != 0.f ? fmt::format("{} {} {}", rot[0], rot[1], rot[2]) : fmt::to_string(rot[0])); ImGui::SameLine();
         ImGui::AddTooltip("\"{}\"<={rot[0]} or \"{} {} {}\"<={rot[0], rot[1], rot[2]} if rot[1,2] != 0");
-        ImGui::DragFloat3("Rotation"_LOCALE, rot);
+        ImGui::DragFloat3("Rotation"_LOCALE, rot); ImGui::TryOpenVKForDataInput();
         ImGui::AddTooltip("The rotation of the node in degrees."_LOCALE);
         if (node->getRotation() != rot[0]) {
             node->setRotation(rot[0]);
@@ -217,7 +217,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
         float skew[2] = { node->getSkewX(), node->getSkewY() };
         if (ImGui::Button(U8STR(FEATHER_COPY"##copyskew"))) clipboard::write(fmt::format("{} {}", skew[0], skew[1])); ImGui::SameLine();
         ImGui::AddTooltip("\"{} {}\"<={skew[0], skew[1]}");
-        ImGui::DragFloat2("Skew"_LOCALE, skew);
+        ImGui::DragFloat2("Skew"_LOCALE, skew); ImGui::TryOpenVKForDataInput();
         ImGui::AddTooltip("The skew angle of the node in degrees."_LOCALE);
         node->setSkewX(skew[0]);
         node->setSkewY(skew[1]);
@@ -228,7 +228,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
         auto anchor = node->getAnchorPoint();
         if (ImGui::Button(U8STR(FEATHER_COPY"##copyanchor"))) clipboard::write(fmt::format("CCPointMake({}, {})", anchor.x, anchor.y)); ImGui::SameLine();
         ImGui::AddTooltip("\"CCPointMake({}, {})\"<={anchor.x, anchor.y}");
-        ImGui::DragFloat2("Anchor Point"_LOCALE, &anchor.x, 0.05f, 0.f, 1.f);
+        ImGui::DragFloat2("Anchor Point"_LOCALE, &anchor.x, 0.05f, 0.f, 1.f);ImGui::TryOpenVKForDataInput();
         ImGui::AddTooltip("The anchor point in percent."_LOCALE);
         node->setAnchorPoint(anchor);
     };
@@ -238,7 +238,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
         auto contentSize = node->getContentSize();
         if (ImGui::Button(U8STR(FEATHER_COPY"##copycontentsize"))) clipboard::write(fmt::format("CCSizeMake({}, {})", contentSize.width, contentSize.height)); ImGui::SameLine();
         ImGui::AddTooltip("\"CCSizeMake({}, {})\"<={contentSize.width, contentSize.height}");
-        ImGui::DragFloat2("Content Size"_LOCALE, &contentSize.width);
+        ImGui::DragFloat2("Content Size"_LOCALE, &contentSize.width); ImGui::TryOpenVKForDataInput();
         ImGui::AddTooltip("The untransformed size of the node."_LOCALE);
         if (contentSize != node->getContentSize()) {
             node->setContentSize(contentSize);
@@ -251,7 +251,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
         int zOrder = node->getZOrder();
         if (ImGui::Button(U8STR(FEATHER_COPY"##copyzorder"))) clipboard::write(fmt::format("{}", zOrder)); ImGui::SameLine();
         ImGui::AddTooltip("\"{}\"<={zOrder}");
-        ImGui::InputInt("Z Order"_LOCALE, &zOrder);
+        ImGui::InputInt("Z Order"_LOCALE, &zOrder); ImGui::TryOpenVKForDataInput();
         ImGui::AddTooltip("The z order which stands for the drawing order."_LOCALE);
         if (node->getZOrder() != zOrder) node->setZOrder(zOrder);
     }
@@ -350,7 +350,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
         if (ImGui::Button(U8STR(FEATHER_COPY"##copylabelfont"))) clipboard::write(fmt::format("{}", font)); ImGui::SameLine();
         ImGui::AddTooltip("\"{}\"<={str}");
         //imput
-        auto InputText = ImGui::InputText("Font"_LOCALE, &font);
+        auto InputText = ImGui::InputText("Font"_LOCALE, &font); ImGui::TryOpenVKForDataInput();
         auto fileExists = cocos::fileExistsInSearchPaths(font.c_str());
         //force
         if (not fileExists) {
@@ -374,7 +374,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
         if (ImGui::Button(U8STR(FEATHER_COPY"##copysprframename"))) clipboard::write(fmt::format("{}", frameName)); ImGui::SameLine();
         ImGui::AddTooltip("\"{}\"<={frameName}");
         //imput
-        auto InputText = ImGui::InputText("Display Frame"_LOCALE, &frameName);
+        auto InputText = ImGui::InputText("Display Frame"_LOCALE, &frameName); ImGui::TryOpenVKForDataInput();
         auto tempFrame = CCSpriteFrameCache::get()->spriteFrameByName(frameName.c_str());
         //force
         if (not tempFrame) {
@@ -409,7 +409,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
 
             if (ImGui::DragInt("Touch Priority"_LOCALE, &priority, .03f)) {
                 CCTouchDispatcher::get()->setPriority(priority, handler->getDelegate());
-            }
+            }ImGui::TryOpenVKForDataInput();
         }
     }
 
@@ -459,7 +459,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
                 if (ImGui::DragInt("Scale Priority"_LOCALE, &prio, .03f)) {
                     opts->setScalePriority(prio);
                     updateLayout = true;
-                }
+                }ImGui::TryOpenVKForDataInput();
 
                 if (updateLayout && node->getParent()) {
                     node->getParent()->updateLayout();
@@ -473,7 +473,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
                 if (opts->getOffset() != offset) {
                     opts->setOffset(offset);
                     updateLayout = true;
-                }
+                }ImGui::TryOpenVKForDataInput();
 
                 auto anchor = static_cast<int>(opts->getAnchor());
                 auto updateAnchor = false;
@@ -649,7 +649,7 @@ void DevTools::drawNodeAttributes(CCNode* node) {
                 if (ImGui::DragFloat("Gap"_LOCALE, &gap)) {
                     layout->setGap(gap);
                     updateLayout = true;
-                }
+                }ImGui::TryOpenVKForDataInput();
 
                 auto autoScale = layout->getAutoScale();
                 if (ImGui::Checkbox("Auto Scale"_LOCALE, &autoScale)) {
@@ -783,6 +783,7 @@ void DevTools::drawAttributes() {
 
     auto tarSelNodeTag = getMod()->getSavedValue<int>("tarSelNodeTag");
     if (ImGui::InputInt("##tarSelNodeTag", &tarSelNodeTag)) getMod()->setSavedValue("tarSelNodeTag", tarSelNodeTag);
+    ImGui::TryOpenVKForDataInput();
 
     ImGui::SameLine();
 
