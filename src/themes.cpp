@@ -566,6 +566,7 @@ void applyTheme(std::string const& name) {
 		ImGui::GetStyle().FramePadding = { 12.f, 10.f };
 		ImGui::GetStyle().DockingSeparatorSize = 14.f;
 	};
+	ImGui::GetStyle().TouchExtraPadding = { 5.f, 3.f };
 
 }
 

@@ -34,9 +34,9 @@ struct Settings {
     bool showMemoryViewer = false;
     std::string theme = getThemeAtIndex(0);
 #ifdef GEODE_IS_DESKTOP
-    float FontGlobalScale = 1.0;
+    float FontGlobalScale = 1.0f;
 #else
-    float FontGlobalScale = 1.5;
+    float FontGlobalScale = 2.0f;
 #endif
     bool DearImGuiWindows = false;
     int lang = 0;
@@ -50,7 +50,7 @@ struct Settings {
 };
 
 class DevTools {
-    bool m_visible = false;
+    bool m_visible = getMod()->getSavedValue<bool>("visible");
     bool m_setup = false;
     bool m_reloadTheme = true;
     bool m_shouldRelayout = false;
@@ -65,6 +65,7 @@ class DevTools {
     ImFont* m_monoFont     = nullptr;
     ImFont* m_boxFont      = nullptr;
     Ref<CCNode> m_selectedNode;
+    Ref<CCNode> m_grabbedNode;
     Ref<CCNode> m_isAboutToSelectNode;
     std::vector<std::pair<CCNode*, HighlightMode>> m_toHighlight;
 
@@ -127,6 +128,7 @@ public:
 
     CCNode* getSelectedNode() const;
     void selectNode(CCNode* node);
+    void grabNode(CCNode* node);
     void highlightNode(CCNode* node, HighlightMode mode);
 
     void sceneChanged();

@@ -49,7 +49,7 @@ namespace geode::cocos {
     }
     inline std::string getNodeTypeName(CCObject* node) {
 #ifdef GEODE_IS_WINDOWS
-        return typeid(&node).name();
+        return typeid(*node).name();
 #else 
         {
             std::string ret;

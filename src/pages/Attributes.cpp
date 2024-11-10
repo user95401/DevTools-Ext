@@ -33,6 +33,7 @@ bool checkbox(const char* text, T* ptr, bool(T::* get)() const, R(T::* set)(bool
     return false;
 }
 
+static bool andCleanup;
 void DevTools::drawNodeAttributes(CCNode* node) {
     if (not node->isRunning()) {
         if (not ImGui::CollapsingHeader("Not running node"_LOCALE)) return;
@@ -40,6 +41,31 @@ void DevTools::drawNodeAttributes(CCNode* node) {
 
     //Deselect
     if (ImGui::Button("Deselect"_LOCALE)) return this->selectNode(nullptr);
+
+    ImGui::Text("Remove...");
+    ImGui::SameLine();
+    if (ImGui::MyTextLink("All Children,"_LOCALE)) return node->removeAllChildrenWithCleanup(andCleanup);
+    ImGui::SameLine();
+    if (ImGui::MyTextLink("From Parent"_LOCALE)) return node->removeFromParentAndCleanup(andCleanup);
+    ImGui::SameLine();
+    ImGui::Checkbox("And Cleanup", &andCleanup);
+
+    //Grab
+    if (!m_grabbedNode) {
+        if (ImGui::Button("Grab This Node"_LOCALE)) this->grabNode(node);
+    }
+    else {
+        if (ImGui::Button("Drop Current Node"_LOCALE)) m_grabbedNode = nullptr;
+
+        if (ImGui::Button("Move out Current Node"_LOCALE)) {
+            m_grabbedNode->removeFromParentAndCleanup(0);
+            node->addChild(m_grabbedNode);
+        }
+        ImGui::SameLine();
+        if (ImGui::Button("Add Current Node"_LOCALE)) {
+            node->addChild(m_grabbedNode);
+        }
+    }
 
     ImGui::NewLine();
 
@@ -258,6 +284,31 @@ void DevTools::drawNodeAttributes(CCNode* node) {
         }
     };
     
+    //layer
+    if (auto layer = typeinfo_cast<CCLayer*>(node)) {
+        
+        checkbox("Touch Enabled"_LOCALE, layer, &CCLayer::isTouchEnabled, &CCLayer::setTouchEnabled);
+        ImGui::AddTooltip(
+            "You can enable / disable touch events with this property.""\n"
+            "Only the touches of this node will be affected.This \"method\" is not propagated to it's children."_LOCALE
+        );
+        
+        checkbox("Accelerometer Enabled"_LOCALE, layer, &CCLayer::isAccelerometerEnabled, &CCLayer::setAccelerometerEnabled);
+        ImGui::AddTooltip(
+            "whether or not it will receive Accelerometer events."_LOCALE
+        );
+
+        checkbox("Keypad Enabled"_LOCALE, layer, &CCLayer::isKeypadEnabled, &CCLayer::setKeypadEnabled);
+        ImGui::AddTooltip(
+            "whether or not it will receive keypad events"_LOCALE
+        );
+
+        checkbox("Keyboard Enabled"_LOCALE, layer, &CCLayer::isKeyboardEnabled, &CCLayer::setKeyboardEnabled);
+
+        checkbox("Mouse Enabled"_LOCALE, layer, &CCLayer::isMouseEnabled, &CCLayer::setMouseEnabled);
+
+    }
+
     //rgbaNode
     if (auto rgbaNode = typeinfo_cast<CCRGBAProtocol*>(node)) {
         checkbox("Cascade Color"_LOCALE, rgbaNode, &CCRGBAProtocol::isCascadeColorEnabled, &CCRGBAProtocol::setCascadeColorEnabled);
@@ -717,4 +768,29 @@ void DevTools::drawAttributes() {
     else {
         ImGui::TextWrapped("%s", "Select a Node to Edit in the Scene or Tree"_LOCALE);
     }
+
+    ImGui::NewLine();
+
+    auto tarID = getMod()->getSavedValue<std::string>("tarSelNodeID");
+    if (ImGui::BetterInputText("##tarID", &tarID)) getMod()->setSavedValue("tarSelNodeID", tarID);
+
+    ImGui::SameLine();
+
+    if (ImGui::Button("Find Node By ID")) {
+        auto topNode = m_selectedNode ? m_selectedNode : CCDirector::get()->m_pRunningScene;
+        if (topNode) m_selectedNode = topNode->getChildByIDRecursive(tarID);
+    }
+
+    auto tarSelNodeTag = getMod()->getSavedValue<int>("tarSelNodeTag");
+    if (ImGui::InputInt("##tarSelNodeTag", &tarSelNodeTag)) getMod()->setSavedValue("tarSelNodeTag", tarSelNodeTag);
+
+    ImGui::SameLine();
+
+    if (ImGui::Button("Find Node By Tag")) {
+        auto topNode = m_selectedNode ? m_selectedNode : CCDirector::get()->m_pRunningScene;
+        if (topNode) m_selectedNode = findFirstChildRecursive<CCNode>(
+            topNode, [tarSelNodeTag](CCNode* node) {return node->getTag() == tarSelNodeTag; }
+        );
+    }
+
 }

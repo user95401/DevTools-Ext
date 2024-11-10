@@ -95,6 +95,10 @@ void DevTools::selectNode(CCNode* node) {
     m_selectedNode = node;
 }
 
+void DevTools::grabNode(CCNode* node) {
+    m_grabbedNode = node;
+}
+
 void DevTools::highlightNode(CCNode* node, HighlightMode mode) {
     m_toHighlight.push_back({ node, mode });
 }
@@ -211,6 +215,12 @@ void DevTools::draw(GLRenderCtx* ctx) {
         this->drawPages();
         if (m_selectedNode) {
             this->highlightNode(m_selectedNode, HighlightMode::Selected);
+        }
+        if (m_grabbedNode) {
+            this->highlightNode(m_grabbedNode, HighlightMode::Selected);
+            this->highlightNode(m_grabbedNode, HighlightMode::Hovered);
+            ImGui::SetTooltip("%s", cocos::idOrTypeOfNode(m_grabbedNode.data()).c_str());
+            if (ImGui::GetIO().MouseClicked[0] and !ImGui::IsAnyItemActive()) m_grabbedNode = nullptr;
         }
         if (this->shouldUseGDWindow()) this->drawGD(ctx);
 
@@ -333,6 +343,7 @@ void DevTools::toggle() {
         ImGui::GetIO().WantCaptureMouse = false;
         ImGui::GetIO().WantCaptureKeyboard = false;
     }
+    getMod()->setSavedValue<bool>("visible", m_visible);
 }
 
 void DevTools::sceneChanged() {
