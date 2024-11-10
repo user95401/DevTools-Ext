@@ -148,15 +148,22 @@ namespace ImGui {
         return pressed;
     }
     inline void ScrollWhenDragging() {
-        auto delta = ImGui::GetIO().MouseDelta;
-        delta = ImVec2(-delta.x, -delta.y);
+        auto mouse_dt = ImGui::GetIO().MouseDelta;
+        ImVec2 delta = ImGui::GetIO().MouseDownDuration[0] > 0.1 ? ImVec2(mouse_dt.x * -1, mouse_dt.y * -1) : ImVec2(0,0);
         ImGuiContext& g = *ImGui::GetCurrentContext();
-        ImGuiWindow* window = g.HoveredWindow;
+        ImGuiWindow* window = g.CurrentWindow;
         if (!window) return;
-        bool held = g.IO.MouseDown[0];
-        if (held && delta.x != 0.0f)
+        //bool held = g.IO.MouseDown[0];
+        bool hovered = false;
+        bool held = false;
+        ImGuiID id = window->GetID("##scrolldraggingoverlay");
+        ImGui::KeepAliveID(id);
+        ImGuiButtonFlags button_flags = ImGuiButtonFlags_MouseButtonLeft;
+        if (g.HoveredId == 0) // If nothing hovered so far in the frame (not same as IsAnyItemHovered()!)
+            ImGui::ButtonBehavior(window->Rect(), id, &hovered, &held, button_flags);
+        if (held && fabs(delta.x) >= 0.1f)
             ImGui::SetScrollX(window, window->Scroll.x + delta.x);
-        if (held && delta.y != 0.0f)
+        if (held && fabs(delta.y) >= 0.1f)
             ImGui::SetScrollY(window, window->Scroll.y + delta.y);
     }
 }

@@ -18,16 +18,16 @@ void DevTools::drawModGraph() {
 
 namespace {
     std::string inputText(const char* label, std::string x) {
-        ImGui::InputText(label, &x);
+        ImGui::BetterInputText(label, &x);
         return x;
     }
     std::optional<std::string> inputText(const char* label, std::optional<std::string> x) {
         std::string str = x ? *x : "";
-        return ImGui::InputText(label, &str) ? str : x;
+        return ImGui::BetterInputText(label, &str) ? str : x;
     }
     std::optional<std::string> inputTextMultiline(const char* label, std::optional<std::string> x) {
         std::string str = x ? *x : "";
-        return ImGui::InputTextMultiline(label, &str) ? str : x;
+        return ImGui::BetterInputText(label, &str) ? str : x;
     }
     bool inputBool(const char* label, bool x) {
         ImGui::Checkbox(label, &x);
@@ -71,8 +71,9 @@ namespace {
 
 ModMetadata DevTools::inputMetadata(void* treePtr, ModMetadata metadata) {
     metadata.setVersion(inputVersion(metadata.getVersion()));
+    metadata.setID(inputText("id", metadata.getID()));
     metadata.setName(inputText("name", metadata.getName()));
-    metadata.setDeveloper(inputText("developer", metadata.getDevelopers()[0]));
+    metadata.setDeveloper(inputText("developers", metadata.getDevelopers()[0]));
     metadata.setDescription(inputTextMultiline("description", metadata.getDescription()));
     metadata.setDetails(inputTextMultiline("details", metadata.getDetails()));
     metadata.setChangelog(inputTextMultiline("changelog", metadata.getChangelog()));

@@ -32,7 +32,7 @@ struct Settings {
     bool orderChildren = true;
     bool advancedSettings = false;
     bool showMemoryViewer = false;
-    std::string theme = MATERIAL_DARK_THEME;
+    std::string theme = getThemeAtIndex(0);
     float FontGlobalScale = 1.0;
     bool DearImGuiWindows = false;
     int lang = 0;
