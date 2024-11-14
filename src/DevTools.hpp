@@ -46,10 +46,16 @@ struct Settings {
     std::string openBtnID = "more-games-button";
 #endif
     bool openBtnCallOriginal = false;
+#ifdef __APPLE__
+    enumKeyCodes toggleKey = KEY_F10;
+#else
+    enumKeyCodes toggleKey = KEY_F11;
+#endif
     bool MouseDrawCursor = false;
 };
 
 class DevTools {
+public:
     bool m_visible = getMod()->getSavedValue<bool>("visible");
     bool m_setup = false;
     bool m_reloadTheme = true;
@@ -57,6 +63,7 @@ class DevTools {
     bool m_showModGraph = false;
     bool m_pauseGame = false;
     bool m_listenForBtnSetup = false;
+    bool m_listenForKeySetup = false;
     Settings m_settings;
     ImGuiID m_dockspaceID;
     ImFont* m_defaultFont  = nullptr;
@@ -107,6 +114,9 @@ public:
 
     auto isListenForBtnSetup() { return m_listenForBtnSetup; };
     auto setListenForBtnSetup(bool listenForBtnSetup) { m_listenForBtnSetup = listenForBtnSetup; };
+
+    auto isListenForKeySetup() { return m_listenForKeySetup; };
+    auto setListenForKeySetup(bool listenForKeySetup) { m_listenForKeySetup = listenForKeySetup; };
      
     //defaultFont, bigFont, smallFont, monoFont, boxFont
     auto getFont(std::string name) {

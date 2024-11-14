@@ -181,7 +181,7 @@ ADD_UTF8(
 );
 
 ADD_UTF8(
-"Setup Open DevTools Button in Game UI",
+"Toggle DevTools Button in Game UI",
 
 "Установка Кнопки Відкриття DevTools в Ігровому UI"
 );

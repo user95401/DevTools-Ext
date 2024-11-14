@@ -78,7 +78,9 @@ ModMetadata DevTools::inputMetadata(void* treePtr, ModMetadata metadata) {
     metadata.setDetails(inputTextMultiline("details", metadata.getDetails()));
     metadata.setChangelog(inputTextMultiline("changelog", metadata.getChangelog()));
     metadata.setSupportInfo(inputTextMultiline("supportInfo", metadata.getSupportInfo()));
-    metadata.setRepository(inputTextMultiline("repository", metadata.getRepository()));
+    metadata.setRepository(inputTextMultiline("links.community", metadata.getLinks().getCommunityURL()));
+    metadata.setRepository(inputTextMultiline("links.source", metadata.getLinks().getSourceURL()));
+    metadata.setRepository(inputTextMultiline("links.homepage", metadata.getLinks().getHomepageURL()));
     metadata.setIssues(inputIssues(metadata.getIssues()));
     metadata.setNeedsEarlyLoad(inputBool("needsEarlyLoad", metadata.needsEarlyLoad()));
     metadata.setIsAPI(inputBool("isAPI", metadata.isAPI()));
@@ -146,10 +148,9 @@ ModMetadata DevTools::inputMetadata(void* treePtr, ModMetadata metadata) {
         for (auto const& [id, setting] : metadata.getSettings()) {
             if (!ImGui::TreeNode(id.data(), "%s", id.c_str()))
                 continue;
-            ImGui::Text("displayName: %s", setting.getDisplayName().c_str());
-            if (setting.getDescription())
-                ImGui::Text("description: %s", setting.getDescription()->c_str());
-            ImGui::Text("isCustom: %s", setting.isCustom() ? "true" : "false");
+            if (setting.contains("name")) ImGui::Text("name: %s", setting["name"].dump().c_str());
+            if (setting.contains("description")) ImGui::Text("description: %s", setting["description"].dump().c_str());
+            if (setting.contains("type")) ImGui::Text("type: %s", setting["type"].dump().c_str());
             ImGui::TreePop();
         }
         ImGui::TreePop();

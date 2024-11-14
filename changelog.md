@@ -1,3 +1,8 @@
+## v1.7.6
+- Migrate to Geode SDK v4
+- Move toggle buttonfrom settings to mod info popup
+- Allow user select toggle key
+
 ## v1.7.5
 - Draw Mouse Cursor
 - Scroll When Dragging On Void

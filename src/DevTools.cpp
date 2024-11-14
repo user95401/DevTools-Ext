@@ -13,51 +13,53 @@
 
 template<>
 struct matjson::Serialize<Settings> {
-    static Settings from_json(const matjson::Value& value) {
-        Settings defaultSettings;
-        return Settings {
-            .GDInWindow = value.try_get<bool>("game_in_window").value_or(defaultSettings.GDInWindow),
-            .attributesInTree = value.try_get<bool>("attributes_in_tree").value_or(defaultSettings.attributesInTree),
-            .alwaysHighlight = value.try_get<bool>("always_highlight").value_or(defaultSettings.alwaysHighlight),
-            .highlightLayouts = value.try_get<bool>("highlight_layouts").value_or(defaultSettings.highlightLayouts),
-            .arrowExpand = value.try_get<bool>("arrow_expand").value_or(defaultSettings.arrowExpand),
-            .doubleClickExpand = value.try_get<bool>("double_click_expand").value_or(defaultSettings.doubleClickExpand),
-            .orderChildren = value.try_get<bool>("order_children").value_or(defaultSettings.orderChildren),
-            .advancedSettings = value.try_get<bool>("advanced_settings").value_or(defaultSettings.advancedSettings),
-            .showMemoryViewer = value.try_get<bool>("show_memory_viewer").value_or(defaultSettings.showMemoryViewer),
-            .theme = value.try_get<std::string>("theme").value_or(defaultSettings.theme),
-            .FontGlobalScale = (float)value.try_get<double>("font_global_scale").value_or(defaultSettings.FontGlobalScale),
-            .DearImGuiWindows = value.try_get<bool>("dear_imgui_windows").value_or(defaultSettings.DearImGuiWindows),
-            .lang = value.try_get<int>("lang").value_or(defaultSettings.lang),
-            .openBtnID = value.try_get<std::string>("openBtnID").value_or(defaultSettings.openBtnID),
-            .openBtnCallOriginal = value.try_get<bool>("openBtnCallOriginal").value_or(defaultSettings.openBtnCallOriginal),
-            .MouseDrawCursor = value.try_get<bool>("MouseDrawCursor").value_or(defaultSettings.MouseDrawCursor),
-        };
+    static Result<Settings> fromJson(const matjson::Value& value) {
+        Settings defaults;
+        return Ok(Settings{
+            .GDInWindow = value["game_in_window"].asBool().unwrapOr(defaults.GDInWindow),
+            .attributesInTree = value["attributes_in_tree"].asBool().unwrapOr(defaults.attributesInTree),
+            .alwaysHighlight = value["always_highlight"].asBool().unwrapOr(defaults.alwaysHighlight),
+            .highlightLayouts = value["highlight_layouts"].asBool().unwrapOr(defaults.highlightLayouts),
+            .arrowExpand = value["arrow_expand"].asBool().unwrapOr(defaults.arrowExpand),
+            .doubleClickExpand = value["double_click_expand"].asBool().unwrapOr(defaults.doubleClickExpand),
+            .orderChildren = value["order_children"].asBool().unwrapOr(defaults.orderChildren),
+            .advancedSettings = value["advanced_settings"].asBool().unwrapOr(defaults.advancedSettings),
+            .showMemoryViewer = value["show_memory_viewer"].asBool().unwrapOr(defaults.showMemoryViewer),
+            .theme = value["theme"].asString().unwrapOr(defaults.theme),
+            .FontGlobalScale = (float)value["font_global_scale"].asDouble().unwrapOr(defaults.FontGlobalScale),
+            .DearImGuiWindows = value["dear_imgui_windows"].asBool().unwrapOr(defaults.DearImGuiWindows),
+            .lang = (int)value["lang"].asInt().unwrapOr(defaults.lang),
+            .openBtnID = value["openBtnID"].asString().unwrapOr(defaults.openBtnID),
+            .openBtnCallOriginal = value["openBtnCallOriginal"].asBool().unwrapOr(defaults.openBtnCallOriginal),
+            .toggleKey = (enumKeyCodes)value["toggleKey"].asInt().unwrapOr((int)defaults.toggleKey),
+            .MouseDrawCursor = value["MouseDrawCursor"].asBool().unwrapOr(defaults.MouseDrawCursor),
+            });
     }
 
-    static matjson::Value to_json(const Settings& settings) {
-        auto obj = matjson::Object();
-        obj["game_in_window"] = settings.GDInWindow;
-        obj["attributes_in_tree"] = settings.attributesInTree;
-        obj["always_highlight"] = settings.alwaysHighlight;
-        obj["highlight_layouts"] = settings.highlightLayouts;
-        obj["arrow_expand"] = settings.arrowExpand;
-        obj["double_click_expand"] = settings.doubleClickExpand;
-        obj["order_children"] = settings.orderChildren;
-        obj["advanced_settings"] = settings.advancedSettings;
-        obj["show_memory_viewer"] = settings.showMemoryViewer;
-        obj["theme"] = settings.theme;
-        obj["font_global_scale"] = settings.FontGlobalScale;
-        obj["dear_imgui_windows"] = settings.DearImGuiWindows;
-        obj["lang"] = settings.lang;
-        obj["openBtnID"] = settings.openBtnID;
-        obj["openBtnCallOriginal"] = settings.openBtnCallOriginal;
-        obj["MouseDrawCursor"] = settings.MouseDrawCursor;
-        return obj;
+    static matjson::Value toJson(const Settings& settings) {
+        return matjson::makeObject({
+                { "game_in_window", settings.GDInWindow },
+                { "attributes_in_tree", settings.attributesInTree },
+                { "always_highlight", settings.alwaysHighlight },
+                { "highlight_layouts", settings.highlightLayouts },
+                { "arrow_expand", settings.arrowExpand },
+                { "double_click_expand", settings.doubleClickExpand },
+                { "order_children", settings.orderChildren },
+                { "advanced_settings", settings.advancedSettings },
+                { "show_memory_viewer", settings.showMemoryViewer },
+                { "theme", settings.theme },
+                { "font_global_scale", settings.FontGlobalScale },
+                { "dear_imgui_windows", settings.DearImGuiWindows },
+                { "lang", settings.lang },
+                { "openBtnID", settings.openBtnID },
+                { "toggleKey", (int)settings.toggleKey },
+                { "openBtnCallOriginal", settings.openBtnCallOriginal },
+                { "MouseDrawCursor", settings.MouseDrawCursor },
+            });
     }
 
     static bool is_json(matjson::Value const& val) {
-        return val.is_object();
+        return val.isObject();
     }
 };
 

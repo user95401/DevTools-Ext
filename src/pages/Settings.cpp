@@ -180,15 +180,17 @@ void DevTools::drawSettings() {
 
     ImGui::Separator();
 
-    //Setup Open DevTools Button in Game UI
+    //Toggle DevTools Button in Game UI
     {
         ImGui::PushFont(m_bigFont);
-        ImGui::TextWrapped("%s", "Setup Open DevTools Button in Game UI"_LOCALE);
+        ImGui::TextWrapped("%s", "Toggle DevTools Button in Game UI"_LOCALE);
         ImGui::PopFont();
 
         ImGui::TextWrapped("%s\"%s\"", "Current button is "_LOCALE, (m_settings.openBtnID.c_str()));
 
         ImGui::Checkbox("Call original"_LOCALE, &m_settings.openBtnCallOriginal);
+
+        ImGui::SameLine();
 
         if (ImGui::Button("Unset Button"_LOCALE)) {
             m_settings.openBtnID = "none (dont use any btn)";
@@ -202,6 +204,26 @@ void DevTools::drawSettings() {
         }
     };
 
+    //Toggle DevTools Key
+    {
+        ImGui::PushFont(m_bigFont);
+        ImGui::TextWrapped("%s", "Toggle DevTools Key"_LOCALE);
+        ImGui::PopFont();
+
+        ImGui::TextWrapped(
+            "%s\"%s\" (%i)", 
+            "Current: "_LOCALE,
+            CCKeyboardDispatcher::get()->keyToString(m_settings.toggleKey),
+            m_settings.toggleKey
+        );
+
+        ImGui::SameLine();
+
+        if (ImGui::Button(m_listenForKeySetup ? "Listening..."_LOCALE : "Select Key"_LOCALE)) {
+            m_listenForKeySetup = !m_listenForKeySetup;
+        }
+    };
+
     ImGui::Separator();
 
     //info section idk
@@ -211,8 +233,8 @@ void DevTools::drawSettings() {
         ImGui::PushFont(m_bigFont);
         ImGui::TextWrapped(
             "%s %s",
-            mod.try_get<std::string>("name").value_or("???").c_str(),
-            mod.try_get<std::string>("version").value_or("???").c_str()
+            mod["name"].asString().unwrapOr("???").c_str(),
+            mod["version"].asString().unwrapOr("???").c_str()
         );
         ImGui::PopFont();
 
@@ -239,7 +261,7 @@ void DevTools::drawSettings() {
             "Target Game Version: %.3lf",
 
             GEODE_PLATFORM_NAME, 
-            mod.try_get<std::string>("geode").value_or("???").c_str(),
+            mod["geode"].asString().unwrapOr("???").c_str(),
 
             GEODE_GD_VERSION
         );

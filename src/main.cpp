@@ -22,7 +22,12 @@ class $modify(CCNode) {
 // todo: use shortcuts api once Geode has those
 class $modify(CCKeyboardDispatcher) {
     bool dispatchKeyboardMSG(enumKeyCodes key, bool down, bool arr) {
-        if (down && (key == KEY_F11 GEODE_MACOS(|| key == KEY_F10))) DevTools::get()->toggle();
+        if (DevTools::get()->isListenForKeySetup()) {
+            DevTools::get()->getSettings()->toggleKey = key;
+            DevTools::get()->setListenForKeySetup(false);
+            return 1;
+        }
+        if (down && (key == DevTools::get()->getSettings()->toggleKey)) DevTools::get()->toggle();
         return CCKeyboardDispatcher::dispatchKeyboardMSG(key, down, arr);
     }
 };
@@ -47,43 +52,6 @@ class $modify(CCMenuItem) {
         }
     }
 };
-
-#include <Geode/loader/Setting.hpp>
-#include <Geode/loader/SettingNode.hpp>
-//class ToggleBtnSettingNode : public SettingNode "toggle-btn"
-class ToggleBtnSettingValue : public SettingValue {public:ToggleBtnSettingValue(std::string const& key, std::string const& modID, int asd) : SettingValue(key, modID) {}bool load(matjson::Value const& json) override { return true; }; bool save(matjson::Value& json) const override { return true; }; SettingNode* createNode(float width) override;};
-class ToggleBtnSettingNode : public SettingNode {
-public:
-    void ToggleFinallya(CCObject*) {
-        DevTools::get()->toggle();
-    }
-    bool init(ToggleBtnSettingValue* value, float width) {
-        if (!SettingNode::init(value)) return false;
-        this->setContentSize({ width, 40.f });
-        auto item = CCMenuItemSpriteExtra::create(
-            CCLabelBMFont::create("Toggle DevTools", "bigFont.fnt"),
-            this,
-            menu_selector(ToggleBtnSettingNode::ToggleFinallya)
-        );
-        item->getNormalImage()->setScale(0.5f);
-        item->getNormalImage()->setAnchorPoint({ 0.f, 0.5f });
-        this->addChild(CCMenu::createWithItem(item));
-        item->getParent()->setPositionX(this->getContentHeight() / 2);
-        item->getParent()->setPositionY(this->getContentHeight() / 2);
-        return true;
-    }
-    void commit() override { this->dispatchCommitted(); } bool hasUncommittedChanges() override { return false; } bool hasNonDefaultValue() override { return false; } void resetToDefault() override {}
-    static ToggleBtnSettingNode* create(ToggleBtnSettingValue* value, float width) {
-        auto ret = new ToggleBtnSettingNode;
-        if (ret->init(value, width)) {
-            ret->autorelease();
-            return ret;
-        }
-        delete ret;
-        return nullptr;
-    }
-}; SettingNode* ToggleBtnSettingValue::createNode(float width) { return ToggleBtnSettingNode::create(this, width); }
-$on_mod(Loaded) { Mod::get()->addCustomSetting<ToggleBtnSettingValue>("toggle-btn", 1337); }
 
 class $modify(CCDirector) {
     /*void willSwitchToScene(CCScene * scene) {
@@ -155,3 +123,42 @@ class $modify(CCEGLView) {
         CCEGLView::swapBuffers();
     }
 };
+
+//GJ_checkOff_001.png
+//GJ_checkOn_001.png
+class ToggleImageUpdater : CCNode {
+public:
+    void customSetup(float) {
+        if (auto __this = typeinfo_cast<CCSprite*>(this)) {
+            auto visible = DevTools::get()->m_visible;
+            auto GJ_checkOn_001 = CCSpriteFrameCache::get()->spriteFrameByName("GJ_checkOn_001.png");
+            auto GJ_checkOff_001 = CCSpriteFrameCache::get()->spriteFrameByName("GJ_checkOff_001.png");
+            __this->setDisplayFrame(visible ? GJ_checkOn_001 : GJ_checkOff_001);
+        }
+    }
+
+};
+auto modpopupevent = +[](ModPopupUIEvent* event)
+    {
+        if (event->getModID() == GEODE_MOD_ID) {
+            if (auto support = typeinfo_cast<CCMenuItemSpriteExtra*>(event->getPopup()->getChildByIDRecursive("support"))) {
+                support->setZOrder(-1);
+                if (auto menu = support->getParent()) menu->updateLayout();
+
+                CCMenuItemExt::assignCallback<CCMenuItem>(
+                    support, [](auto) {
+                        DevTools::get()->toggle();
+                    }
+                );
+
+                auto image = typeinfo_cast<CCSprite*>(support->getNormalImage());
+                image->setOpacity(255);
+                image->setColor(ccWHITE);
+                ((ToggleImageUpdater*)image)->customSetup(0.0f);
+                image->schedule(schedule_selector(ToggleImageUpdater::customSetup), 0.01f);
+            }
+        }
+        // You should always propagate Geode UI events
+        return ListenerResult::Propagate;
+    };
+$execute{ new EventListener<EventFilter<ModPopupUIEvent>>(modpopupevent); }
