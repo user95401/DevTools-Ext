@@ -1,11 +1,12 @@
 {
-	"geode": "3.9.0",
-	"version": "v1.7.5",
+	"geode": "4.0.0-alpha.1",
 	"gd": {
-		"android": "*",
-		"win": "2.206",
-		"mac": "2.206"
+		"win": "2.2074",
+		"android": "2.2074",
+		"mac": "2.2074",
+		"ios": "2.2074"
 	},
+	"version": "v1.7.5",
 	"id": "user95401.devtools",
 	"name": "DevTools.Ext",
 	"developers": [ "user95401", "Geode Team" ],
