@@ -1,3 +1,6 @@
+## v1.7.7
+rebuild of 1.7.6 for success macos build
+
 ## v1.7.6
 - Migrate to Geode SDK v4
 - Move toggle buttonfrom settings to mod info popup
