@@ -9,6 +9,8 @@
 #include <imgui.h>
 #include "ImGui.hpp"
 
+#include "_updater.hpp"
+
 using namespace geode::prelude;
 
 class $modify(CCNode) {
