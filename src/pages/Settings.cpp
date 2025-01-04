@@ -211,7 +211,7 @@ void DevTools::drawSettings() {
         ImGui::PopFont();
 
         ImGui::TextWrapped(
-            "%s\"%s\" (%i)", 
+            "%s\"%s\" (%i)",
             "Current: "_LOCALE,
             CCKeyboardDispatcher::get()->keyToString(m_settings.toggleKey),
             m_settings.toggleKey
@@ -260,7 +260,7 @@ void DevTools::drawSettings() {
             "Platform: %s, SDK: %s" "\n"
             "Target Game Version: %.3lf",
 
-            GEODE_PLATFORM_NAME, 
+            GEODE_PLATFORM_NAME,
             mod["geode"].asString().unwrapOr("???").c_str(),
 
             GEODE_GD_VERSION

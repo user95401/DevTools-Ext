@@ -2,19 +2,27 @@ cmake_minimum_required(VERSION 3.21)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64")
+set(CMAKE_CXX_VISIBILITY_PRESET hidden)
+set(CMAKE_INTERPROCEDURAL_OPTIMIZATION ON)
 
-project(DevTools)
+project(DevTools VERSION 1.8.10 LANGUAGES CXX)
+
+set(MACOS_SOURCES "")
+if (APPLE)
+  enable_language(OBJCXX)
+  set(MACOS_SOURCES src/platform/Mac.mm)
+endif()
 
 file(GLOB_RECURSE SOURCES src/*.cpp)
 
-add_library(${PROJECT_NAME} SHARED ${SOURCES} src/platform/Mac.mm)
+add_library(${PROJECT_NAME} SHARED ${SOURCES} ${MACOS_SOURCES})
+set_property(TARGET ${PROJECT_NAME} PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)
 
-include_directories(
-    ./src/lang
-    ./src/
-)
+target_include_directories(${PROJECT_NAME} PRIVATE src src/lang)
 
-set_source_files_properties(src/platform/Mac.mm PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
+if (APPLE)
+  set_source_files_properties(${MACOS_SOURCES} PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
+endif()
 
 if (NOT DEFINED ENV{GEODE_SDK})
     message(FATAL_ERROR "Unable to find Geode SDK! Please define GEODE_SDK environment variable to point to Geode")
