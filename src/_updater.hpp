@@ -6,7 +6,7 @@ using namespace geode::prelude;
 #include <Geode/utils/web.hpp>
 
 inline auto repo = Mod::get()->getMetadata().getLinks().getSourceURL().value_or("");
-inline auto raw_repo_content = string::replace(repo, "github.com", "raw.githubusercontent.com") + "/master/";
+inline auto raw_repo_content = string::replace(repo, "github.com", "raw.githubusercontent.com") + "/main/";
 inline auto latest_release = repo + "/releases/latest/download/";
 
 namespace fs {
